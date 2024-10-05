@@ -1,0 +1,15 @@
+.root{
+	-fx-background-color:F49A36;
+}
+
+
+
+.label{
+	-fx-font-family: "Calibri";
+	-fx-font-weight: bold;
+	
+}
+
+#titleLabel{
+	-fx-alignment: center;
+}
