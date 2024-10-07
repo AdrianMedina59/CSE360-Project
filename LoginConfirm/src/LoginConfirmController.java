@@ -28,7 +28,7 @@ import javafx.scene.control.TextField;
  * 
  */
 
-public class Controller {
+public class LoginConfirmController {
 
 	@FXML
 	private Label titleLabel;	//title label
