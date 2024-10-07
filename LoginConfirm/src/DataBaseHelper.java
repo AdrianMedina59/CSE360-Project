@@ -54,22 +54,24 @@ public class DataBaseHelper {
 					+ "MiddleName VARCHAR(255) NOT NULL, "
 					+ "LastName VARCHAR(255) NOT NULL, "
 					+ "email VARCHAR(255) UNIQUE, "
+					+ "username VARCHAR(255) UNIQUE, "
 					+ "password VARCHAR(255), "
 					+ "role VARCHAR(20))";
 			statement.execute(userTable);
 		}
 		
 		//registers the users into the data base
-		public void register(String FirstName, String PreferredName, String MiddleName, String lastName, String email, String password, String role) throws SQLException {
-		    String insertUser = "INSERT INTO users (FirstName, PreferredName, MiddleName, LastName, email, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		public void register(String FirstName, String PreferredName, String MiddleName, String lastName, String email, String username,String password, String role) throws SQLException {
+		    String insertUser = "INSERT INTO users (FirstName, PreferredName, MiddleName, LastName, email,username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		    try (PreparedStatement pstmt = connection.prepareStatement(insertUser)) {
 		        pstmt.setString(1, FirstName);
 		        pstmt.setString(2, PreferredName);
 		        pstmt.setString(3, MiddleName);
 		        pstmt.setString(4, lastName);
 		        pstmt.setString(5, email);
-		        pstmt.setString(6, password);
-		        pstmt.setString(7, role);
+		        pstmt.setString(6, username);
+		        pstmt.setString(7, password);
+		        pstmt.setString(8, role);
 		        pstmt.executeUpdate();
 		    }
 		}
@@ -102,5 +104,31 @@ public class DataBaseHelper {
 		public Connection getConnection()
 		{
 			return connection;
+		}
+		
+		//prints out the whole data base for debugging
+		public void PrintUserTables() throws SQLException{
+			String query = "Select * FROM users";
+			try(Statement stmt = connection.createStatement();
+				ResultSet resultSet = stmt.executeQuery(query)){
+				
+				System.out.println("Users Tabel: ");
+				System.out.println("ID | FirstName | PreferredName | MiddleName | LastName | Email | Username | Role");
+				
+				while(resultSet.next()) {
+					int id = resultSet.getInt("id");
+					String firstName = resultSet.getString("FirstName");
+					String preferredName = resultSet.getString("PreferredName");
+			        String middleName = resultSet.getString("MiddleName");
+			        String lastName = resultSet.getString("LastName");
+			        String email = resultSet.getString("email");
+			        String username = resultSet.getString("username");
+			        String role = resultSet.getString("role");
+			        
+			        System.out.printf("%d | %s | %s | %s | %s | %s | %s | %s%n",
+		                    id, firstName, preferredName, middleName, lastName, email, username, role);
+
+				}
+			}
 		}
 }

@@ -60,6 +60,9 @@ public class Controller {
         }
 	}
 	
+	
+	
+
 	//method checks for valid login
 	public boolean checkValidLogIn() throws SQLException {
 		//boolean values to see if user input the values as valid
@@ -113,8 +116,16 @@ public class Controller {
 				titleLabel.setText("Email already exists!");
 				return false;
 			}
+			
+			//boolean that sees if database is empty if it is set the 1st person to sign up to admin, others students
+			Boolean isDataBaseEmpty = DATA_BASE_HELPER.isDatabaseEmpty();
+			String role = isDataBaseEmpty ? "Admin" : "Student";
+			
 			//inputting content to database 
-			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,"password","Admin");
+			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,"itzel","password",role);
+			
+			//LINE HELPS WITH DEBUGGING DATA BASE//
+//			DATA_BASE_HELPER.PrintUserTables();
 			titleLabel.setText("Thanks!");
 			
 			return true;
