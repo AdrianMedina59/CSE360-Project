@@ -122,10 +122,10 @@ public class LoginConfirmController {
 			String role = isDataBaseEmpty ? "Admin" : "Student";
 			
 			//inputting content to database 
-			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,"itzel","password",role);
+			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,"mark","password",role);
 			
 			//LINE HELPS WITH DEBUGGING DATA BASE//
-//			DATA_BASE_HELPER.PrintUserTables();
+			DATA_BASE_HELPER.PrintUserTables();
 			titleLabel.setText("Thanks!");
 			
 			return true;
