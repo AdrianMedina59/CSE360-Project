@@ -11,7 +11,7 @@
       <Button fx:id="Reset" layoutX="118.0" layoutY="344.0" mnemonicParsing="false" text="Reset" />
       <Button fx:id="Invite" layoutX="203.0" layoutY="344.0" mnemonicParsing="false" text="Invite" />
       <Button fx:id="AddorRemove" layoutX="281.0" layoutY="344.0" mnemonicParsing="false" text="Add/Remove" />
-      <Button fx:id="Listusers" layoutX="410.0" layoutY="344.0" mnemonicParsing="false" text="List Users" />
+      <Button fx:id="Listusers" layoutX="410.0" layoutY="344.0" mnemonicParsing="false" onAction="#ListUsers" text="List Users" />
       <Label fx:id="TtilePage" layoutX="29.0" layoutY="20.0" prefHeight="98.0" prefWidth="466.0" text="Welcome to the Admin Page">
          <font>
             <Font size="32.0" />
