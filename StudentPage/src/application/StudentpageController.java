@@ -1,45 +1,7 @@
 package application;
-<<<<<<< HEAD
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
-public class AdminPageController 
-{
-	
-	@FXML
-	 private Button logoutbutton;
-	@FXML
-	private AnchorPane scenePane;
-	
-	public void logout(ActionEvent event)
-	{
-
-	
-	Stage stage;
-	
-	Alert alert = new Alert(AlertType.CONFIRMATION);
-	alert.setTitle("Logout");
-	alert.setHeaderText("Would you like to logout");
-	alert.setContentText("Do you want to save before you logout");
-			
-	if(alert.showAndWait().get() == ButtonType.OK)
-	{
-		stage = (Stage) scenePane.getScene().getWindow();
-		stage.close();
-	}
-	
-	
-	
-=======
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -52,13 +14,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class AdminPageController 
+
+public class StudentpageController 
 {
-	
 	@FXML
-	 private Button logoutbutton;
+	private Button studentlogout;
 	@FXML
-	private AnchorPane scenePane;
+	private AnchorPane InstructorPage;
 	
 	private Stage stage;
 	private Scene scene;
@@ -75,8 +37,7 @@ public class AdminPageController
 	
 	public void logout(ActionEvent event) throws IOException
 	{
-
-	
+		
 	Stage stage;
 	
 	Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -86,18 +47,11 @@ public class AdminPageController
 			
 	if(alert.showAndWait().get() == ButtonType.OK)
 	{
-		stage = (Stage) scenePane.getScene().getWindow();
+		stage = (Stage) InstructorPage.getScene().getWindow();
 		switchbacktoLogin(event);
 	}
 	
 	
-	
-	}
-	public void ListUsers(ActionEvent event)
-	{
-		
-		
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 	}
 
 
