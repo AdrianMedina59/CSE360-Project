@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class Controller 
 {
 	@FXML
-	private Button studentlogout;
+	private Button studentLogout;
 	@FXML
 	private AnchorPane InstructorPage;
 	

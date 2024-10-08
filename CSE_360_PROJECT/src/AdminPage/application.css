@@ -1,0 +1,17 @@
+.root{
+	
+	-fx-background-color:F6C337;
+	
+}
+.label{
+	-fx-font-family: "Calibri";
+	-fx-font-weight: bold;
+	
+}
+
+#TtilePage{
+}	
+#TtilePage{
+	-fx-alignment: center;	
+}
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */

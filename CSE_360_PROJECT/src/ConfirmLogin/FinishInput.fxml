@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConfirmLogin.LoginConfirmController">
+   <children>
+      <Button fx:id="ContinueButton" layoutX="141.0" layoutY="329.0" mnemonicParsing="false" onAction="#Login" prefHeight="31.0" prefWidth="120.0" text="Continue" />
+      <Label fx:id="titleLabel" layoutX="-6.0" layoutY="28.0" prefHeight="45.0" prefWidth="413.0" text="Confirm Login" textAlignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="FirstName_label" layoutX="14.0" layoutY="88.0" prefHeight="31.0" prefWidth="108.0" text="First Name:" />
+      <Label fx:id="MiddleName_label" layoutX="14.0" layoutY="172.0" prefHeight="31.0" prefWidth="120.0" text="Middle Name:" />
+      <Label fx:id="LastName_label" layoutX="14.0" layoutY="217.0" prefHeight="31.0" prefWidth="108.0" text="Last Name:" />
+      <Label fx:id="PName_label" layoutX="14.0" layoutY="127.0" prefHeight="31.0" prefWidth="180.0" text="Preferred First Name (optional):" />
+      <Label fx:id="email_label" layoutX="20.0" layoutY="261.0" prefHeight="31.0" prefWidth="108.0" text="Email:" />
+      <TextField fx:id="FirstName_textField" layoutX="215.0" layoutY="91.0" promptText="ex.Bob" />
+      <TextField fx:id="PFirstName_textField" layoutX="215.0" layoutY="130.0" promptText="ex.Mike" />
+      <TextField fx:id="MiddleName_textField" layoutX="215.0" layoutY="175.0" promptText="ex.Johnson" />
+      <TextField fx:id="LastName_textField" layoutX="215.0" layoutY="220.0" promptText="ex.Woods" />
+      <TextField fx:id="Email_textField" layoutX="215.0" layoutY="264.0" promptText="ex.myemail@gmail.com" />
+   </children>
+</AnchorPane>
