@@ -100,6 +100,13 @@ public class DataBaseHelper {
 				se.printStackTrace(); 
 			} 
 		}
+		
+		// Method to get all users from the database
+		public ResultSet getUsers() throws SQLException {
+		    String query = "SELECT * FROM users";
+		    // Execute the query and return the ResultSet
+		    return statement.executeQuery(query);
+		}
 		//returns connection
 		public Connection getConnection()
 		{

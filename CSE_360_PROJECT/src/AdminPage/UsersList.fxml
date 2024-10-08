@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="userListController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPage.UserListController">
+   <children>
+      <TableView fx:id="UsersTable" layoutX="3.0" prefHeight="379.0" prefWidth="708.0">
+        <columns>
+          <TableColumn fx:id="ID_column" prefWidth="36.0" text="ID" />
+          <TableColumn fx:id="FirstName_column" prefWidth="71.0" text="First Name" />
+            <TableColumn fx:id="PName_column" prefWidth="118.0" text="Preferred Name" />
+            <TableColumn fx:id="MiddleName_column" prefWidth="90.0" text="Middle Name" />
+            <TableColumn fx:id="LastName_column" prefWidth="72.0" text="Last Name" />
+            <TableColumn fx:id="Username_column" prefWidth="83.0" text="Username" />
+            <TableColumn fx:id="password_column" prefWidth="78.0" text="Password" />
+            <TableColumn fx:id="Irole_column" prefWidth="57.0" text="role" />
+            <TableColumn fx:id="email_column" prefWidth="102.0" text="Email" />
+        </columns>
+      </TableView>
+      <Button fx:id="CloseButton" layoutX="282.0" layoutY="384.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="144.0" text="Close" />
+   </children>
+</AnchorPane>
