@@ -2,7 +2,9 @@ package AdminPage;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import javafx.scene.Node;
 import ConfirmLogin.*;
@@ -30,6 +32,12 @@ public class AdminPageController
 	private Parent root;
 	
 	
+
+	public void printUsers() throws SQLException
+	{
+		ConfirmLogin.DataBaseHelper database = new ConfirmLogin.DataBaseHelper(); //data base
+		database.PrintUserTables();
+	}
 	
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
@@ -62,6 +70,7 @@ public class AdminPageController
 	
 	}
 	
+
 	public void ListUsers(ActionEvent event) throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
@@ -91,6 +100,9 @@ public class AdminPageController
         newStage.setScene(userListScene);
         newStage.show();
     }
+
+
+	
 
 	
 	public void ResetUser(ActionEvent event)

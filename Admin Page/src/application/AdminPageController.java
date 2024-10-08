@@ -1,5 +1,5 @@
 package application;
-<<<<<<< HEAD
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -97,7 +97,7 @@ public class AdminPageController
 	{
 		
 		
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+
 	}
 
 
