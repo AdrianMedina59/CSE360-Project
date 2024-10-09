@@ -42,14 +42,15 @@ public class UserListController {
 
     public void initialize() {
         // Initialize table columns with correct bindings
-        ID_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(Integer.parseInt(cellData.getValue()[0])));
+    	ID_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(Integer.parseInt(cellData.getValue()[0])));
         FirstName_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[1]));
         PName_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[2]));
         MiddleName_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[3]));
         LastName_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[4]));
         email_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[5]));
         Username_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[6]));
-        Irole_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[7]));
+        password_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[7])); // Binding password
+        Irole_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[8]));
 
         // Set the items to the TableView
         UsersTable.setItems(userDataList);
@@ -62,14 +63,15 @@ public class UserListController {
         while (resultSet.next()) {
             // Add each user data as a String array
             userDataList.add(new String[]{
-                String.valueOf(resultSet.getInt("id")),
-                resultSet.getString("FirstName"),
-                resultSet.getString("PreferredName"),
-                resultSet.getString("MiddleName"),
-                resultSet.getString("LastName"),
-                resultSet.getString("email"),
-                resultSet.getString("username"),
-                resultSet.getString("role")
+            		String.valueOf(resultSet.getInt("id")),
+                    resultSet.getString("FirstName"),
+                    resultSet.getString("PreferredName"),
+                    resultSet.getString("MiddleName"),
+                    resultSet.getString("LastName"),
+                    resultSet.getString("email"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"), // Add password here
+                    resultSet.getString("role")
             });
         }
     }

@@ -12,7 +12,7 @@
       <Button fx:id="Invite" layoutX="93.0" layoutY="344.0" mnemonicParsing="false" onAction="#InviteUser" text="Invite user" />
       <Button fx:id="AddorRemove" layoutX="178.0" layoutY="344.0" mnemonicParsing="false" onAction="#AddorRemove" text="Add/Remove role" />
       <Button fx:id="Listusers" layoutX="304.0" layoutY="344.0" mnemonicParsing="false" onAction="#ListUsers" text="List Users" />
-      <Label fx:id="TtilePage" layoutX="29.0" layoutY="20.0" prefHeight="98.0" prefWidth="466.0" text="Welcome to the Admin Page">
+      <Label fx:id="TitleLabel" layoutX="29.0" layoutY="20.0" prefHeight="98.0" prefWidth="466.0" text="Welcome to the Admin Page">
          <font>
             <Font size="32.0" />
          </font>

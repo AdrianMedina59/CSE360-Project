@@ -14,6 +14,7 @@ package ConfirmLogin;
 
 import java.io.IOException;
 
+import AdminPage.AdminPageHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -29,21 +30,23 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 
-public class ConfirmLoginHandler extends Application {
+public class ConfirmLoginHandler {
     
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-    	//root is set to the .fxml file which houses the buttons and text fields
-        Parent root = FXMLLoader.load(getClass().getResource("FinishInput.fxml"));
-        Scene loginScene = new Scene(root,Color.GOLD);
-        //setting the login css 
-        loginScene.getStylesheets().add(getClass().getResource("applicationLoginFinish.css").toExternalForm());
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-    }
+	   // This method will initialize the confirm login page using the current stage
+    public static void initializeConfirmLogin(Stage stage) {
+        try {
+            // Load the FXML file for the  page
+            Parent root = FXMLLoader.load(ConfirmLoginHandler.class.getResource("FinishInput.fxml"));
 
-    public  void InitalizeConfirmLogin(String[] args) {
-        // Launch the JavaFX application
-        launch(args);
+            // Create a new scene
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(ConfirmLoginHandler.class.getResource("applicationLoginFinish.css").toExternalForm());
+
+            // Set the new scene on the existing stage
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

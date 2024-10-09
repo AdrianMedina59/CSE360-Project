@@ -60,6 +60,9 @@ public class DataBaseHelper {
 			statement.execute(userTable);
 		}
 		
+		
+		
+		
 		//registers the users into the data base
 		public void register(String FirstName, String PreferredName, String MiddleName, String lastName, String email, String username,String password, String role) throws SQLException {
 		    String insertUser = "INSERT INTO users (FirstName, PreferredName, MiddleName, LastName, email,username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -120,7 +123,7 @@ public class DataBaseHelper {
 				ResultSet resultSet = stmt.executeQuery(query)){
 				
 				System.out.println("Users Tabel: ");
-				System.out.println("ID | FirstName | PreferredName | MiddleName | LastName | Email | Username | Role");
+				System.out.println("ID | FirstName | PreferredName | MiddleName | LastName | Email | Username| password | Role");
 				
 				while(resultSet.next()) {
 					int id = resultSet.getInt("id");
@@ -130,12 +133,27 @@ public class DataBaseHelper {
 			        String lastName = resultSet.getString("LastName");
 			        String email = resultSet.getString("email");
 			        String username = resultSet.getString("username");
+			        String password = resultSet.getString("password");
 			        String role = resultSet.getString("role");
 			        
-			        System.out.printf("%d | %s | %s | %s | %s | %s | %s | %s%n",
-		                    id, firstName, preferredName, middleName, lastName, email, username, role);
+			        System.out.printf("%d | %s | %s | %s | %s | %s | %s| %s | %s%n",
+		                    id, firstName, preferredName, middleName, lastName, email, username,password, role);
 
 				}
 			}
+		}
+		
+		
+		// Method to validate user credentials
+		public boolean isValidUser(String username, String password) throws SQLException {
+		    String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);
+		        pstmt.setString(2, password);
+		        ResultSet resultSet = pstmt.executeQuery();
+
+		        // If there's a result, the username and password are valid
+		        return resultSet.next();
+		    }
 		}
 }

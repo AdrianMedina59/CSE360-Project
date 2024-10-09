@@ -1,6 +1,6 @@
 package AdminPage;
 import javafx.event.ActionEvent;
-
+import LoginPage.*;
 import java.io.IOException;
 
 import java.sql.ResultSet;
@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -26,7 +27,8 @@ public class AdminPageController
 	 private Button logoutbutton;
 	@FXML
 	private AnchorPane scenePane;
-	
+	@FXML
+    private Label TitleLabel;
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
@@ -40,14 +42,34 @@ public class AdminPageController
 	}
 	
 	
-	public void switchbacktoLogin(ActionEvent event) throws IOException
-	{
-		Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-		stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene (root);
-		stage.setScene(scene);
-		stage.show();
-	}
+	 private void loadLoginPage() {
+	        try {
+	            // Load the FXML file for the Confirm Login scene
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage/Login.fxml"));
+	            Parent root = loader.load();
+
+	            // Get the controller associated with the FXML
+	            Login_Button_Controller loginController = loader.getController();
+
+	            // Pass the username and password to the controller
+	           
+
+	            
+				// Initialize and display the new Confirm Login scene
+	            Stage stage = (Stage) TitleLabel.getScene().getWindow();
+	            Scene confirmLoginScene = new Scene(root);
+
+	            // Add the CSS file to the scene
+	            confirmLoginScene.getStylesheets().add(getClass().getResource("/LoginPage/application.css").toExternalForm());
+
+	            // Set the scene and show the stage
+	            stage.setScene(confirmLoginScene);
+	            stage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public void logout(ActionEvent event) throws IOException
 	{
@@ -64,7 +86,7 @@ public class AdminPageController
 	{
 		stage = (Stage) scenePane.getScene().getWindow();
 
-		switchbacktoLogin(event);
+		loadLoginPage();
 	}
 	
 	

@@ -12,7 +12,7 @@
  */
 package ConfirmLogin;
 import AdminPage.*;
-
+import LoginPage.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import StudentPage.*;
 /*
  * The controller class is mainly to handle the text input inside the text fields as well as to 
  * make sure that once the person presses the continue button it saves the data to the database if
@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 
 public class LoginConfirmController {
 
-	
+	Login_Button_Controller login;
 	@FXML
 	private Label titleLabel;	//title label
 	@FXML
@@ -41,11 +41,22 @@ public class LoginConfirmController {
 	@FXML
 	private Button ContinueButton;   //continue button
     
+	
 	String FirstName,PFirstName,MiddleName,LastName,Email;  //strings to use for names and email
-
+	
+	
+	 private String username;
+	 private String password;  // To store the passed username and password
+	 
 	//database for the contents to put in
 	private static final DataBaseHelper DATA_BASE_HELPER = new DataBaseHelper();
 	
+	// Method to set username and password from the login scene
+    public void setUsernameAndPassword(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
 	//button method that checks for valid login, then directs to other page
 	public void Login(ActionEvent e) throws SQLException
 	{
@@ -127,10 +138,12 @@ public class LoginConfirmController {
 			String role = isDataBaseEmpty ? "Admin" : "Student";
 			
 			//inputting content to database 
-			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,"rink0","password",role);
+			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,username ,password ,role);
 			
 			//LINE HELPS WITH DEBUGGING DATA BASE//
 			DATA_BASE_HELPER.PrintUserTables();
+			System.out.println("Username: " + username);
+	    	System.out.println("password: " + password);
 			titleLabel.setText("Thanks!");
 			
 			return true;
@@ -157,9 +170,9 @@ public class LoginConfirmController {
                     // Load the admin page
                 	Stage stage = (Stage) titleLabel.getScene().getWindow();
                     AdminPageHandler.initializeAdminPage(stage);
-                } else {
-                    // Redirect to user/student page (you would need to implement this)
-					/* loadUserPage(); */
+                } else if  ("Student".equals(role)){
+                    Stage stage = (Stage) titleLabel.getScene().getWindow();
+                    StudentPageHandler.initializeStudentPage(stage);
                 }
             }
         }
