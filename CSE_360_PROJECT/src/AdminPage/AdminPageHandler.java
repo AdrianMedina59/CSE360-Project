@@ -1,3 +1,16 @@
+/**
+ * <p> Main class for admin scene. </p>
+ * 
+ * <p> Description: Initiates the Admin scene and gets all the resources set up including fxml file and css file.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
+
 package AdminPage;
 import ConfirmLogin.*;	
 import java.io.IOException;

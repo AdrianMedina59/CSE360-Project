@@ -1,3 +1,16 @@
+/**
+ * <p>  class for Student page page. </p>
+ * 
+ * <p> Description: This class sets up the fxml files and the css files for student page.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
+
 package StudentPage;
 	
 import java.io.IOException;

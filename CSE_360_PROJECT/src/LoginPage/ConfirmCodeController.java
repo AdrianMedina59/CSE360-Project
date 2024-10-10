@@ -1,3 +1,16 @@
+
+/**
+ * <p> functionality class for login page. </p>
+ * 
+ * <p> Description: The class loads houses all the functionality for the login class. Uses the confirm code controller for communication</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
 package LoginPage;
 
 import java.awt.Button;

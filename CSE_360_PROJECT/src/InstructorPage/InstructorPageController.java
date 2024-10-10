@@ -1,3 +1,16 @@
+
+/**
+ * <p> functionality class for Instructor page. </p>
+ * 
+ * <p> Description: The class loads houses all the functionality for the instructor class.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
 package InstructorPage;
 import java.io.IOException;
 

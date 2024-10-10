@@ -1,3 +1,16 @@
+/**
+ * <p> Main class for Admin page. </p>
+ * 
+ * <p> Description: Initiates the Admin scene is the main functionality of the code.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
+
 package AdminPage;
 
 import ConfirmLogin.*;

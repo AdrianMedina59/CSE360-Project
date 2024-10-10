@@ -1,3 +1,16 @@
+
+/**
+ * <p> Main Class. </p>
+ * 
+ * <p> Description: This class starts the application.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
 package Main;
 import ConfirmLogin.*;
 import LoginPage.*;

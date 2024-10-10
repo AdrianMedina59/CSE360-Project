@@ -1,3 +1,16 @@
+/**
+ * <p> Main for User list. </p>
+ * 
+ * <p> Description: This class holds the main functionality of listing the users.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
+
 package AdminPage;
 
 

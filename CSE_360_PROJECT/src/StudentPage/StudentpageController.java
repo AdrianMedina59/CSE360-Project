@@ -16,7 +16,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-
+/**
+ * <p> functionality class for Student page page. </p>
+ * 
+ * <p> Description: The class loads houses all the functionality for the student page.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
 public class StudentpageController 
 {
 	@FXML

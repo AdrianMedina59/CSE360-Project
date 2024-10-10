@@ -1,3 +1,16 @@
+
+/**
+ * <p> Main class for Instructor page. </p>
+ * 
+ * <p> Description: The class loads all the FXML files and css files used for scene.</p>
+ * 
+ * <p> Copyright: Adrian Medina © 2024 </p>
+ * 
+ * @author Adrian Medina
+ * 
+ * @version 1.00		2024-10-06
+ *  
+ */
 package InstructorPage;
 	
 import javafx.application.Application;
