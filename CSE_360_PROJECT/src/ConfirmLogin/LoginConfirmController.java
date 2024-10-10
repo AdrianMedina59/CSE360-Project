@@ -13,12 +13,17 @@
 package ConfirmLogin;
 import AdminPage.*;
 import LoginPage.*;
+
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,8 +37,8 @@ import StudentPage.*;
  */
 
 public class LoginConfirmController {
-
-	Login_Button_Controller login;
+	
+	
 	@FXML
 	private Label titleLabel;	//title label
 	@FXML
@@ -45,7 +50,7 @@ public class LoginConfirmController {
 	String FirstName,PFirstName,MiddleName,LastName,Email;  //strings to use for names and email
 	
 	
-	 private String username;
+	 public static String username;
 	 private String password;  // To store the passed username and password
 	 
 	//database for the contents to put in
@@ -168,16 +173,78 @@ public class LoginConfirmController {
                 
                 if ("Admin".equals(role)) {
                     // Load the admin page
-                	Stage stage = (Stage) titleLabel.getScene().getWindow();
-                    AdminPageHandler.initializeAdminPage(stage);
+                	loadAdminPage();
+                   
                 } else if  ("Student".equals(role)){
-                    Stage stage = (Stage) titleLabel.getScene().getWindow();
-                    StudentPageHandler.initializeStudentPage(stage);
+                   loadStudentPage();
                 }
             }
         }
     }
 	
+    public void loadAdminPage()
+    {
+    	try {
+            // Load the FXML file for the Confirm Login scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPage/GUI.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller associated with the FXML
+            AdminPageController adminController = loader.getController();
+            adminController.SetUserLabel(FirstName);
+            // Pass the username and password to the controller
+           
+
+            
+			// Initialize and display the new Confirm Login scene
+            Stage stage = (Stage) titleLabel.getScene().getWindow();
+            Scene AdminScene = new Scene(root);
+
+            // Add the CSS file to the scene
+            AdminScene.getStylesheets().add(getClass().getResource("/AdminPage/application.css").toExternalForm());
+
+            // Set the scene and show the stage
+            stage.setScene(AdminScene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadStudentPage()throws SQLException {
+        try {
+            // Load the FXML file for the Confirm Login scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StudentPage/Student.fxml"));
+            Parent root = loader.load();
+
+            
+            // Get the controller associated with the FXML
+             StudentpageController loginController = loader.getController();
+             DATA_BASE_HELPER.connectToDatabase();
+             loginController.SetUserLabel(DATA_BASE_HELPER.getFirstNameByUsername(username));
+             DATA_BASE_HELPER.closeConnection();
+             
+           
+            
+            
+            // Initialize and display the new Confirm Login scene
+            Stage stage = (Stage) titleLabel.getScene().getWindow();
+            Scene Studentpage = new Scene(root);
+
+            // Add the CSS file to the scene
+            Studentpage.getStylesheets().add(getClass().getResource("/StudentPage/application.css").toExternalForm());
+
+            // Set the scene and show the stage
+            stage.setScene(Studentpage);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+  	  
+    }
+    
 	//checks if the email is already in data base
 	private boolean isEmailExists(String email) throws SQLException{
 		String query = "SELECT COUNT(*) AS count FROM users WHERE email = ?";

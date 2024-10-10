@@ -18,5 +18,15 @@
          </font>
       </Label>
       <Button fx:id="Delete" layoutX="377.0" layoutY="344.0" mnemonicParsing="false" onAction="#Delete" prefHeight="25.0" prefWidth="94.0" text="Delete Users" />
+      <Label layoutX="191.0" layoutY="105.0" text="Hello">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="UserLabel" layoutX="244.0" layoutY="105.0" text="User">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package LoginPage;
 import ConfirmLogin.*;
 import StudentPage.StudentPageHandler;
+import StudentPage.StudentpageController;
 import AdminPage.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import AdminPage.AdminPageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -32,13 +32,13 @@ public class Login_Button_Controller {
     @FXML
     private Label passwordLabel;
     @FXML
-    private TextField Username_textField,Reg_Username_TextField;
+    private TextField Username_textField,Reg_Username_TextField,InviteCode_textField;
     @FXML
     private PasswordField Password_textField,Reg_Password_TextField,Reg_confirmPassword_TextField;
     @FXML
     private Label feedbackLabel;
     
-     String password,username;
+     String password,username,inviteCode;
     
     // Programmatic password confirmation field
     private PasswordField confirmPasswordField = new PasswordField();
@@ -58,6 +58,7 @@ public class Login_Button_Controller {
     	dataBase.connectToDatabase();
     	username = Reg_Username_TextField.getText();
         password = Reg_Password_TextField.getText();
+        inviteCode = InviteCode_textField.getText();
     	String confirmPassword = Reg_confirmPassword_TextField.getText();
     	
     	
@@ -72,11 +73,28 @@ public class Login_Button_Controller {
     		System.out.println("User already exists!. Login!");
     		return;
     	}
+    	if(!dataBase.validPasscode(inviteCode) && dataBase.getNumberOfUsers() > 0)
+    	{
+    		System.out.println("Not valid invite code!");
+    		return;
+    	}
     	
     	LoadConfirmLogin();
     	dataBase.closeConnection();
     }
-   
+   public void InviteCode() throws IOException
+   {
+	   FXMLLoader loader = new FXMLLoader(getClass().getResource("confirmCode.fxml"));
+		Parent Remove = loader.load();
+		ConfirmCodeController controller = loader.getController();
+		
+       // Set up the new stage and scene for the user list
+       Stage newStage = new Stage();
+       Scene RemoveScene = new Scene(Remove);
+       newStage.setTitle("Invite codes");
+       newStage.setScene(RemoveScene);
+       newStage.show();
+   }
     private void LoadConfirmLogin() {
         try {
             // Load the FXML file for the Confirm Login scene
@@ -110,6 +128,7 @@ public class Login_Button_Controller {
     public void checkLogin() throws SQLException
     {
     	dataBase.connectToDatabase();
+    	//debug useage
     	dataBase.PrintUserTables();
     	username = Username_textField.getText();
         password = Password_textField.getText();
@@ -135,26 +154,65 @@ public class Login_Button_Controller {
         dataBase.closeConnection();
     }
    
-  private void navigateToPageBasedOnRole(String role) {
+    //method used to navigate to the page
+  private void navigateToPageBasedOnRole(String role) throws SQLException {
 		if("Admin".equals(role)) {
-			Stage stage = (Stage) titleLabel.getScene().getWindow();
-            AdminPageHandler.initializeAdminPage(stage);
+			LoadAdminPage();
 		}else if("Student".equals(role))
 		{
-			Stage stage = (Stage) titleLabel.getScene().getWindow();
-            StudentPageHandler.initializeStudentPage(stage);
+			loadStudentPage();
 		}
 		
 	}
-  private void LoadAdminPage() {
+  
+  private void loadStudentPage()throws SQLException {
+      try {
+          // Load the FXML file for the Confirm Login scene
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/StudentPage/Student.fxml"));
+          Parent root = loader.load();
+
+          
+          // Get the controller associated with the FXML
+           StudentpageController loginController = loader.getController();
+           dataBase.connectToDatabase();
+           loginController.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           dataBase.closeConnection();
+           
+         
+          
+          
+          // Initialize and display the new Confirm Login scene
+          Stage stage = (Stage) titleLabel.getScene().getWindow();
+          Scene Studentpage = new Scene(root);
+
+          // Add the CSS file to the scene
+          Studentpage.getStylesheets().add(getClass().getResource("/StudentPage/application.css").toExternalForm());
+
+          // Set the scene and show the stage
+          stage.setScene(Studentpage);
+          stage.show();
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+	  
+  }
+  
+  private void LoadAdminPage() throws SQLException {
       try {
           // Load the FXML file for the Confirm Login scene
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPage/GUI.fxml"));
           Parent root = loader.load();
 
+          
           // Get the controller associated with the FXML
            AdminPageController loginController = loader.getController();
-
+           dataBase.connectToDatabase();
+           loginController.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           dataBase.closeConnection();
+           
+         
+          
           
           // Initialize and display the new Confirm Login scene
           Stage stage = (Stage) titleLabel.getScene().getWindow();

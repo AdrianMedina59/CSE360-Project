@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="361.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginPage.Login_Button_Controller">
     <children>
         <!-- Title Label -->
-        <Label layoutX="28.0" layoutY="129.0" text="Login" textFill="#000000">
+        <Label layoutX="28.0" layoutY="129.0" text="Login" textFill="WHITE">
             <font>
                 <Font size="24.0" />
             </font>
@@ -28,13 +28,13 @@
         <Button fx:id="Login_Button" layoutX="28.0" layoutY="266.0" onAction="#Login" text="Login" />
 
         <!-- Feedback Label -->
-        <Label fx:id="feedbackLabel" layoutX="200.0" layoutY="270.0" textFill="#FF0000" />
-      <Label fx:id="titleLabel" layoutY="29.0" text="ASU Grade Finder" textAlignment="CENTER">
+        <Label fx:id="feedbackLabel" layoutX="10.0" layoutY="300.0" textFill="#FF0000" />
+      <Label fx:id="titleLabel" layoutY="29.0" text="ASU Grade Finder" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Label fx:id="Register_label" layoutX="223.0" layoutY="129.0" text="Register">
+      <Label fx:id="Register_label" layoutX="223.0" layoutY="129.0" text="Register" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
@@ -45,6 +45,9 @@
       <PasswordField fx:id="Reg_Password_TextField" layoutX="211.0" layoutY="230.0" promptText="Password" />
       <Label fx:id="passwordLabel2" layoutX="213.0" layoutY="258.0" text="Confirm Password:" textFill="#000000" />
       <PasswordField fx:id="Reg_confirmPassword_TextField" layoutX="211.0" layoutY="279.0" promptText="Password" />
-      <Button fx:id="Register_button" layoutX="209.0" layoutY="318.0" onAction="#Register" text="Register" />
+      <Button fx:id="Register_button" layoutX="209.0" layoutY="372.0" onAction="#Register" text="Register" />
+      <Button fx:id="InviteCodeButton" layoutX="35.0" layoutY="331.0" mnemonicParsing="false" onAction="#InviteCode" prefHeight="53.0" prefWidth="79.0" text="Invite code" />
+      <TextField fx:id="InviteCode_textField" layoutX="211.0" layoutY="331.0" promptText="123" />
+      <Label fx:id="passwordLabel21" layoutX="209.0" layoutY="309.0" text="Invite Code:" textFill="#000000" />
     </children>
 </AnchorPane>

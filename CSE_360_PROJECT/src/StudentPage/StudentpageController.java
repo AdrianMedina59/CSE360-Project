@@ -24,11 +24,17 @@ public class StudentpageController
 	@FXML
 	private AnchorPane InstructorPage;
 	@FXML
-	private Label TitleLabel;
+	private Label TitleLabel,UserLabel;
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	
+	
+	public void SetUserLabel(String username) {
+		UserLabel.setText(username);
+	}
+	
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
 	{

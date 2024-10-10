@@ -14,6 +14,7 @@ package ConfirmLogin;
 
 
 
+import java.awt.TextField;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -40,6 +41,7 @@ public class DataBaseHelper {
 				connection = DriverManager.getConnection(DB_URL, USER, PASS);
 				statement = connection.createStatement(); 
 				createTables();  // Create the necessary tables if they don't exist
+				createPasscodeTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
 			}
@@ -60,9 +62,120 @@ public class DataBaseHelper {
 			statement.execute(userTable);
 		}
 		
+		 // Create the passcodes table if it does not exist
+	    private void createPasscodeTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS passcodes ("
+	                                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+	                                + "category VARCHAR(255), "
+	                                + "passcode VARCHAR(255)"
+	                                + ")";
+	        try (Statement stmt = connection.createStatement()) {
+	            stmt.execute(createTableSQL);
+	        }
+	    }
+	 // Method to get the number of users in the database
+	    public int getNumberOfUsers() throws SQLException {
+	        String query = "SELECT COUNT(*) AS total FROM users";
+	        try (Statement stmt = connection.createStatement();
+	             ResultSet resultSet = stmt.executeQuery(query)) {
+	            if (resultSet.next()) {
+	                return resultSet.getInt("total"); // Get the count of users
+	            }
+	        }
+	        return 0; // Return 0 if no users are found or in case of an issue
+	    }
+	 // Insert a new passcode into the passcodes table
+	    public void insertPasscode(String category, String passcode) throws SQLException {
+	        String insertSQL = "INSERT INTO passcodes (category, passcode) VALUES (?, ?)";
+	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+	            pstmt.setString(1, category);
+	            pstmt.setString(2, passcode);
+	            pstmt.executeUpdate();
+	        }
+	    }
 		
 		
-		
+	    // Retrieve a passcode by category
+	    public String getPasscodeByCategory(String category) throws SQLException {
+	        String selectSQL = "SELECT passcode FROM passcodes WHERE category = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(selectSQL)) {
+	            pstmt.setString(1, category);
+	            ResultSet resultSet = pstmt.executeQuery();
+	            if (resultSet.next()) {
+	                return resultSet.getString("passcode");
+	            }
+	        }
+	        return null;  // Return null if no passcode is found
+	    }
+	    
+	 // Debugging method to print all passcodes
+	    public void printPasscodes() throws SQLException {
+	        String selectSQL = "SELECT * FROM passcodes";
+	        try (Statement stmt = connection.createStatement()) {
+	            ResultSet resultSet = stmt.executeQuery(selectSQL);
+	            while (resultSet.next()) {
+	                System.out.println("ID: " + resultSet.getInt("id")
+	                        + ", Category: " + resultSet.getString("category")
+	                        + ", Passcode: " + resultSet.getString("passcode"));
+	            }
+	        }
+	    }
+	    
+	    // Delete a passcode by category
+	    public void deletePasscode(String category) throws SQLException {
+	        String deleteSQL = "DELETE FROM passcodes WHERE category = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(deleteSQL)) {
+	            pstmt.setString(1, category);
+	            pstmt.executeUpdate();
+	        }
+	    }
+	    public boolean validPasscode(String passcode) throws SQLException {
+	        String query = "SELECT passcode FROM passcodes WHERE passcode = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, passcode);
+	            ResultSet resultSet = pstmt.executeQuery();
+
+	            // If the resultSet contains a result, the passcode exists
+	            return resultSet.next();
+	        }
+	    }
+	    public boolean hasPasscodes() {
+	        // Implement your database query to check if there are passcodes
+	        // Return true if there are passcodes, otherwise return false
+	        try (Connection connection = getConnection(); // Your method to get a DB connection
+	             Statement statement = connection.createStatement();
+	             ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM passcodes")) {
+	             
+	            if (resultSet.next()) {
+	                return resultSet.getInt(1) > 0; // If count is greater than 0, return true
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false; // Default to false if an exception occurs
+	    }
+	    
+	    public void deleteOnePasscode() throws SQLException {
+	        String deleteSQL = "DELETE FROM passcodes WHERE id = (SELECT id FROM passcodes LIMIT 1)";
+	        try (PreparedStatement pstmt = connection.prepareStatement(deleteSQL)) {
+	            pstmt.executeUpdate();
+	        }
+	    }
+	    
+	    public ResultSet getPasscodes() throws SQLException {
+	        String query = "SELECT category, passcode FROM passcodes";
+	        return statement.executeQuery(query);
+	    }
+	    
+	 // Update a passcode by category
+	    public void updatePasscode(String category, String newPasscode) throws SQLException {
+	        String updateSQL = "UPDATE passcodes SET passcode = ? WHERE category = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+	            pstmt.setString(1, newPasscode);
+	            pstmt.setString(2, category);
+	            pstmt.executeUpdate();
+	        }
+	    }
 		//registers the users into the data base
 		public void register(String FirstName, String PreferredName, String MiddleName, String lastName, String email, String username,String password, String role) throws SQLException {
 		    String insertUser = "INSERT INTO users (FirstName, PreferredName, MiddleName, LastName, email,username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -154,6 +267,72 @@ public class DataBaseHelper {
 
 		        // If there's a result, the username and password are valid
 		        return resultSet.next();
+		    }
+		}
+		
+		//method gets the username in database
+		public String getUser(String username) throws SQLException {
+		    String query = "SELECT username FROM users WHERE username = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        if (resultSet.next()) {
+		            // Return the found username
+		            return resultSet.getString("username");
+		        } else {
+		            // Return null or a message if the user is not found
+		            return "User not found.";
+		        }
+		    }
+		}
+		
+		public boolean deleteUser(String username) throws SQLException {
+		    String query = "DELETE FROM users WHERE username = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        int affectedRows = pstmt.executeUpdate();  // Execute the delete statement
+		        
+		        // If affectedRows is greater than 0, it means a user was deleted
+		        return affectedRows > 0;
+		    }
+		}
+		
+
+		public String getRole(String User) throws SQLException {
+			String query = "SELECT role FROM users WHERE username = ?";
+			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, User);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        if (resultSet.next()) {
+		            // Return the role if the user is found
+		            return resultSet.getString("role");
+		        } else {
+		            // Return null or throw an exception if the user is not found
+		            return null;
+		        }
+		    }
+		}
+		
+		
+		
+		//method is used to retrieve first name with give user name
+		public String getFirstNameByUsername(String username) throws SQLException {
+		    String query = "SELECT FirstName FROM users WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        if (resultSet.next()) {
+		            // Return the first name if the user is found
+		            return resultSet.getString("FirstName");
+		        } else {
+		            // Return a message or null if the user is not found
+		            return "User not found.";
+		        }
 		    }
 		}
 }

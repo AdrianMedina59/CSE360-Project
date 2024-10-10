@@ -4,13 +4,13 @@
 	
 }
 .label{
+	 -fx-alignment: center;
 	-fx-font-family: "Calibri";
 	-fx-font-weight: bold;
 	
 }
 
-#TtilePage{
-}	
+
 #TtilePage{
 	-fx-alignment: center;	
 }

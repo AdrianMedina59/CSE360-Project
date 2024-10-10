@@ -1,13 +1,13 @@
 package AdminPage;
+
+import ConfirmLogin.*;
 import javafx.event.ActionEvent;
 import LoginPage.*;
 import java.io.IOException;
-
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
+import java.util.Random;
 import javafx.scene.Node;
-import ConfirmLogin.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +19,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 public class AdminPageController 
 {
 	
@@ -29,20 +31,23 @@ public class AdminPageController
 	private AnchorPane scenePane;
 	@FXML
     private Label TitleLabel;
+	@FXML
+	private Label UserLabel;
+	
+	private DataBaseHelper dataBase = new DataBaseHelper();
+	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	private Timeline deletePasscodeTimeline;
 	
-	
-
-	public void printUsers() throws SQLException
-	{
-		ConfirmLogin.DataBaseHelper database = new ConfirmLogin.DataBaseHelper(); //data base
-		database.PrintUserTables();
+	//sets the user label
+	public void SetUserLabel(String username) {
+		UserLabel.setText(username);
 	}
 	
 	
-	 private void loadLoginPage() {
+	private void loadLoginPage() {
 	        try {
 	            // Load the FXML file for the Confirm Login scene
 	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage/Login.fxml"));
@@ -123,24 +128,87 @@ public class AdminPageController
         newStage.show();
     }
 
+	//generates a random code for invite and reset
+	private String generateRandomString(int length) {
+        StringBuilder otp = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            otp.append((char) ('0' + random.nextInt(10))); // Generate random digits
+        }
+        return otp.toString();
+    }
 
+	//methods invites send an invite code to the main login
+	public void InviteUser(ActionEvent event) throws SQLException
+	{
+		String inviteCode = generateRandomString(5);
+		dataBase.connectToDatabase();
+
+        try {
+            // Insert the new invite code
+            dataBase.insertPasscode("invite", inviteCode);
+
+            
+            // Start the deletion process if it's not already started
+            if (deletePasscodeTimeline == null) {
+                startDeletePasscodeTimeline();
+            }
+            
+            // Print the current passcodes for debugging
+            dataBase.printPasscodes();
+        } finally {
+            dataBase.closeConnection();
+        }
+    }
 	
-
+	
+	 // Starts a timeline to delete passcodes every 10 seconds
+    private void startDeletePasscodeTimeline() {
+        deletePasscodeTimeline = new Timeline(new KeyFrame(Duration.seconds(300), event -> {
+			try {
+				deleteOnePasscode();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}));
+        deletePasscodeTimeline.setCycleCount(Timeline.INDEFINITE);
+        deletePasscodeTimeline.play();
+    }
+    
+ // Deletes one passcode from the database
+    private void deleteOnePasscode() throws SQLException {
+        dataBase.connectToDatabase();
+        try {
+            // Attempt to delete one expired passcode
+            dataBase.deleteOnePasscode(); // Implement this method in your DataBaseHelper
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dataBase.closeConnection();
+        }
+    }
 	
 	public void ResetUser(ActionEvent event)
 	{
 		
 	}
 	
-	public void InviteUser(ActionEvent event)
-	{
-		
-	}
 	
-	public void Delete(ActionEvent event)
+	public void Delete(ActionEvent event) throws IOException
 	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Remove.fxml"));
+		Parent Remove = loader.load();
+		RemoveController RemoveController = loader.getController();
 		
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene RemoveScene = new Scene(Remove);
+        newStage.setTitle("Remove User");
+        newStage.setScene(RemoveScene);
+        newStage.show();
 	}
+
 	
 	public void AddorRemove(ActionEvent event)
 	{

@@ -1,5 +1,5 @@
 package AdminPage;
-	
+import ConfirmLogin.*;	
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -17,11 +17,11 @@ public class AdminPageHandler {
         try {
             // Load the FXML file for the admin page
             Parent root = FXMLLoader.load(AdminPageHandler.class.getResource("GUI.fxml"));
-
+            
             // Create a new scene
             Scene scene = new Scene(root);
             scene.getStylesheets().add(AdminPageHandler.class.getResource("application.css").toExternalForm());
-
+           
             // Set the new scene on the existing stage
             stage.setScene(scene);
             stage.show();

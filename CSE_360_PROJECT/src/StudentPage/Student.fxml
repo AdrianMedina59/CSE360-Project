@@ -13,5 +13,15 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label layoutX="164.0" layoutY="105.0" text="Hello">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="UserLabel" layoutX="236.0" layoutY="105.0" text="User">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
