@@ -11,6 +11,7 @@ module CSE_360_PROJECT {
 	requires java.sql;
 	requires com.h2database;
 	requires javafx.base;
+	exports InstructorPage; 
 	requires java.desktop;
 	exports ConfirmLogin to javafx.graphics, javafx.fxml;
     opens ConfirmLogin to javafx.fxml;
@@ -20,6 +21,7 @@ module CSE_360_PROJECT {
     opens LoginPage to javafx.fxml;
     opens StudentPage to javafx.fxml;
     exports StudentPage;
+    opens InstructorPage to javafx.fxml;
     
 
 

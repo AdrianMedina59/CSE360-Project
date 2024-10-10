@@ -28,7 +28,7 @@
         <Button fx:id="Login_Button" layoutX="28.0" layoutY="266.0" onAction="#Login" text="Login" />
 
         <!-- Feedback Label -->
-        <Label fx:id="feedbackLabel" layoutX="10.0" layoutY="300.0" textFill="#FF0000" />
+        <Label fx:id="feedbackLabel" layoutX="10.0" layoutY="160.0" textFill="#FF0000" />
       <Label fx:id="titleLabel" layoutY="29.0" text="ASU Grade Finder" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="48.0" />
@@ -46,8 +46,9 @@
       <Label fx:id="passwordLabel2" layoutX="213.0" layoutY="258.0" text="Confirm Password:" textFill="#000000" />
       <PasswordField fx:id="Reg_confirmPassword_TextField" layoutX="211.0" layoutY="279.0" promptText="Password" />
       <Button fx:id="Register_button" layoutX="209.0" layoutY="372.0" onAction="#Register" text="Register" />
-      <Button fx:id="InviteCodeButton" layoutX="35.0" layoutY="331.0" mnemonicParsing="false" onAction="#InviteCode" prefHeight="53.0" prefWidth="79.0" text="Invite code" />
+      <Button fx:id="InviteCodeButton" layoutX="28.0" layoutY="344.0" mnemonicParsing="false" onAction="#InviteCode" prefHeight="53.0" prefWidth="79.0" text="Codes" />
       <TextField fx:id="InviteCode_textField" layoutX="211.0" layoutY="331.0" promptText="123" />
       <Label fx:id="passwordLabel21" layoutX="209.0" layoutY="309.0" text="Invite Code:" textFill="#000000" />
+      <Button fx:id="ForgotPassword_Button" layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#loadForgot" text="Forgot Password" />
     </children>
 </AnchorPane>

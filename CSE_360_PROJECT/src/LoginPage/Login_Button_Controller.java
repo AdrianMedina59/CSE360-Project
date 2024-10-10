@@ -1,5 +1,6 @@
 package LoginPage;
 import ConfirmLogin.*;
+import InstructorPage.*;
 import StudentPage.StudentPageHandler;
 import StudentPage.StudentpageController;
 import AdminPage.*;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -124,6 +126,19 @@ public class Login_Button_Controller {
     }
     //method that checks login and password 2nd entry
     
+    public void loadForgot() throws IOException
+    {
+    	 FXMLLoader loader = new FXMLLoader(getClass().getResource("forgot.fxml"));
+  		Parent Remove = loader.load();
+  		ForgotController controller = loader.getController();
+  		
+         // Set up the new stage and scene for the user list
+         Stage newStage = new Stage();
+         Scene forgotScene = new Scene(Remove);
+         newStage.setTitle("Forgot password");
+         newStage.setScene(forgotScene);
+         newStage.show();
+    }
     
     public void checkLogin() throws SQLException
     {
@@ -161,11 +176,45 @@ public class Login_Button_Controller {
 		}else if("Student".equals(role))
 		{
 			loadStudentPage();
+		}else if("Instructor".equals(role))
+		{
+			loadInstructorPage();
 		}
 		
 	}
   
-  private void loadStudentPage()throws SQLException {
+  private void loadInstructorPage() throws SQLException {
+	  try {
+          // Load the FXML file for the Confirm Login scene
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/InstructorPage/Instructor.fxml"));
+          Parent root = loader.load();
+
+          
+          // Get the controller associated with the FXML
+           InstructorPageController controller = loader.getController();
+           dataBase.connectToDatabase();
+           controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           dataBase.closeConnection();
+           
+         
+          
+          
+          // Initialize and display the new Confirm Login scene
+          Stage stage = (Stage) titleLabel.getScene().getWindow();
+          Scene InstructorPage = new Scene(root);
+
+         
+          // Set the scene and show the stage
+          stage.setScene(InstructorPage);
+          stage.show();
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+	  
+}
+
+private void loadStudentPage()throws SQLException {
       try {
           // Load the FXML file for the Confirm Login scene
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/StudentPage/Student.fxml"));

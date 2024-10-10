@@ -62,6 +62,24 @@ public class DataBaseHelper {
 			statement.execute(userTable);
 		}
 		
+		// Method to update a user's role based on their username
+		public boolean updateUserRole(String username, String newRole) throws SQLException {
+		    // SQL query to update the user's role
+		    String updateSQL = "UPDATE users SET role = ? WHERE username = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+		        pstmt.setString(1, newRole); // Set the new role
+		        pstmt.setString(2, username); // Set the username
+
+		        // Execute the update statement
+		        int affectedRows = pstmt.executeUpdate();
+
+		        // If affectedRows is greater than 0, it means the role was updated
+		        return affectedRows > 0;
+		    }
+		}
+		
+		
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS passcodes ("
@@ -192,6 +210,42 @@ public class DataBaseHelper {
 		    }
 		}
 
+		// Method to check if a given passcode is in the "reset" category
+		public boolean isPasscodeInResetCategory(String passcode) throws SQLException {
+		    String query = "SELECT COUNT(*) FROM passcodes WHERE passcode = ? AND category = 'reset'";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        // Set the passcode parameter in the query
+		        pstmt.setString(1, passcode);
+
+		        // Execute the query
+		        ResultSet resultSet = pstmt.executeQuery();
+
+		        if (resultSet.next()) {
+		            // If count is greater than 0, the passcode exists in the "reset" category
+		            return resultSet.getInt(1) > 0;
+		        }
+		    }
+
+		    // Return false if no match found
+		    return false;
+		}
+
+		// Method to update the password for a specified user
+		public boolean updatePassword(String username, String newPassword) throws SQLException {
+		    // SQL query to update the user's password
+		    String updateSQL = "UPDATE users SET password = ? WHERE username = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+		        pstmt.setString(1, newPassword); // Set the new password
+		        pstmt.setString(2, username);     // Set the username
+
+		        // Execute the update statement
+		        int affectedRows = pstmt.executeUpdate();
+
+		        // If affectedRows is greater than 0, it means the password was updated
+		        return affectedRows > 0;
+		    }
+		}
 		
 		// Check if the database is empty
 		public boolean isDatabaseEmpty() throws SQLException {

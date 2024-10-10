@@ -10,7 +10,7 @@
       <Button fx:id="logoutbutton" layoutX="148.0" layoutY="382.0" mnemonicParsing="false" onAction="#logout" prefHeight="13.0" prefWidth="189.0" text="Logout" />
       <Button fx:id="Reset" layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#ResetUser" text="Reset" />
       <Button fx:id="Invite" layoutX="93.0" layoutY="344.0" mnemonicParsing="false" onAction="#InviteUser" text="Invite user" />
-      <Button fx:id="AddorRemove" layoutX="178.0" layoutY="344.0" mnemonicParsing="false" onAction="#AddorRemove" text="Add/Remove role" />
+      <Button fx:id="AddorRemove" layoutX="178.0" layoutY="344.0" mnemonicParsing="false" onAction="#ChangeRoles" text="Add/Remove role" />
       <Button fx:id="Listusers" layoutX="304.0" layoutY="344.0" mnemonicParsing="false" onAction="#ListUsers" text="List Users" />
       <Label fx:id="TitleLabel" layoutX="29.0" layoutY="20.0" prefHeight="98.0" prefWidth="466.0" text="Welcome to the Admin Page">
          <font>

@@ -161,6 +161,27 @@ public class AdminPageController
         }
     }
 	
+	//Sends a reset password code for user to use to reset forgotten password
+	public void ResetUser(ActionEvent event) throws SQLException
+	{
+		String resetCode = generateRandomString(5);
+		dataBase.connectToDatabase();
+		 try {
+	            // Insert the new invite code
+	            dataBase.insertPasscode("reset", resetCode);
+
+	            
+	            // Start the deletion process if it's not already started
+	            if (deletePasscodeTimeline == null) {
+	                startDeletePasscodeTimeline();
+	            }
+	            
+	            // Print the current passcodes for debugging
+	            dataBase.printPasscodes();
+	        } finally {
+	            dataBase.closeConnection();
+	        }
+	}
 	
 	 // Starts a timeline to delete passcodes every 10 seconds
     private void startDeletePasscodeTimeline() {
@@ -189,10 +210,7 @@ public class AdminPageController
         }
     }
 	
-	public void ResetUser(ActionEvent event)
-	{
-		
-	}
+	
 	
 	
 	public void Delete(ActionEvent event) throws IOException
@@ -210,9 +228,18 @@ public class AdminPageController
 	}
 
 	
-	public void AddorRemove(ActionEvent event)
+	public void ChangeRoles(ActionEvent event) throws IOException
 	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangeRoles.fxml"));
+		Parent Remove = loader.load();
+		ChangeRolesController changeRolesController = loader.getController();
 		
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene RemoveScene = new Scene(Remove);
+        newStage.setTitle("Remove User");
+        newStage.setScene(RemoveScene);
+        newStage.show();
 	}
 	
 	
