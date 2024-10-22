@@ -13,6 +13,7 @@ module CSE_360_PROJECT {
 	requires javafx.base;
 	exports InstructorPage; 
 	requires java.desktop;
+	requires org.bouncycastle.lts.prov;
 	exports ConfirmLogin to javafx.graphics, javafx.fxml;
     opens ConfirmLogin to javafx.fxml;
     exports AdminPage to javafx.fxml;
