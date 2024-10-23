@@ -49,6 +49,26 @@ public class UserListController {
     private TableColumn<String[], String> Irole_column;
     @FXML
     private TableColumn<String[], String> email_column;
+    @FXML
+    private TableColumn<String[], String> ArticleLevel;
+    @FXML 
+    private TableColumn<String[], String> Articletitle;
+    @FXML
+    private TableColumn<String[], String> ArticleAuthors;
+    @FXML
+    private TableColumn<String[], String> ArticleDescription;
+    @FXML
+    private TableColumn<String[], String> ArticleKeywords;
+    @FXML
+    private TableColumn<String[], String> ArticleBody;
+    @FXML
+    private TableColumn<String[], String> ArticleLinks;
+    @FXML
+    private TableColumn<String[], String> ArticleOther;
+
+
+
+    
 
     // ObservableList to hold the user data as String arrays
     private ObservableList<String[]> userDataList = FXCollections.observableArrayList();
@@ -88,6 +108,8 @@ public class UserListController {
             });
         }
     }
+    
+
 
     @FXML
     private void closeWindow() {

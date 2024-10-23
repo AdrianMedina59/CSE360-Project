@@ -6,6 +6,8 @@ import org.bouncycastle.jcajce.provider.symmetric.util.IvAlgorithmParameters;
 
 import java.io.PrintWriter;
 import java.security.KeyStore.PrivateKeyEntry;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * <p> helper class for articles object. </p>
@@ -145,6 +147,6 @@ public class Article {
 	            System.out.println(" - " + new String(reference));
 	        }
 	    }
-
+	 
 	
 }
