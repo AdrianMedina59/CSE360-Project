@@ -153,6 +153,11 @@ public class Article {
 	return false;
 		
 	}
+	
+	public boolean updateArticles(String uhh) {
+		return false;
+		
+	}
 	 
 	 
 	

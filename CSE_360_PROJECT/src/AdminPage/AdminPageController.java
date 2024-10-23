@@ -174,6 +174,21 @@ public class AdminPageController
 		
 	}
 	
+	private void updateArticle(ActionEvent event) throws SQLException, IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
+		Parent updateRoot = loader.load();
+		//an article helper that wants a method that searches and finds that article and changes whataver the person wants
+		
+		//setup the new stage and scene for the update
+		Stage newStage = new Stage();
+		Scene updateScene = new Scene(updateRoot);
+		newStage.setTitle("Delete Article");
+		newStage.setScene(updateScene);
+		newStage.show();
+		
+	}
+	
 	
 	public void ListArticles(ActionEvent event) throws SQLException, IOException //everyone can list artciles depending what info
 	{
