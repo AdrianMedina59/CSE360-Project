@@ -140,6 +140,78 @@ public class AdminPageController
         newStage.setScene(userListScene);
         newStage.show();
     }
+	
+	public void createArticle(ActionEvent event) throws SQLException, IOException //admin intrstuctor and user create
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
+		Parent articleRoot = loader.load();
+		
+	//make an articleCOntroller
+		
+		
+        // Set up the new stage and scene for the create Article
+		Stage newStage = new Stage();
+		Scene articleListScene = new Scene(articleRoot);
+		newStage.setTitle("Create Article");
+	    newStage.setScene(articleListScene);
+	    newStage.show();
+
+	}
+	
+	private void deleteArticle(ActionEvent event) throws SQLException, IOException //admin can delete article
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
+		Parent deleteRoot = loader.load();
+		
+	//make an articleController
+		
+		//Set up the new stage and scene for the delete article
+		Stage newStage = new Stage();
+		Scene deleteArticleScene = new Scene(deleteRoot);
+		newStage.setTitle("Delete Article");
+		newStage.setScene(deleteArticleScene);
+		newStage.show();
+		
+	}
+	
+	
+	public void ListArticles(ActionEvent event) throws SQLException, IOException //everyone can list artciles depending what info
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
+		Parent articleListRoot = loader.load();
+		
+		//make an  ArticleCOntroller 
+		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+            // Execute SQL query to get all users from the database
+            ResultSet resultSet = dataBase.getUsers(); //instead of users we need a getArticles()
+
+            // Pass the resultSet to the UserListController to load the data
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+		//set up the new Stage and scenee for listing articles
+		Stage newStage = new Stage();
+		Scene ListArticleScene = new Scene(articleListRoot);
+		newStage.setTitle("List Articles");
+		newStage.setScene(ListArticleScene);
+		newStage.show();
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 
 	//generates a random code for invite and reset
 	private String generateRandomString(int length) {
@@ -254,6 +326,8 @@ public class AdminPageController
         newStage.setScene(RemoveScene);
         newStage.show();
 	}
+	
+	
 	
 	
 	
