@@ -148,5 +148,12 @@ public class Article {
 	        }
 	    }
 	 
+	public boolean  articleMatch(String uhh) {
+		
+	return false;
+		
+	}
+	 
+	 
 	
 }
