@@ -5,28 +5,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPage.AdminPageController">
+<AnchorPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPage.AdminPageController">
    <children>
-      <Button fx:id="logoutbutton" layoutX="148.0" layoutY="382.0" mnemonicParsing="false" onAction="#logout" prefHeight="13.0" prefWidth="189.0" text="Logout" />
-      <Button fx:id="Reset" layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#ResetUser" text="Reset" />
-      <Button fx:id="Invite" layoutX="93.0" layoutY="344.0" mnemonicParsing="false" onAction="#InviteUser" text="Invite user" />
-      <Button fx:id="AddorRemove" layoutX="178.0" layoutY="344.0" mnemonicParsing="false" onAction="#ChangeRoles" text="Add/Remove role" />
-      <Button fx:id="Listusers" layoutX="304.0" layoutY="344.0" mnemonicParsing="false" onAction="#ListUsers" text="List Users" />
+      <Button fx:id="logoutbutton" layoutX="160.0" layoutY="382.0" mnemonicParsing="false" onAction="#logout" prefHeight="13.0" prefWidth="189.0" text="Logout" />
+      <Button fx:id="Reset" layoutX="368.0" layoutY="382.0" mnemonicParsing="false" onAction="#ResetUser" prefHeight="25.0" prefWidth="104.0" text="Reset" />
+      <Button fx:id="Invite" layoutX="63.0" layoutY="235.0" mnemonicParsing="false" onAction="#InviteUser" text="Invite user" />
+      <Button fx:id="AddorRemove" layoutX="29.0" layoutY="382.0" mnemonicParsing="false" onAction="#ChangeRoles" prefHeight="25.0" prefWidth="115.0" text="Add/Remove role" />
+      <Button fx:id="Listusers" layoutX="65.0" layoutY="198.0" mnemonicParsing="false" onAction="#ListUsers" text="List Users" />
       <Label fx:id="TitleLabel" layoutX="29.0" layoutY="20.0" prefHeight="98.0" prefWidth="466.0" text="Welcome to the Admin Page">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Button fx:id="Delete" layoutX="377.0" layoutY="344.0" mnemonicParsing="false" onAction="#Delete" prefHeight="25.0" prefWidth="94.0" text="Delete Users" />
+      <Button fx:id="Delete" layoutX="63.0" layoutY="278.0" mnemonicParsing="false" onAction="#Delete" prefHeight="19.0" prefWidth="87.0" text="Delete Users" />
       <Label layoutX="191.0" layoutY="105.0" text="Hello">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="UserLabel" layoutX="244.0" layoutY="105.0" text="User">
+      <Label fx:id="UserLabel" layoutX="244.0" layoutY="105.0" prefHeight="27.0" prefWidth="115.0" text="User">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Label fx:id="UserLabel1" layoutX="72.0" layoutY="162.0" prefHeight="27.0" prefWidth="115.0" text="User Actions">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="UserLabel2" layoutX="326.0" layoutY="162.0" prefHeight="27.0" prefWidth="115.0" text="Article Actions">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="Listusers1" layoutX="326.0" layoutY="198.0" mnemonicParsing="false" onAction="#ListArticles" text="List Articles" />
+      <Button fx:id="Listusers11" layoutX="321.0" layoutY="235.0" mnemonicParsing="false" onAction="#createArticle" text="Create Artilces" />
    </children>
 </AnchorPane>

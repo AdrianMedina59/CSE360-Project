@@ -23,18 +23,3 @@
       <Button fx:id="CloseButton" layoutX="282.0" layoutY="384.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="144.0" text="Close" />
    </children>
 </AnchorPane>
-
-<TableView fx:id="ArticlesTable" layoutX="3.0" prefHeight="379.0" prefWidth="708.0">
-    <columns>
-        <TableColumn fx:id="ID_column" prefWidth="36.0" text="ID" />
-        <TableColumn fx:id="Title_column" prefWidth="120.0" text="Title" />
-        <TableColumn fx:id="ShortDescription_column" prefWidth="200.0" text="Short Description" />
-        <TableColumn fx:id="Level_column" prefWidth="100.0" text="Level" />
-        <TableColumn fx:id="Identifier_column" prefWidth="100.0" text="Group Identifier" />
-        <TableColumn fx:id="Keywords_column" prefWidth="150.0" text="Keywords" />
-        <TableColumn fx:id="Body_column" prefWidth="200.0" text="Body" />
-        <TableColumn fx:id="ReferenceLinks_column" prefWidth="150.0" text="Reference Links" />
-        <TableColumn fx:id="SensitiveInfoTitle_column" prefWidth="150.0" text="Sensitive Info Title" />
-        <TableColumn fx:id="SensitiveInfoDesc_column" prefWidth="200.0" text="Sensitive Info Desc" />
-    </columns>
-</TableView>
