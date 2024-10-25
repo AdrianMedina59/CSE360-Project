@@ -1,46 +1,43 @@
 package Article;
+import javax.management.loading.PrivateClassLoader;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import ConfirmLogin.*;
 public class ArticleController {
 
     @FXML
-    private TextField Username_textField; // For Header
+    private TextField Title_textField; // For Title
     @FXML
-    private TextField Username_textField1; // For Title
+    private TextField Keyword_textField; // For Keywords
     @FXML
-    private TextField Username_textField11; // For Keywords
+    private TextArea Abstract_textArea; // For Abstract text
     @FXML
-    private TextArea shortDescription; // For Short Description
+    private TextArea Body_textArea; // For Body
     @FXML
-    private TextArea bodyOfArticle; // For Body
+    private TextArea Links_textArea; // For Links
     @FXML
-    private TextArea links; // For Links
-    @FXML
-    private TextArea sensitiveInfo; // For Sensitive Information
-    @FXML
-    private Button finishArticleButton; // Button to finalize the article
+    private Button finish_button; // Button to finalize the article
+    private DataBaseHelper dataBaseHelper = new DataBaseHelper();
 
     @FXML
     public void initialize() {
-        System.out.println(finishArticleButton); // Should not be null
+        System.out.println(finish_button); // Should not be null
     }
 
     @FXML
     public void handleFinishArticle() {
         try {
             // Logic to handle finishing the article
-            String header = Username_textField.getText();
-            String title = Username_textField1.getText();
-            String keywords = Username_textField11.getText();
-            String description = shortDescription.getText();
-            String body = bodyOfArticle.getText();
-            String linkText = links.getText();
-            String sensitive = sensitiveInfo.getText();
-
+            String title = Title_textField.getText();
+            String keywords = Keyword_textField.getText();
+            String abstractText = Abstract_textArea.getText();
+            String body = Body_textArea.getText();
+            String linkText = Links_textArea.getText();
+            
             // Validate inputs
             if (title.isEmpty()) {
                 System.out.println("Title cannot be empty.");
@@ -49,12 +46,40 @@ public class ArticleController {
 
             // Implement your article creation logic here
             System.out.println("Article created: " + title);
+            
+         
+            
+             // Parse keywords, assume they are comma-separated
+            String[] keywordString = keywords.split("\\s*,\\s*");
+            
 
+            // Parse references, assume they are comma-separated in Links_textArea
+            String[] references = linkText.split("\\s*,\\s*");
+
+            // Dummy authors - replace this with actual author data if you add an authors field
+            String[] authors = new String[] {"Adrian Medina"}; // Default author for now
+            
+            String[] links = linkText.split("\\s*,\\s*"); 
+            
+         // Create the article object
+            Article article = new Article(title, authors, abstractText, keywordString, body, references, links);
+            
+            //storing the article inside the database
+            dataBaseHelper.connectToDatabase();
+            dataBaseHelper.insertArticle(article,"Admin");
+            dataBaseHelper.displayArticles();
+            dataBaseHelper.closeConnection();
+            
+            
+            article.displayContent();
             // Close the article creation window after finishing
-            Stage stage = (Stage) finishArticleButton.getScene().getWindow();
+            Stage stage = (Stage) finish_button.getScene().getWindow();
             stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    
+    
 }

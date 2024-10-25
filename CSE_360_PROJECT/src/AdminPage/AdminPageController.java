@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import Article.ArticleController;
+import Article.ArticleListController;
 import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -160,20 +161,21 @@ public class AdminPageController
 	
 
 	
-	public void ListArticles(ActionEvent event) throws SQLException, IOException //everyone can list artciles depending what info
+	public void ListArtilces(ActionEvent event) throws SQLException, IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ArticleList.fxml"));
-		Parent articleListRoot = loader.load();
-		
-		//make an  ArticleCOntroller 
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ArticleListController articlelistController = loader.getController();
 		
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		try {
             // Execute SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getUsers(); //instead of users we need a getArticles()
+            ResultSet resultSet = dataBase.getArticles(); // Assuming this method fetches the ResultSet for all articles
 
             // Pass the resultSet to the UserListController to load the data
+            articlelistController.loadArticleData(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             
@@ -182,18 +184,13 @@ public class AdminPageController
             dataBase.closeConnection();
         }
 
-		//set up the new Stage and scenee for listing articles
-		Stage newStage = new Stage();
-		Scene ListArticleScene = new Scene(articleListRoot);
-		newStage.setTitle("List Articles");
-		newStage.setScene(ListArticleScene);
-		newStage.show();
-		
-		
-		
-		
-	}
-	
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
 	
 	
 	
