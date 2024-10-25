@@ -20,6 +20,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import Article.Article;
 public class DataBaseHelper {
 	
 	// JDBC driver name and database URL 
@@ -42,6 +44,7 @@ public class DataBaseHelper {
 				statement = connection.createStatement(); 
 				createTables();  // Create the necessary tables if they don't exist
 				createPasscodeTable();
+				createArticlesTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
 			}
@@ -62,6 +65,23 @@ public class DataBaseHelper {
 			statement.execute(userTable);
 		}
 		
+		// Create the articles table if it doesn't exist
+	    private void createArticlesTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
+	                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+	                                "title VARCHAR(255) NOT NULL, " +
+	                                "authors VARCHAR(1000), " +
+	                                "abstractText VARCHAR(1000), " +
+	                                "keywords VARCHAR(1000), " +
+	                                "encryptedBody BLOB, " +
+	                                "references VARCHAR(1000)," +
+	                                "role VARCHAR(20))";
+	        
+	        try (Statement stmt = connection.createStatement()) {
+	            stmt.execute(createTableSQL);
+	        }
+	    }
+		
 		// Method to update a user's role based on their username
 		public boolean updateUserRole(String username, String newRole) throws SQLException {
 		    // SQL query to update the user's role
@@ -80,6 +100,22 @@ public class DataBaseHelper {
 		}
 		
 		
+		
+
+	    // Method to insert an article with a specific role
+	    public void insertArticle(Article article, String role) throws SQLException {
+	        String insertSQL = "INSERT INTO articles (title, authors, abstractText, keywords, encryptedBody, references, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+	            pstmt.setString(1, article.getTitle());
+	            pstmt.setString(2, String.join(",", article.getAuthors()));
+	            pstmt.setString(3, article.getAbstractText());
+	            pstmt.setString(4, String.join(",", article.getKeywords()));
+	            pstmt.setBytes(5, article.getEncryptedBody());
+	            pstmt.setString(6, String.join(",", article.getReferences()));
+	            pstmt.setString(7, role); // Set the role
+	            pstmt.executeUpdate();
+	        }
+	    }
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS passcodes ("
@@ -386,6 +422,32 @@ public class DataBaseHelper {
 		        } else {
 		            // Return a message or null if the user is not found
 		            return "User not found.";
+		        }
+		    }
+		}
+		
+		
+		// Method to display all articles in the articles table
+		public void displayArticles() throws SQLException {
+		    String query = "SELECT * FROM articles"; // SQL query to retrieve all articles
+		    
+		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
+		        // Print column headers for clarity
+		        System.out.println("ID | Title | Authors | Abstract | Keywords | References| role");
+		        System.out.println("----------------------------------------------------------");
+		        
+		        // Loop through the result set and print each article's details
+		        while (resultSet.next()) {
+		            int id = resultSet.getInt("id");
+		            String title = resultSet.getString("title");
+		            String authors = resultSet.getString("authors");
+		            String abstractText = resultSet.getString("abstractText");
+		            String keywords = resultSet.getString("keywords");
+		            String references = resultSet.getString("references");
+		            String role = resultSet.getString("role");
+		            
+		            // Print the article details
+		            System.out.println(id + " | " + title + " | " + authors + " | " + abstractText + " | " + keywords + " | " + references + " | " + role );
 		        }
 		    }
 		}

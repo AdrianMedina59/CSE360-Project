@@ -158,6 +158,37 @@ public class Article {
 		return false;
 		
 	}
+
+
+	public String getAbstractText() {
+		return new String(this.abstractText);
+	}
+
+
+	public String[] getKeywords() {
+		String[] Keywords = new String[keywords.length];
+		for(int i =0; i < keywords.length;i++)
+		{
+			Keywords[i]= new String(keywords[i]); 
+		}
+		return Keywords;
+	}
+
+
+	public byte[] getEncryptedBody() {
+		// TODO Auto-generated method stub
+		return Encryptedbody;
+	}
+
+
+	public String[] getReferences() {
+		String[] links = new String[refrences.length];
+		for(int i =0; i < refrences.length;i++)
+		{
+			links[i]= new String(refrences[i]); 
+		}
+		return links;
+	}
 	 
 	 
 	
