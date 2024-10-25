@@ -29,10 +29,11 @@ public class Article {
 	private char[][] keywords;    //List of char arrays of keywords
 	private byte[] Encryptedbody;          //char array for body of article
 	private char[][]refrences;    //list of char arrays for references
+    private char[][] links;        // List of char arrays for links
 	private EncryptionHelper encryptionHelper;  //making use of encryption package
 	
 	//constructor for article
-	public Article(String title,String[] authors,String abstractText, String[] keywords,String body, String[] refrences) throws Exception {
+	public Article(String title,String[] authors,String abstractText, String[] keywords,String body, String[] refrences, String[] links) throws Exception {
 		 this.encryptionHelper = new EncryptionHelper();
 		//making title into char array
 		this.title = title.toCharArray();
@@ -64,8 +65,11 @@ public class Article {
 		{
 			this.refrences[i] = refrences[i].toCharArray();
 		}
+		this.links = new char[links.length][];
+        for (int i = 0; i < links.length; i++) {
+            this.links[i] = links[i].toCharArray();
 	}
-	
+	}
 	
 	public String getDecryptBody() throws Exception{
 		//using the title for the iv
@@ -189,6 +193,17 @@ public class Article {
 		}
 		return links;
 	}
+<<<<<<< HEAD
+=======
+	 // New method to get links
+    public String[] getLinks() {
+        String[] linkStrings = new String[links.length];
+        for (int i = 0; i < links.length; i++) {
+            linkStrings[i] = new String(links[i]);
+        }
+        return linkStrings;
+    }
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 	 
 	 
 	

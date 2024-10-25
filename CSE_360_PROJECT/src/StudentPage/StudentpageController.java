@@ -33,6 +33,9 @@ public class StudentpageController
 	@FXML
 	private Button studentlogout;
 	@FXML
+    private Button searchButton; 
+
+	@FXML
 	private AnchorPane InstructorPage;
 	@FXML
 	private Label TitleLabel,UserLabel;
@@ -94,6 +97,24 @@ public class StudentpageController
 	
 	
 	}
+	@FXML
+	 private void loadSearchArticlesPage() {
+	        try {
+	            // Load the FXML file for the new scene
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchArticles.fxml"));
+	            AnchorPane newPage = loader.load();
+
+	            // Create a new scene and set it to the current stage
+	            Scene scene = new Scene(newPage);
+	            Stage stage = (Stage) searchButton.getScene().getWindow(); // Get the current stage
+	            stage.setScene(scene); // Switch to the new scene
+	            stage.show(); // Show the new scene
+	        } catch (IOException e) {
+	            e.printStackTrace(); // Handle the exception appropriately
+	        }
+	    }
+	
+	
 
 
 }
