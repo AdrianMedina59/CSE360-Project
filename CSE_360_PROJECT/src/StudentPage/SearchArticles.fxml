@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="searchPage" prefHeight="300.0" prefWidth="283.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Article.SearchArticlesController">
+<AnchorPane fx:id="searchPage" prefHeight="300.0" prefWidth="283.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.SearchArticlesController">
     <TextField fx:id="Title_textField" layoutX="14.0" layoutY="113.0" promptText="Search by Title" />
-    <TextField fx:id="Title_textField3" layoutX="14.0" layoutY="187.0" promptText="Search by Keywords" />
+    <TextField fx:id="Keyword_textfield" layoutX="14.0" layoutY="187.0" promptText="Search by Keywords" />
     
     <Button fx:id="searchButton" layoutX="65.0" layoutY="237.0" onAction="#search" text="Search" />
     <Button fx:id="closeButton" layoutX="156.0" layoutY="237.0" onAction="#closeWindow" text="Close" />

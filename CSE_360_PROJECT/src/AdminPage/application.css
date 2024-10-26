@@ -1,7 +1,7 @@
 .root{
 	
 	-fx-background-color:F6C337;
-	
+	-fx-alignment: center;
 }
 .label{
 	 -fx-alignment: center;

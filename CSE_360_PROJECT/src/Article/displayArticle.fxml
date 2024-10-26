@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.ArticleDisplayController">
+   <children>
+      <Label fx:id="titleLabel" layoutX="167.0" layoutY="14.0" text="Title">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="67.0" text="by">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="authorLabel" layoutX="179.0" layoutY="67.0" text="Author">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="keywordsLabel" layoutX="171.0" layoutY="123.0" text="Keywords">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="closeButton" layoutX="178.0" layoutY="351.0" mnemonicParsing="false" text="Close" />
+      <Label fx:id="abstractTextArea" layoutX="135.0" layoutY="165.0" text="abstract text">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="bodyTextArea" layoutX="181.0" layoutY="223.0" text="Body">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="refrencesTextArea" layoutX="176.0" layoutY="298.0" text="refrences" />
+   </children>
+</AnchorPane>

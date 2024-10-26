@@ -51,10 +51,7 @@ public class ArticleController {
             
              // Parse keywords, assume they are comma-separated
             String[] keywordString = keywords.split("\\s*,\\s*");
-<<<<<<< HEAD
-=======
-            
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+
 
             // Parse references, assume they are comma-separated in Links_textArea
             String[] references = linkText.split("\\s*,\\s*");
@@ -62,15 +59,11 @@ public class ArticleController {
             // Dummy authors - replace this with actual author data if you add an authors field
             String[] authors = new String[] {"Adrian Medina"}; // Default author for now
             
-<<<<<<< HEAD
-         // Create the article object
-            Article article = new Article(title, authors, abstractText, keywordString, body, references);
-=======
-            String[] links = linkText.split("\\s*,\\s*"); 
+
+            
             
          // Create the article object
-            Article article = new Article(title, authors, abstractText, keywordString, body, references, links);
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+            Article article = new Article(title, authors, abstractText, keywordString, body, references);
             
             //storing the article inside the database
             dataBaseHelper.connectToDatabase();

@@ -43,7 +43,7 @@ public class ArticleListController {
         // Bind columns to data fields
         ID_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[0]));
         Title_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[1]));
-        Authors_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[1]));
+        Authors_column.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue()[2]));
         ArticlesTable.setItems(articleDataList);
     }
 
@@ -53,7 +53,7 @@ public class ArticleListController {
         while (resultSet.next()) {
             articleDataList.add(new String[]{
             	String.valueOf(resultSet.getInt("id")),
-                resultSet.getString("Title"),
+                resultSet.getString("title"),
                 resultSet.getString("Authors"),
             });
         }

@@ -15,6 +15,7 @@ package ConfirmLogin;
 
 
 import java.awt.TextField;
+
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,24 +67,9 @@ public class DataBaseHelper {
 		}
 		
 		// Create the articles table if it doesn't exist
-<<<<<<< HEAD
-	    private void createArticlesTable() throws SQLException {
-	        String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
-	                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
-	                                "title VARCHAR(255) NOT NULL, " +
-	                                "authors VARCHAR(1000), " +
-	                                "abstractText VARCHAR(1000), " +
-	                                "keywords VARCHAR(1000), " +
-	                                "encryptedBody BLOB, " +
-	                                "references VARCHAR(1000)," +
-	                                "role VARCHAR(20))";
-	        
-	        try (Statement stmt = connection.createStatement()) {
-	            stmt.execute(createTableSQL);
-	        }
-	    }
+
 		
-=======
+
 		private void createArticlesTable() throws SQLException {
 		    String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
 		                            "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -91,10 +77,8 @@ public class DataBaseHelper {
 		                            "Authors VARCHAR(1000), " +
 		                            "abstractText VARCHAR(1000), " +
 		                            "keywords VARCHAR(1000), " +
-		                            "encryptedBody BLOB, " +
+		                            "Body VARCHAR(1000), " +
 		                            "references VARCHAR(1000), " +
-		                            "Body VARCHAR(1000), " +  
-		                            "Links VARCHAR(1000), " + 
 		                            "role VARCHAR(20))";
 		    
 		    try (Statement stmt = connection.createStatement()) {
@@ -102,7 +86,6 @@ public class DataBaseHelper {
 		    }
 		}
 
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 		// Method to update a user's role based on their username
 		public boolean updateUserRole(String username, String newRole) throws SQLException {
 		    // SQL query to update the user's role
@@ -123,38 +106,22 @@ public class DataBaseHelper {
 		
 		
 
-	    // Method to insert an article with a specific role
-<<<<<<< HEAD
-	    public void insertArticle(Article article, String role) throws SQLException {
-	        String insertSQL = "INSERT INTO articles (title, authors, abstractText, keywords, encryptedBody, references, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
-	            pstmt.setString(1, article.getTitle());
-	            pstmt.setString(2, String.join(",", article.getAuthors()));
-	            pstmt.setString(3, article.getAbstractText());
-	            pstmt.setString(4, String.join(",", article.getKeywords()));
-	            pstmt.setBytes(5, article.getEncryptedBody());
-	            pstmt.setString(6, String.join(",", article.getReferences()));
-	            pstmt.setString(7, role); // Set the role
-	            pstmt.executeUpdate();
-	        }
-	    }
-=======
-		public void insertArticle(Article article, String role) throws SQLException {
-		    String insertSQL = "INSERT INTO articles (title, authors, abstractText, keywords, encryptedBody, references, links, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		public void insertArticle(Article article, String role) throws Exception {
+		    String insertSQL = "INSERT INTO articles (title, authors, abstractText, keywords, Body, references, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		    try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
 		        pstmt.setString(1, article.getTitle());
 		        pstmt.setString(2, String.join(",", article.getAuthors()));
 		        pstmt.setString(3, article.getAbstractText());
 		        pstmt.setString(4, String.join(",", article.getKeywords()));
-		        pstmt.setBytes(5, article.getEncryptedBody());
+		        pstmt.setString(5, article.getBody());
 		        pstmt.setString(6, String.join(",", article.getReferences()));
-		        pstmt.setString(7, String.join(",", article.getLinks())); // Correctly add links
-		        pstmt.setString(8, role); // Set the role
+		        pstmt.setString(7, role); // Set the role
 		        pstmt.executeUpdate();
+		        System.out.println("Inserting article with title: " + article.getTitle());
+		        System.out.println("Article Body: " + article.getBody());
 		    }
 		}
 
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS passcodes ("
@@ -354,7 +321,7 @@ public class DataBaseHelper {
 		}
 		
 		public ResultSet getArticles() throws SQLException {
-			String query = "select * FROM articles";
+			String query = "SELECT * FROM articles";
 			return statement.executeQuery(query);
 		}
 		
@@ -391,6 +358,19 @@ public class DataBaseHelper {
 			}
 		}
 		
+		public boolean isValidArticle(String title, String keyword) throws SQLException
+		{
+			String query = "SELECT * FROM articles WHERE title = ? AND keywords = ?";
+			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+				pstmt.setString(1, title);
+				pstmt.setString(2, keyword);
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        //if there's a result, the username and password are valid
+		        
+		        return resultSet.next();
+			}
+		}
 		
 		// Method to validate user credentials
 		public boolean isValidUser(String username, String password) throws SQLException {
@@ -436,6 +416,39 @@ public class DataBaseHelper {
 		}
 		
 
+		public static Article getArticleByName(Connection connection, String title) throws Exception {
+		    String query = "SELECT * FROM articles WHERE title = ?";
+		    
+		    // Ensure the provided connection is not null
+		    if (connection == null) {
+		        throw new SQLException("Connection cannot be null.");
+		    }
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, title); // Set the title parameter
+		        
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                // Retrieve fields from the result set
+		                String titleFromDb = resultSet.getString("title");
+		                String[] authors = resultSet.getString("authors").split(",");
+		                String abstractText = resultSet.getString("abstractText");
+		                String[] keywords = resultSet.getString("keywords").split(",");
+		                String body = resultSet.getString("Body");
+		                String[] references = resultSet.getString("references").split(",");
+
+		                // Create and return the Article object
+		                return new Article(titleFromDb, authors, abstractText, keywords, body, references);
+		            } else {
+		                System.out.println("Article not found.");
+		                return null;
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw e; // Re-throw the exception for handling at a higher level
+		    }
+		}
 		public String getRole(String User) throws SQLException {
 			String query = "SELECT role FROM users WHERE username = ?";
 			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -478,8 +491,7 @@ public class DataBaseHelper {
 		    
 		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
 		        // Print column headers for clarity
-<<<<<<< HEAD
-		        System.out.println("ID | Title | Authors | Abstract | Keywords | References| role");
+		        System.out.println("ID | Title | Authors | Abstract | Keywords | References| role | body");
 		        System.out.println("----------------------------------------------------------");
 		        
 		        // Loop through the result set and print each article's details
@@ -491,30 +503,14 @@ public class DataBaseHelper {
 		            String keywords = resultSet.getString("keywords");
 		            String references = resultSet.getString("references");
 		            String role = resultSet.getString("role");
+		            String body = resultSet.getString("Body");
+		         
+		            		
 		            
 		            // Print the article details
-		            System.out.println(id + " | " + title + " | " + authors + " | " + abstractText + " | " + keywords + " | " + references + " | " + role );
-=======
-		        System.out.println("ID | Title | Authors | Abstract | Keywords | References | Body | Links | Role");
-		        System.out.println("--------------------------------------------------------------------------------");
-		        
-		        // Loop through the result set and print each article's details
-		        while (resultSet.next()) {
-		            int id = resultSet.getInt("id");
-		            String title = resultSet.getString("title");
-		            String authors = resultSet.getString("authors");
-		            String body = resultSet.getString("Body"); // Retrieve Body
-		            String abstractText = resultSet.getString("abstractText");
-		            String keywords = resultSet.getString("keywords");
-		            String references = resultSet.getString("references");
-		            String links = resultSet.getString("Links"); // Retrieve Links
-		            String role = resultSet.getString("role");
-		            
-		            // Print the article details
-		            System.out.println(id + " | " + title + " | " + authors + " | " + abstractText + " | " + 
-		                               keywords + " | " + references + " | " + body + " | " + links + " | " + role);
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
-		        }
+		            System.out.println(id + " | " + title + " | " + authors + " | " + abstractText + " | " + keywords + " | " + references + " | " + role + "| " + body );
+		       
 		    }
+		}
 		}
 }
