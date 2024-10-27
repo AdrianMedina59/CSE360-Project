@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Article.ArticleController;
+import Article.ArticleListController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
@@ -35,7 +37,10 @@ import javafx.stage.Stage;
 
 public class InstructorPageController 
 {
-
+	@FXML
+    private Button CreateArticlesButton;
+	@FXML
+	private Button ListArticlesButton;
 	@FXML
 	private Button InstructorLoout;
 	@FXML
@@ -45,6 +50,7 @@ public class InstructorPageController
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	
 	
 	
 	public void SetUserLabel(String username) {
@@ -101,20 +107,21 @@ public class InstructorPageController
 	}
 	
 	
-	public void ListArticles(ActionEvent event) throws SQLException, IOException //everyone can list artciles depending what info
+	public void ListArtilces(ActionEvent event) throws SQLException, IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
-		Parent articleListRoot = loader.load();
-		
-		//make an  ArticleCOntroller 
-		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ArticleListController articlelistController = loader.getController();
+
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		try {
             // Execute SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getUsers(); //instead of users we need a getArticles()
+            ResultSet resultSet = dataBase.getArticles(); // Assuming this method fetches the ResultSet for all articles
 
             // Pass the resultSet to the UserListController to load the data
+            articlelistController.loadArticleData(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             
@@ -123,61 +130,31 @@ public class InstructorPageController
             dataBase.closeConnection();
         }
 
-		//set up the new Stage and scenee for listing articles
-		Stage newStage = new Stage();
-		Scene ListArticleScene = new Scene(articleListRoot);
-		newStage.setTitle("List Articles");
-		newStage.setScene(ListArticleScene);
-		newStage.show();
-		
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
 	
-	}
-	private void updateArticle(ActionEvent event) throws SQLException, IOException
-	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
-		Parent updateRoot = loader.load();
-		//an article helper that wants a method that searches and finds that article and changes whataver the person wants
-		
-		//setup the new stage and scene for the update
-		Stage newStage = new Stage();
-		Scene updateScene = new Scene(updateRoot);
-		newStage.setTitle("Delete Article");
-		newStage.setScene(updateScene);
-		newStage.show();
-		
-	}
-	private void deleteArticle(ActionEvent event) throws SQLException, IOException //admin can delete article
-	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
-		Parent deleteRoot = loader.load();
-		
-	//make an articleController
-		
-		//Set up the new stage and scene for the delete article
-		Stage newStage = new Stage();
-		Scene deleteArticleScene = new Scene(deleteRoot);
-		newStage.setTitle("Delete Article");
-		newStage.setScene(deleteArticleScene);
-		newStage.show();
-		
-	}
-	
-	public void createArticle(ActionEvent event) throws SQLException, IOException //admin intrstuctor and user create
-	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("UsersList.fxml"));
-		Parent articleRoot = loader.load();
-		
-	//make an articleCOntroller
-		
-		
-        // Set up the new stage and scene for the create Article
-		Stage newStage = new Stage();
-		Scene articleListScene = new Scene(articleRoot);
-		newStage.setTitle("Create Article");
-	    newStage.setScene(articleListScene);
-	    newStage.show();
 
+
+	
+	public void createArticle(ActionEvent event) {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorCreateArticle.fxml")); // Assuming it's in the same package
+	        Parent articleRoot = loader.load();
+
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(articleRoot));
+	        articleStage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace(); // Print stack trace for debugging
+	    }
 	}
+
 	
 	
 	
