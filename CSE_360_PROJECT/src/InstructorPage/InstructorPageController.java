@@ -50,13 +50,17 @@ public class InstructorPageController
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
+	private String username;
 	
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
 	}
 	
+	public void setUserName(String username)
+	{
+		this.username = username;
+	}
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
 	{
@@ -140,12 +144,16 @@ public class InstructorPageController
 	
 
 
-	
+	//function to create an article
 	public void createArticle(ActionEvent event) {
 	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("InstructorCreateArticle.fxml")); // Assuming it's in the same package
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
 	        Parent articleRoot = loader.load();
-
+	        
+	        ArticleController articleController = loader.getController();
+	        articleController.setRole("Instructor");
+	        articleController.setName(username);
+	        
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Create Article");
 	        articleStage.setScene(new Scene(articleRoot));
@@ -154,6 +162,7 @@ public class InstructorPageController
 	        e.printStackTrace(); // Print stack trace for debugging
 	    }
 	}
+
 
 	
 	

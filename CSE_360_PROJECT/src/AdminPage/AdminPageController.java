@@ -56,6 +56,7 @@ public class AdminPageController
 	private Scene scene;
 	private Parent root;
 	private Timeline deletePasscodeTimeline;
+	private String userName;
 	
 	//sets the user label
 	public void SetUserLabel(String username) {
@@ -146,9 +147,13 @@ public class AdminPageController
 	
 	public void createArticle(ActionEvent event) {
 	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateArticle.fxml")); // Assuming it's in the same package
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
 	        Parent articleRoot = loader.load();
-
+	        
+	        ArticleController articleController = loader.getController();
+	        articleController.setRole("Admin");
+	        articleController.setName(userName);
+	        
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Create Article");
 	        articleStage.setScene(new Scene(articleRoot));
@@ -308,7 +313,12 @@ public class AdminPageController
         newStage.setScene(RemoveScene);
         newStage.show();
 	}
-	
+
+
+	public void setUserName(String username) {
+		this.userName = username;
+		
+	}
 	
 	
 	

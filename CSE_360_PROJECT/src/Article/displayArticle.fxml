@@ -7,37 +7,37 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.ArticleDisplayController">
    <children>
-      <Label fx:id="titleLabel" layoutX="167.0" layoutY="14.0" text="Title">
+      <Label fx:id="titleLabel" layoutX="6.0" layoutY="14.0" text="Title">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label layoutX="135.0" layoutY="67.0" text="by">
+      <Label layoutX="1.0" layoutY="67.0" text="by">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="authorLabel" layoutX="179.0" layoutY="67.0" text="Author">
+      <Label fx:id="authorLabel" layoutX="45.0" layoutY="67.0" text="Author">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="keywordsLabel" layoutX="171.0" layoutY="123.0" text="Keywords">
+      <Label fx:id="keywordsLabel" layoutX="10.0" layoutY="126.0" text="Keywords">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Button fx:id="closeButton" layoutX="178.0" layoutY="351.0" mnemonicParsing="false" text="Close" />
-      <Label fx:id="abstractTextArea" layoutX="135.0" layoutY="165.0" text="abstract text">
+      <Label fx:id="abstractTextArea" layoutX="7.0" layoutY="165.0" text="abstract text">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="bodyTextArea" layoutX="181.0" layoutY="223.0" text="Body">
+      <Label fx:id="bodyTextArea" layoutX="7.0" layoutY="257.0" text="Body">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="refrencesTextArea" layoutX="176.0" layoutY="298.0" text="refrences" />
+      <Label fx:id="refrencesTextArea" layoutX="3.0" layoutY="311.0" text="refrences" />
    </children>
 </AnchorPane>

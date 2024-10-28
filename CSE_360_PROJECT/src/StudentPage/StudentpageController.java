@@ -1,6 +1,10 @@
 package StudentPage;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import Article.ArticleListController;
+import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -43,6 +47,7 @@ public class StudentpageController
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	private String userName;
 	
 	
 	public void SetUserLabel(String username) {
@@ -113,8 +118,43 @@ public class StudentpageController
 	            e.printStackTrace(); // Handle the exception appropriately
 	        }
 	    }
+
+
+	public void setUserName(String username) {
+		this.userName = username;
+		
+	}
 	
-	
+	public void ListArtilces(ActionEvent event) throws SQLException, IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ArticleListController articlelistController = loader.getController();
+		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+            // Execute SQL query to get all users from the database
+            ResultSet resultSet = dataBase.getArticles(); // Assuming this method fetches the ResultSet for all articles
+
+            // Pass the resultSet to the UserListController to load the data
+            articlelistController.loadArticleData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
 
 
 }

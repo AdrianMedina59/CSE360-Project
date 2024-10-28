@@ -207,6 +207,7 @@ public class Login_Button_Controller {
            InstructorPageController controller = loader.getController();
            dataBase.connectToDatabase();
            controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           controller.setUserName(dataBase.getFirstNameByUsername(username));
            dataBase.closeConnection();
            
          
@@ -238,6 +239,7 @@ private void loadStudentPage()throws SQLException {
            StudentpageController loginController = loader.getController();
            dataBase.connectToDatabase();
            loginController.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           loginController.setUserName(dataBase.getFirstNameByUsername(username));
            dataBase.closeConnection();
            
          
@@ -271,6 +273,8 @@ private void loadStudentPage()throws SQLException {
            AdminPageController loginController = loader.getController();
            dataBase.connectToDatabase();
            loginController.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           loginController.setUserName(dataBase.getFirstNameByUsername(username));
+           
            dataBase.closeConnection();
            
          
