@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import ConfirmLogin.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class Delete_ArticleController 
@@ -27,30 +28,31 @@ public class Delete_ArticleController
 	private DataBaseHelper dataBase = new DataBaseHelper();
 	
 	
-	public void DeleteArticle() throws IOException
+	public void DeleteArticle() throws SQLException 
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Delete_article.fxml"));
-		Parent remove = loader.load();
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Delete");
-		alert.setHeaderText("Are you sure you like to delete this article");
-		alert.setContentText("Hit Ok to delete the article, hit cancel to not delete the article!!");
-				
-		if(alert.showAndWait().get() == ButtonType.OK)
-		{
-			//if(dataBase.getArticleByName(titleFromDb))
-			//{
-				
-		//	}
+		String article = Article_title.getText();
+			
+		dataBase.connectToDatabase();
+		 Alert alert = new Alert(AlertType.CONFIRMATION);
+
+    	alert.setTitle("Delete");
+    	alert.setHeaderText("Would you like to delete the article");
+    	alert.setContentText("Hit submit to delete the article");
+    			
+    	if(alert.showAndWait().get() == ButtonType.OK)
+    	{
+    		
+    		//if(dataBase.getUser(username).equals(username) && !dataBase.getRole(username).equals("Admin")) {
+                //delete user
+               // dataBase.deleteUser(username);
+                
+            }
+    		
+    	}
+}
 			
 			
 			
-			
-			
-		}
-		
-		
-	}
+
 	
 
-}
