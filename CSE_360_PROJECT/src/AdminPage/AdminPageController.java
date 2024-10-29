@@ -199,7 +199,7 @@ public class AdminPageController
         newStage.show();
     }
 	
-	public void Article_delete() throws IOException, SQLException
+	public void Article_delete(ActionEvent event) throws IOException, SQLException
 	{
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/Delete_Article.fxml"));
@@ -207,6 +207,11 @@ public class AdminPageController
 		Delete_ArticleController Delete_ArticleController = loader.getController();
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
+        Stage newStage = new Stage();
+        Scene RemoveArticle= new Scene(deletearticleroot);
+        newStage.setTitle("Remove Article");
+        newStage.setScene(RemoveArticle);
+        newStage.show();
 		
 	}
 	
