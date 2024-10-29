@@ -1,3 +1,15 @@
+/**
+ * <p> DataBaseHelper class. </p>
+ * 
+ * <p> Description: This will delete the article title .</p>
+ * 
+ * <p> Copyright: Mark Loffman © 2024 </p>
+ * 
+ * @author : Mark Loffman
+ * 
+ * @version 1.00		2024-10-29
+ *  
+ */
 package Article;
 
 import java.io.IOException;
@@ -11,6 +23,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import ConfirmLogin.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +36,7 @@ public class Delete_ArticleController
 	private TextField Article_title; // JavaFX TextField to delete the article title
 	
 	@FXML
-	private AnchorPane scenePane;
+	private AnchorPane DeleteArticle;
 	@FXML
 	private DataBaseHelper dataBase = new DataBaseHelper();
 	
@@ -33,6 +46,7 @@ public class Delete_ArticleController
 		String article = Article_title.getText();
 			
 		dataBase.connectToDatabase();
+		
 		 Alert alert = new Alert(AlertType.CONFIRMATION);
 
     	alert.setTitle("Delete");
@@ -42,13 +56,25 @@ public class Delete_ArticleController
     	if(alert.showAndWait().get() == ButtonType.OK)
     	{
     		
-    		//if(dataBase.getUser(username).equals(username) && !dataBase.getRole(username).equals("Admin")) {
-                //delete user
-               // dataBase.deleteUser(username);
+    		if(dataBase.getArticleByName(article).equals(article)) 
+    		{
+                //delete article based on title
+               dataBase.deletearticle(article);
                 
             }
     		
     	}
+    	
+    	closeWindow();
+	}
+	
+	
+    void closeWindow()
+    {
+    	 // Code to close the window
+        Stage stage = (Stage) DeleteArticle.getScene().getWindow();
+        stage.close();
+    }
 }
 			
 			
