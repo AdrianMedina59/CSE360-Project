@@ -106,7 +106,7 @@ public class StudentpageController
 	 private void loadSearchArticlesPage() {
 	        try {
 	            // Load the FXML file for the new scene
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchArticles.fxml"));
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleChoice.fxml"));
 	            AnchorPane newPage = loader.load();
 
 	            // Create a new scene and set it to the current stage

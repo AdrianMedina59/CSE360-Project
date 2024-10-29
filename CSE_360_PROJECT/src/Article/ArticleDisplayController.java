@@ -23,7 +23,7 @@ public class ArticleDisplayController {
 
     // Set article data into the UI components
     public void setArticleData(Article article) throws Exception {
-        titleLabel.setText(article.getTitle());
+    	titleLabel.setText(article.getTitle());
         authorLabel.setText(String.join(", ", article.getAuthors()));
         keywordsLabel.setText(String.join(", ", article.getKeywords()));
         abstractTextArea.setText(article.getAbstractText());

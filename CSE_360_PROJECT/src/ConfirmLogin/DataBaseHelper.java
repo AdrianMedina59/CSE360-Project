@@ -17,10 +17,6 @@ package ConfirmLogin;
 import java.awt.TextField;
 
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import Article.Article;
 public class DataBaseHelper {
@@ -513,4 +509,22 @@ public class DataBaseHelper {
 		    }
 		}
 		}
+
+		 public ResultSet getInstructorArticles() throws SQLException {
+		        String query = "SELECT * FROM Articles WHERE role = ?";
+
+		        PreparedStatement preparedStatement = connection.prepareStatement(query);
+		        preparedStatement.setString(1, "Instructor");
+
+		        return preparedStatement.executeQuery();
+		    }
+		 
+		 public ResultSet getAdminArticles() throws SQLException {
+		        String query = "SELECT * FROM Articles WHERE role = ?";
+
+		        PreparedStatement preparedStatement = connection.prepareStatement(query);
+		        preparedStatement.setString(1, "Admin");
+
+		        return preparedStatement.executeQuery();
+		    }
 }

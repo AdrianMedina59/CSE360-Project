@@ -166,7 +166,7 @@ public class AdminPageController
 	
 
 	
-	public void ListArtilces(ActionEvent event) throws SQLException, IOException
+	public void ListArtices(ActionEvent event) throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
 	    Parent listArticleRoot = loader.load();
