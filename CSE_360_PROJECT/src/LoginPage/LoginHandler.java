@@ -52,7 +52,7 @@ public class LoginHandler extends Application {
         primaryStage.show();
     }
 
-    public void testing() {
+    public static void testing() {
         // Print basic UI separators
         System.out.println("____________________________________________________________________________");
         System.out.println("\nLogin Testing Automation");
@@ -181,5 +181,7 @@ public class LoginHandler extends Application {
     public static void main(String[] args) {
         // Launch the JavaFX application
         launch(args);
+        
+        testing();
     }
 }
