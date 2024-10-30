@@ -382,7 +382,8 @@ public class DataBaseHelper {
 		}
 		
 		//method gets the username in database
-		public String getUser(String username) throws SQLException {
+		public String getUser(String username) throws SQLException 
+		{
 		    String query = "SELECT username FROM users WHERE username = ?";
 		    
 		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -399,7 +400,10 @@ public class DataBaseHelper {
 		    }
 		}
 		
-		public boolean deleteUser(String username) throws SQLException {
+		
+		
+		public boolean deleteUser(String username) throws SQLException 
+		{
 		    String query = "DELETE FROM users WHERE username = ?";
 		    
 		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -411,6 +415,7 @@ public class DataBaseHelper {
 		    }
 		}
 		
+				
 
 		public static Article getArticleByName(Connection connection, String title) throws Exception {
 		    String query = "SELECT * FROM articles WHERE title = ?";
@@ -445,6 +450,10 @@ public class DataBaseHelper {
 		        throw e; // Re-throw the exception for handling at a higher level
 		    }
 		}
+		
+		
+		
+		
 		public String getRole(String User) throws SQLException {
 			String query = "SELECT role FROM users WHERE username = ?";
 			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -527,4 +536,63 @@ public class DataBaseHelper {
 
 		        return preparedStatement.executeQuery();
 		    }
-}
+		 
+
+		public String getArticle(String title) throws SQLException 
+		
+		{
+			 String query = "SELECT username FROM users WHERE username = ?";
+			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+			        pstmt.setString(1, title);  // Set the title in the query
+			        ResultSet resultSet = pstmt.executeQuery();
+			        
+			        if (resultSet.next()) {
+			            // Return the found the article title
+			            return resultSet.getString("title");
+			        } else {
+			            // Return null or a message if the artcle title is not found
+			            return "Article title not found.";
+			        }
+			    }
+			    
+		}
+		
+		public boolean deletearticle(String title) throws SQLException
+		{
+		    String query = "DELETE FROM Articles WHERE title= ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, title);  // Set the username in the query
+		        
+		        int affectedRows = pstmt.executeUpdate();  // Execute the delete statement
+		        
+		        // If affectedRows is greater than 0, it means a user was deleted
+		        return affectedRows > 0;
+		    }
+			
+			
+		}
+
+	
+
+		public Object delete_articles(String title) throws SQLException 
+		{
+		    String query = "SELECT username FROM users WHERE username = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, title);  // Set the title in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        if (resultSet.next()) {
+		            // Return the found article
+		            return resultSet.getString("article title");
+		        } else {
+		            // Return null or a message if the article title is not found
+		            return "Article title not found.";
+		        }
+		    }
+		}
+			
+	}
+	
+	 
