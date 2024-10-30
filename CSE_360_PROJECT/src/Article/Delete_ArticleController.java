@@ -1,15 +1,16 @@
 /**
- * <p> DataBaseHelper class. </p>
+ * <p> Main class for continue to delete article </p>
  * 
- * <p> Description: This will delete the article title .</p>
+ * <p> Description: This will be used to search through the database and delete an article by inputting the title .</p>
  * 
  * <p> Copyright: Mark Loffman © 2024 </p>
  * 
  * @author : Mark Loffman
  * 
- * @version 1.00		2024-10-29
+ * @version 1.00		2024-10-28
  *  
  */
+
 package Article;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class Delete_ArticleController
 	
 	public void DeleteArticle() throws SQLException 
 	{
-		String article = Article_title.getText();
+		String title = Article_title.getText();
 			
 		dataBase.connectToDatabase();
 		
@@ -56,10 +57,10 @@ public class Delete_ArticleController
     	if(alert.showAndWait().get() == ButtonType.OK)
     	{
     		
-    		if(dataBase.getArticleByName(article).equals(article)) 
+    		if(dataBase.delete_articles(title).equals(title)) 
     		{
                 //delete article based on title
-               dataBase.deletearticle(article);
+               dataBase.deletearticle(title);
                 
             }
     		
@@ -76,9 +77,4 @@ public class Delete_ArticleController
         stage.close();
     }
 }
-			
-			
-			
-
-	
-
+		
