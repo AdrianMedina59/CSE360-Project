@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 import Article.ArticleController;
 import Article.ArticleListController;
+import Article.Delete_ArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
@@ -61,6 +62,22 @@ public class InstructorPageController
 	{
 		this.username = username;
 	}
+	
+	
+	public void Article_delete(ActionEvent event) throws IOException, SQLException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/Delete_article.fxml"));
+		Parent deletearticleroot = loader.load();
+		Delete_ArticleController DeleteArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deletearticleroot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+
+  }
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
 	{

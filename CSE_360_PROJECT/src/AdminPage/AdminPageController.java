@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import Article.ArticleController;
+import Article.Delete_ArticleController;
 import Article.ArticleListController;
 import javafx.scene.Node;
 import javafx.fxml.FXML;
@@ -38,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+
 public class AdminPageController 
 {
 	
@@ -197,6 +199,20 @@ public class AdminPageController
         newStage.show();
     }
 	
+	public void Article_delete(ActionEvent event) throws IOException, SQLException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/Delete_article.fxml"));
+		Parent deletearticleroot = loader.load();
+		Delete_ArticleController DeleteArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deletearticleroot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+
+  }
 	
 	
 
