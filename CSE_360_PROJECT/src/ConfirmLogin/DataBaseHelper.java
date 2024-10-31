@@ -354,19 +354,19 @@ public class DataBaseHelper {
 			}
 		}
 		
-		public boolean isValidArticle(String title, String keyword) throws SQLException
-		{
-			String query = "SELECT * FROM articles WHERE title = ? AND keywords = ?";
-			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-				pstmt.setString(1, title);
-				pstmt.setString(2, keyword);
-		        ResultSet resultSet = pstmt.executeQuery();
-		        
-		        //if there's a result, the username and password are valid
-		        
-		        return resultSet.next();
-			}
-		}
+	    public boolean isValidArticle(String title, String keyword) throws SQLException
+        {
+            String query = "SELECT * FROM articles WHERE title LIKE ? AND keywords LIKE ?";
+            try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setString(1, "%" + title + "%");
+                pstmt.setString(2, "%" + keyword+ "%");
+                ResultSet resultSet = pstmt.executeQuery();
+
+                //if there's a result, the username and password are valid
+
+                return resultSet.next();
+            }
+        }
 		
 		// Method to validate user credentials
 		public boolean isValidUser(String username, String password) throws SQLException {
@@ -527,4 +527,40 @@ public class DataBaseHelper {
 
 		        return preparedStatement.executeQuery();
 		    }
+		 
+		 public boolean deletearticle(String title) throws SQLException
+			{
+			    String query = "DELETE FROM Articles WHERE title= ?";
+			    
+			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+			        pstmt.setString(1, title);  // Set the username in the query
+			        
+			        int affectedRows = pstmt.executeUpdate();  // Execute the delete statement
+			        
+			        // If affectedRows is greater than 0, it means a user was deleted
+			        return affectedRows > 0;
+			    }
+				
+				
+			}
+
+		
+
+			public Object delete_articles(String title) throws SQLException 
+			{
+			    String query = "SELECT username FROM users WHERE username = ?";
+			    
+			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+			        pstmt.setString(1, title);  // Set the title in the query
+			        ResultSet resultSet = pstmt.executeQuery();
+			        
+			        if (resultSet.next()) {
+			            // Return the found article
+			            return resultSet.getString("article title");
+			        } else {
+			            // Return null or a message if the article title is not found
+			            return "Article title not found.";
+			        }
+			    }
+			}
 }
