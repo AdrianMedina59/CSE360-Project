@@ -145,12 +145,12 @@ public class LoginConfirmController {
 			//inputting content to database 
 			DATA_BASE_HELPER.register(FirstName, PFirstName, MiddleName, LastName, Email,username ,password ,role);
 			
-			//LINE HELPS WITH DEBUGGING DATA BASE//
-			DATA_BASE_HELPER.PrintUserTables();
-			System.out.println("Username: " + username);
-	    	System.out.println("password: " + password);
-			titleLabel.setText("Thanks!");
-			
+//			//LINE HELPS WITH DEBUGGING DATA BASE//
+//			DATA_BASE_HELPER.PrintUserTables();
+//			System.out.println("Username: " + username);
+//	    	System.out.println("password: " + password);
+//			titleLabel.setText("Thanks!");
+//			
 			return true;
 		}
 		else {
