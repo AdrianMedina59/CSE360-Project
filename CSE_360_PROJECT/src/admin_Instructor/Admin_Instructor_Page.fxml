@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="87.0" layoutY="22.0" prefHeight="123.0" prefWidth="684.0" text="Welcome to the Admin Instructors home page">
@@ -31,14 +30,12 @@
       <Button layoutX="355.0" layoutY="205.0" mnemonicParsing="false" text="View Groups" />
       <Button layoutX="355.0" layoutY="249.0" mnemonicParsing="false" text="Add Student" />
       <Button layoutX="349.0" layoutY="298.0" mnemonicParsing="false" text="Add Instructors" />
-      <Button layoutX="354.0" layoutY="348.0" mnemonicParsing="false" text="Add Admins " />
       <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="207.0" text="Remove Article Functions">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="578.0" layoutY="262.0" mnemonicParsing="false" text="Remove Instructors" />
+      <Button layoutX="571.0" layoutY="262.0" mnemonicParsing="false" text="Remove Instructors" />
       <Button layoutX="578.0" layoutY="205.0" mnemonicParsing="false" text="Remove Student" />
-      <Button layoutX="578.0" layoutY="323.0" mnemonicParsing="false" text="Remove Admins" />
    </children>
 </AnchorPane>
