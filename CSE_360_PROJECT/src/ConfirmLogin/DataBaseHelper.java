@@ -42,6 +42,7 @@ public class DataBaseHelper {
 				createTables();  // Create the necessary tables if they don't exist
 				createPasscodeTable();
 				createArticlesTable();
+				createGeneralGroupsTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
 			}
@@ -129,6 +130,59 @@ public class DataBaseHelper {
 	            stmt.execute(createTableSQL);
 	        }
 	    }
+	    
+	    /*
+	     * 
+	     *  THIS PORTION DEALS WITH CLASSES AND GROUPS
+	     * 
+	     */
+	    
+	    // method to create the GeneralGroups table
+	    private void createGeneralGroupsTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS generalGroups (" +
+	                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+	                                "name VARCHAR(255) NOT NULL UNIQUE)";
+	        statement.execute(createTableSQL);
+	    }
+	    
+	    //method to create classes table
+	    private void createClassesTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classes ("
+	                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+	                + "name VARCHAR(255) NOT NULL, "
+	                + "generalGroupId INT, "
+	                + "FOREIGN KEY (generalGroupId) REFERENCES generalGroups(id))";
+	        statement.execute(createTableSQL);
+	    }
+	    
+	    // method to create the ClassStudents join table
+	    private void createClassStudentsTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classStudents ("
+	                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+	                + "userId INT NOT NULL, "
+	                + "classId INT NOT NULL, "
+	                + "FOREIGN KEY (userId) REFERENCES users(id), "
+	                + "FOREIGN KEY (classId) REFERENCES classes(id))";
+	        statement.execute(createTableSQL);
+	    }
+	    
+	    // Method to enroll a student in a class 
+	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
+	        String insertSQL = "INSERT INTO classStudents (userId, classId) VALUES (?, ?)";
+	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+	            pstmt.setInt(1, userId);
+	            pstmt.setInt(2, classId);
+	            pstmt.executeUpdate();
+	        }
+	    }
+	    
+	    
+	    /*
+	     * 
+	     * 
+	     * 
+	     */
+	    
 	 // Method to get the number of users in the database
 	    public int getNumberOfUsers() throws SQLException {
 	        String query = "SELECT COUNT(*) AS total FROM users";

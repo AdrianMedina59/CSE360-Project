@@ -6,10 +6,10 @@ public class schoolClass {
 
 	private int id;
 	private String name;
-	private Category category;
+	private Group category;
 	
 	
-	public void schoolClass(int id, String name, Category category)
+	public void schoolClass(int id, String name, Group category)
 	{
 		this.id = id;
 		this.name = name;
@@ -23,7 +23,7 @@ public class schoolClass {
 	
 	// SETTERS AND GETTERS
 	
-	public Category getCategory()
+	public Group getCategory()
 	{
 		return category;
 	}
@@ -46,7 +46,7 @@ public class schoolClass {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setCategory(Category category)
+	public void setCategory(Group category)
 	{
 		this.category = category;
 		

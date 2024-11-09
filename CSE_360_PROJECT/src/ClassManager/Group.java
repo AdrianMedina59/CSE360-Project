@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.swing.plaf.synth.SynthColorChooserUI;
 
-public class Category {
+public class Group {
 	private int id;
 	private String name;
 	private List<schoolClass> classes;
