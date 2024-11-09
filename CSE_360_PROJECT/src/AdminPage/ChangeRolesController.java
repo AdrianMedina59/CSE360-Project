@@ -53,4 +53,19 @@ public class ChangeRolesController {
         }
         dataBase.closeConnection();
     } 
+    
+    
+    public void setAdminInstructor() throws SQLException {
+        String username = Username_textfield.getText();
+        dataBase.connectToDatabase();
+        if (dataBase.getUser(username) == null) {
+            username_label.setText("Username not found");
+        } else {
+            dataBase.updateUserRole(username, "Admin Instructor");
+            username_label.setText("Role updated to Admin Instructor"); // Optional feedback
+        }
+        dataBase.closeConnection();
+    
+    }
+    
 }
