@@ -8,6 +8,8 @@ module CSE_360_PROJECT {
 	requires javafx.graphics;
 	requires javafx.fxml;
 	requires javafx.controls;
+    opens admin_Instructor to javafx.fxml;
+
 	requires java.sql;
 	requires com.h2database;
 	requires javafx.base;
@@ -26,6 +28,8 @@ module CSE_360_PROJECT {
     opens StudentPage to javafx.fxml;
     exports StudentPage;
     opens InstructorPage to javafx.fxml;
+    exports admin_Instructor;
+
     
 
 
