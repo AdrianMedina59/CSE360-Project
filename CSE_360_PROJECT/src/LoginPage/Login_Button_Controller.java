@@ -16,6 +16,7 @@ import ConfirmLogin.*;
 import InstructorPage.*;
 import StudentPage.StudentPageHandler;
 import StudentPage.StudentpageController;
+import admin_Instructor.Admin_Instructor_Controller;
 import AdminPage.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -295,6 +296,38 @@ private void loadStudentPage()throws SQLException {
           e.printStackTrace();
       }
   }
+  
+  private void loadAdminInstructorPage() throws SQLException {
+	    try {
+	        // Load the FXML file for the Admin Instructor page
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin_Instructor/Admin_Instructor_Page.fxml"));
+	        Parent root = loader.load();
+
+	        // Get the controller associated with the FXML
+	        Admin_Instructor_Controller controller = loader.getController();
+	        dataBase.connectToDatabase();
+	        
+	        // Set the username label (or any other user-specific info)
+	        controller.SetUserLabel(dataBase.getFirstNameByUsername(username));  // Assuming `getFirstNameByUsername()` is a method in your `DataBaseHelper`
+	        controller.setUserName(dataBase.getFirstNameByUsername(username));
+	        
+	        dataBase.closeConnection();
+
+	        // Initialize and display the new Admin Instructor page scene
+	        Stage stage = (Stage) titleLabel.getScene().getWindow();
+	        Scene adminInstructorScene = new Scene(root);
+
+	        // Add the CSS file to the scene
+	        adminInstructorScene.getStylesheets().add(getClass().getResource("/admin_Instructor/application.css").toExternalForm());
+
+	        // Set the scene and show the stage
+	        stage.setScene(adminInstructorScene);
+	        stage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	//checks if the email is already in data base
   	private boolean IsUserNameExists(String username) throws SQLException{
   		String query = "SELECT COUNT(*) AS count FROM users WHERE username = ?";

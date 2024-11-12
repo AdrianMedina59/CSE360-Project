@@ -13,6 +13,7 @@
 package ConfirmLogin;
 import AdminPage.*;
 import LoginPage.*;
+import admin_Instructor.Admin_Instructor_Controller;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -245,6 +246,34 @@ public class LoginConfirmController {
   	  
     }
     
+    private void loadAdminInstructor()throws SQLException {
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin_Instructor/Admin_Instrutctor_Page.fxml"));
+    		Parent root = loader.load();
+    		
+    		
+    		Admin_Instructor_Controller AiController = loader.getController();
+            DATA_BASE_HELPER.connectToDatabase();
+            AiController.SetUserLabel(DATA_BASE_HELPER.getFirstNameByUsername(username));
+            DATA_BASE_HELPER.closeConnection();
+
+            
+            Stage stage = (Stage) titleLabel.getScene().getWindow();
+            Scene AdminInScene = new Scene(root);
+            
+            AdminInScene.getStylesheets().add(getClass().getResource("/admin_Instructor/application.css").toExternalForm());
+            stage.setScene(AdminInScene);
+            stage.show();
+
+    	 } catch (IOException e) {
+             e.printStackTrace();
+         }
+   	  
+     }
+     
+    
+  
+
 	//checks if the email is already in data base
 	private boolean isEmailExists(String email) throws SQLException{
 		String query = "SELECT COUNT(*) AS count FROM users WHERE email = ?";
