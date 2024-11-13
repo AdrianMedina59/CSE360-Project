@@ -88,6 +88,7 @@ public class helpArticleController {
         helpArticle.displayContent();
     }
     
+    
     public void handleRestoreHelpArticle() {
         try {
             // Get the deleted help articles using the getHelpArticlesD() method from DataBaseHelper

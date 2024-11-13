@@ -407,6 +407,7 @@ public class AdminPageController
 		
 		
 		
+		
 	}
 	@FXML
 	public void restoreDeletedArticles(ActionEvent event) {

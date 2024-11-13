@@ -733,6 +733,7 @@ public class DataBaseHelper {
 		
 		
 		
+		
 
 		// Method to delete an article based on its title
 		public boolean deleteArticle(String title) throws SQLException {

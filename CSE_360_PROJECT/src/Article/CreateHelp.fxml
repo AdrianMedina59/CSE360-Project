@@ -9,6 +9,7 @@
 
 
 
+
 <AnchorPane prefHeight="364.0" prefWidth="452.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Article.helpArticleController">
    <children>
       <AnchorPane layoutY="-79.0" prefHeight="381.0" prefWidth="498.0">

@@ -103,6 +103,7 @@ public class hArticleListController {
         }
     }
     
+    
 
     // Method to close the window
     @FXML
