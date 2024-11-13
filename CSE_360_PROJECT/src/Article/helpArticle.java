@@ -22,6 +22,7 @@ import java.sql.SQLException;
  *  
  */
 
+
 public class helpArticle {
 	private char[] title;          //title char array
 	private byte[] Encryptedbody;          //char array for body of article
