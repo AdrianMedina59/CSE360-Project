@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane fx:id="DeleteArticle" prefHeight="304.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.Delete_HelpArticleController">
    <children>
       <Label layoutX="56.0" layoutY="65.0" prefHeight="39.0" prefWidth="342.0" text="Enter a help article to delete">

@@ -102,6 +102,7 @@ public class hArticleListController {
             e.printStackTrace();
         }
     }
+    
 
     // Method to close the window
     @FXML
