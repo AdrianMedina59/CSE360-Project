@@ -305,22 +305,14 @@ private void loadStudentPage()throws SQLException {
 
 	        // Get the controller associated with the FXML
 	        Admin_Instructor_Controller controller = loader.getController();
+	        
 	        dataBase.connectToDatabase();
-	        
-	        // Set the username label (or any other user-specific info)
-	        controller.SetUserLabel(dataBase.getFirstNameByUsername(username));  // Assuming `getFirstNameByUsername()` is a method in your `DataBaseHelper`
-	        controller.setUserName(dataBase.getFirstNameByUsername(username));
-	        
 	        dataBase.closeConnection();
 
 	        // Initialize and display the new Admin Instructor page scene
 	        Stage stage = (Stage) titleLabel.getScene().getWindow();
 	        Scene adminInstructorScene = new Scene(root);
 
-	        // Add the CSS file to the scene
-	        adminInstructorScene.getStylesheets().add(getClass().getResource("/admin_Instructor/application.css").toExternalForm());
-
-	        // Set the scene and show the stage
 	        stage.setScene(adminInstructorScene);
 	        stage.show();
 	    } catch (IOException e) {
