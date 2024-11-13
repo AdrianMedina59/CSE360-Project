@@ -176,7 +176,9 @@ public class LoginConfirmController {
                     // Load the admin page
                 	loadAdminPage();
                    
-                } else if  ("Student".equals(role)){
+                } else if("Admin Instructor".equals(role)){
+                	loadAdminInstructor();
+                }else if  ("Student".equals(role)){
                    loadStudentPage();
                 }
             }
