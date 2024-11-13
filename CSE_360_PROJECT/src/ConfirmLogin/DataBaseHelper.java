@@ -19,6 +19,7 @@ import java.awt.TextField;
 import java.sql.*;
 
 import Article.Article;
+import Article.helpArticle;
 public class DataBaseHelper {
 	
 	// JDBC driver name and database URL 
@@ -42,6 +43,7 @@ public class DataBaseHelper {
 				createTables();  // Create the necessary tables if they don't exist
 				createPasscodeTable();
 				createArticlesTable();
+				createHelpArticlesTable();
 				createGeneralGroupsTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
@@ -82,7 +84,19 @@ public class DataBaseHelper {
 		        stmt.execute(createTableSQL);
 		    }
 		}
-
+		private void createHelpArticlesTable() throws SQLException{
+			String createTableSQL = "CREATE TABLE IF NOT EXISTS help_articles (" +
+									"id INT AUTO_INCREMENT PRIMARY KEY, " +
+									"title VARCHAR(255) NOT NULL, " +
+									"Body VARCHAR(1000), " +
+		                            "role VARCHAR(20), " +
+		                            "deleted BOOLEAN DEFAULT FALSE)";
+			try (Statement stmt = connection.createStatement()) {
+		        stmt.execute(createTableSQL);
+		        System.out.println("is it working");
+		    }
+		}
+		
 		// Method to update a user's role based on their username
 		public boolean updateUserRole(String username, String newRole) throws SQLException {
 		    // SQL query to update the user's role
@@ -117,6 +131,20 @@ public class DataBaseHelper {
 		        System.out.println("Inserting article with title: " + article.getTitle());
 		        System.out.println("Article Body: " + article.getBody());
 		    }
+		}
+		
+		public void insertHelpArticle(helpArticle helpArticle, String role) throws Exception {
+		    String insertSQL = "INSERT INTO help_articles (title, body, role) VALUES (?, ?, ?)";
+		    try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+		        pstmt.setString(1, helpArticle.getTitle());
+		        pstmt.setString(2, helpArticle.getBody());
+		        pstmt.setString(3, role); // Set the role
+		        pstmt.executeUpdate();
+		        System.out.println("Inserting help article with title: " + helpArticle.getTitle());
+		        System.out.println("Help article Body: " + helpArticle.getBody());
+		        System.out.println("hi guys");
+		    }
+
 		}
 
 		 // Create the passcodes table if it does not exist
@@ -374,6 +402,18 @@ public class DataBaseHelper {
 			String query = "SELECT * FROM articles";
 			return statement.executeQuery(query);
 		}
+		public ResultSet getHelpArticles() throws SQLException {
+		    String query = "SELECT * FROM help_articles WHERE deleted = FALSE"; // Exclude deleted articles
+		    return statement.executeQuery(query);
+		}
+		
+		// In DataBaseHelper.java
+		public ResultSet getHelpArticlesD() throws SQLException {
+		    String query = "SELECT * FROM help_articles WHERE deleted = true";
+		    Statement stmt = connection.createStatement();
+		    return stmt.executeQuery(query);
+		}
+
 		
 		//returns connection
 		public Connection getConnection()
@@ -434,6 +474,20 @@ public class DataBaseHelper {
                 return resultSet.next();
             }
         }
+	    
+	    public boolean isValidHelpArticleTitle(String title) throws SQLException
+	    {
+	    	String query = "SELECT * FROM help_articles WHERE title LIKE ?";
+	    	try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                pstmt.setString(1, "%" + title + "%");
+                ResultSet resultSet = pstmt.executeQuery();
+
+                //if there's a result, the username and password are valid
+
+                return resultSet.next();
+            }
+	    	
+	    }
 		
 		// Method to validate user credentials
 		public boolean isValidUser(String username, String password) throws SQLException {
@@ -518,6 +572,34 @@ public class DataBaseHelper {
 		    }
 		}
 		
+		public static helpArticle getHelpArticleByName(Connection connection, String title) throws Exception {
+		    String query = "SELECT * FROM help_articles WHERE title = ?";
+		   
+		    if (connection == null) {
+		        throw new SQLException("Connection cannot be null.");
+		    }
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, title); // Set the title parameter
+		        
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                String titleFromDb = resultSet.getString("title");
+		                String body = resultSet.getString("Body");
+
+		                // Create and return the Article object
+		                return new helpArticle(titleFromDb, body);
+		            } else {
+		                System.out.println("Article not found.");
+		                return null;
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw e; // Re-throw the exception for handling at a higher level
+		    }
+		}
+		
 		
 		
 		
@@ -585,6 +667,29 @@ public class DataBaseHelper {
 		    }
 		}
 		}
+		
+		public void displayHelpArticles() throws SQLException {
+		    String query = "SELECT * FROM help_articles"; // SQL query to retrieve all help articles
+		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
+		        // Print column headers for clarity
+		        System.out.println("ID | Title | Body | Role");
+		        System.out.println("---------------------------------");
+		        
+		        // Loop through the result set and print each help article's details
+		        while (resultSet.next()) {
+		            int id = resultSet.getInt("id");
+		            String title = resultSet.getString("title");
+		            String body = resultSet.getString("Body");
+		            String role = resultSet.getString("role");  // Retrieve the role
+
+		            // Print the help article details, including the role
+		            System.out.println(id + " | " + title + " | " + body + " | " + role);
+		        }
+		    }
+		}
+
+		
+		
 
 		 public ResultSet getInstructorArticles() throws SQLException {
 		        String query = "SELECT * FROM Articles WHERE role = ?";
@@ -626,6 +731,7 @@ public class DataBaseHelper {
 			    
 		}
 		
+
 		// Method to delete an article based on its title
 		public boolean deleteArticle(String title) throws SQLException {
 		    String deleteSQL = "DELETE FROM articles WHERE title = ?";
@@ -637,6 +743,22 @@ public class DataBaseHelper {
 		        int affectedRows = pstmt.executeUpdate();
 
 		        // If affectedRows is greater than 0, it means the article was deleted
+		        return affectedRows > 0;
+		    }
+		}
+		public boolean deleteHelpArticle(String title) throws SQLException {
+		    String updateSQL = "UPDATE help_articles SET deleted = TRUE WHERE title = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+		        pstmt.setString(1, title); // Set the article title in the query
+		        int affectedRows = pstmt.executeUpdate();
+		        return affectedRows > 0;
+		    }
+		}
+		public boolean restoreHelpArticle(String title) throws SQLException {
+		    String updateSQL = "UPDATE help_articles SET deleted = FALSE WHERE title = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+		        pstmt.setString(1, title); // Set the article title in the query
+		        int affectedRows = pstmt.executeUpdate();
 		        return affectedRows > 0;
 		    }
 		}

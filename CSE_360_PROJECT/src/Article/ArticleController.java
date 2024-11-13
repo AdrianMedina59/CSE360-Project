@@ -104,6 +104,10 @@ public class ArticleController {
         {
         	dataBaseHelper.insertArticle(article,"Student");
         }
+        else if(role == "Admin Instructor")
+        {
+        	dataBaseHelper.insertArticle(article,"Admin Instructor");	
+        }
         dataBaseHelper.displayArticles();
         dataBaseHelper.closeConnection();
         

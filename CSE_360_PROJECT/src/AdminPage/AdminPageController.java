@@ -17,13 +17,19 @@ import ConfirmLogin.*;
 import javafx.event.ActionEvent;
 import LoginPage.*;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
 import Article.ArticleController;
 import Article.Delete_ArticleController;
+import Article.Delete_HelpArticleController;
+import Article.helpArticleController;
 import Article.ArticleListController;
+import Article.helpArticleController;
+import Article.hArticleListController;
 import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +57,8 @@ public class AdminPageController
     private Label TitleLabel;
 	@FXML
 	private Label UserLabel;
+	@FXML
+	private Button restoreDeletedButton;
 	
 	private DataBaseHelper dataBase = new DataBaseHelper();
 	
@@ -164,10 +172,28 @@ public class AdminPageController
 	        e.printStackTrace(); // Print stack trace for debugging
 	    }
 	}
+	
+	public void createHelpArticle(ActionEvent event) {
+		try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
+	        Parent helpRoot = loader.load();
+	        helpArticleController helpArticleController = loader.getController();
+	        helpArticleController.setRole("Admin");
+	        helpArticleController.setName(userName);
+	        
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(helpRoot));
+	        articleStage.show();
+		 } catch (IOException e) {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
 
+
+
+		}
 	
 
-	
 	public void ListArtices(ActionEvent event) throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
@@ -199,6 +225,37 @@ public class AdminPageController
         newStage.show();
     }
 	
+	public void ListHelpArticles(ActionEvent event) throws SQLException, IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/HelpArticleList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		hArticleListController harticlelistController = loader.getController();
+		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+            // Execute SQL query to get all users from the database
+            ResultSet resultSet = dataBase.getHelpArticles(); // Assuming this method fetches the ResultSet for all articles
+
+            // Pass the resultSet to the UserListController to load the data
+            harticlelistController.loadHelpArticleData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Help Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+	}
+	
 	public void Article_delete(ActionEvent event) throws IOException, SQLException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/Delete_article.fxml"));
@@ -213,7 +270,21 @@ public class AdminPageController
 		newStage.show();
 
   }
-	
+
+	public void HelpArticle_delete(ActionEvent event) throws IOException, SQLException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+
+  }	
 	
 
 	//generates a random code for invite and reset
@@ -335,6 +406,58 @@ public class AdminPageController
 		this.userName = username;
 		
 	}
+	@FXML
+	public void restoreDeletedArticles(ActionEvent event) {
+	    // Confirm restoration action
+	    Alert alert = new Alert(AlertType.CONFIRMATION);
+	    alert.setTitle("Restore Help Articles");
+	    alert.setHeaderText("Restore Deleted Help Articles");
+	    alert.setContentText("Are you sure you want to restore all deleted articles?");
+
+	    if (alert.showAndWait().get() == ButtonType.OK) {
+	        try {
+	            // Connect to the database
+	            dataBase.connectToDatabase();  // Use the already existing connection from dataBase
+	            
+	            // Create SQL query to restore deleted articles
+	            String restoreQuery = "UPDATE help_articles SET deleted = false WHERE deleted = true";
+	            
+	            // Create a statement to execute the query
+	            Statement statement = dataBase.getConnection().createStatement();
+	            statement.executeUpdate(restoreQuery);  // Executes the query
+	            
+	            // Inform the user that the articles were restored
+	            showInfoAlert("Success", "Articles Restored", "All deleted articles have been restored.");
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            // Show error message if something goes wrong
+	            showErrorAlert("Failed to Restore Articles", "There was an error restoring the articles.");
+	        } finally {
+	            // Ensure the connection is closed after the operation
+	            dataBase.closeConnection();
+	        }
+	    }
+	}
+
+	// Utility method to show success alerts
+	private void showInfoAlert(String title, String header, String content) {
+	    Alert successAlert = new Alert(AlertType.INFORMATION);
+	    successAlert.setTitle(title);
+	    successAlert.setHeaderText(header);
+	    successAlert.setContentText(content);
+	    successAlert.showAndWait();
+	}
+
+	// Utility method to show error alerts
+	private void showErrorAlert(String header, String content) {
+	    Alert errorAlert = new Alert(AlertType.ERROR);
+	    errorAlert.setTitle("Error");
+	    errorAlert.setHeaderText(header);
+	    errorAlert.setContentText(content);
+	    errorAlert.showAndWait();
+	}
+
 	
 	
 	

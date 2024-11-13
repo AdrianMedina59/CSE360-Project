@@ -19,6 +19,9 @@ import java.sql.SQLException;
 import Article.ArticleController;
 import Article.ArticleListController;
 import Article.Delete_ArticleController;
+import Article.Delete_HelpArticleController;
+import Article.hArticleListController;
+import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
@@ -158,6 +161,37 @@ public class InstructorPageController
         newStage.setScene(articleListScene);
         newStage.show();
     }
+	public void ListHelpArticles(ActionEvent event) throws SQLException, IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/HelpArticleList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		hArticleListController harticlelistController = loader.getController();
+		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+            // Execute SQL query to get all users from the database
+            ResultSet resultSet = dataBase.getHelpArticles(); // Assuming this method fetches the ResultSet for all articles
+
+            // Pass the resultSet to the UserListController to load the data
+            harticlelistController.loadHelpArticleData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Help Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+	}
+	
 	
 
 
@@ -179,6 +213,42 @@ public class InstructorPageController
 	        e.printStackTrace(); // Print stack trace for debugging
 	    }
 	}
+	
+	public void createHelpArticle(ActionEvent event) {
+		try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
+	        Parent helpRoot = loader.load();
+	        helpArticleController helpArticleController = loader.getController();
+	        helpArticleController.setRole("Instructor");
+	        helpArticleController.setName(username);
+	        
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(helpRoot));
+	        articleStage.show();
+		 } catch (IOException e) {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+
+
+
+		}
+	
+	
+	public void HelpArticle_delete(ActionEvent event) throws IOException, SQLException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+
+  }	
 
 
 	
