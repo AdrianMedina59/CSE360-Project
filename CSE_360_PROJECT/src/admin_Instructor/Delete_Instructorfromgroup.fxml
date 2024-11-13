@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="39.0" layoutY="31.0" prefHeight="33.0" prefWidth="334.0" text="Delete Instructor from Group">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="147.0" prefHeight="52.0" prefWidth="202.0" text="Instructor Name:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="256.0" prefHeight="36.0" prefWidth="142.0" text="Group Name:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Delete_instrctor" layoutX="164.0" layoutY="151.0" prefHeight="36.0" prefWidth="208.0" promptText="Ex: Mark" />
+      <TextField fx:id="Instructor_group" layoutX="164.0" layoutY="262.0" prefHeight="36.0" prefWidth="220.0" promptText="Ex: Math" />
+   </children>
+</AnchorPane>
