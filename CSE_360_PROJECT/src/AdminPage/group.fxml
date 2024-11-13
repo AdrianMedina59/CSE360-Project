@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="236.0" style="-fx-background-color: lightBlue;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPage.GroupController">
+   <children>
+      <Label layoutX="47.0" layoutY="33.0" prefHeight="26.0" prefWidth="144.0" text="Add a group">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="GroupName_Textfield" layoutX="44.0" layoutY="117.0" promptText="group name" />
+      <TextField fx:id="AdminInstructorName_Textfield" layoutX="44.0" layoutY="173.0" promptText="must be valid user" />
+      <Button layoutX="83.0" layoutY="225.0" mnemonicParsing="false" onAction="#createGroup" text="Confirm" />
+      <Label layoutX="46.0" layoutY="100.0" text="Group name:" />
+      <Label layoutX="46.0" layoutY="156.0" text="Admin Instructor to Add:" />
+   </children>
+</AnchorPane>
