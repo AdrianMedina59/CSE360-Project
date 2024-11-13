@@ -406,6 +406,7 @@ public class AdminPageController
 		this.userName = username;
 		
 		
+		
 	}
 	@FXML
 	public void restoreDeletedArticles(ActionEvent event) {
