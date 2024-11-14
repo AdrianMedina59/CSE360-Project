@@ -23,8 +23,8 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="Student_Name" layoutX="148.0" layoutY="169.0" promptText="Student Name" />
-      <TextField fx:id="Group_Name" layoutX="152.0" layoutY="256.0" promptText="Group Name" />
-      <Button layoutX="90.0" layoutY="324.0" mnemonicParsing="false" onAction="#Add_student_to_group" prefHeight="36.0" prefWidth="177.0" text="Submit" />
+      <TextField fx:id="Student_Name_Textfield" layoutX="148.0" layoutY="169.0" promptText="Student Name" />
+      <TextField fx:id="S_Group_Textfield" layoutX="152.0" layoutY="256.0" promptText="Group Name" />
+      <Button layoutX="90.0" layoutY="324.0" mnemonicParsing="false" onAction="#Add_student_to_group" prefHeight="36.0" prefWidth="177.0" text="Add to Group" />
    </children>
 </AnchorPane>

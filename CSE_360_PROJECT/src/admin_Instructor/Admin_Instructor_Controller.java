@@ -158,4 +158,16 @@ public class Admin_Instructor_Controller
 	    }
 	}
 	
+	
+	public void AddStudent_Button(ActionEvent event) throws IOException
+	{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudenttoGroup.fxml")); // Assuming it's in the same package
+        Parent articleRoot = loader.load();
+		
+		
+	}
+	
+	
+	
+	
 }
