@@ -444,9 +444,9 @@ public class AdminPageController
 	@FXML
 	public void handleBackupArticles() {
 	    try {
-	        dataBase.connectToDatabase(); // Ensure the connection is established
-	        dataBase.backupArticles();  // Call the backup method to write to the CSV
-	        dataBase.closeConnection(); // Close the database connection after the operation
+	        dataBase.connectToDatabase(); 
+	        dataBase.backupArticles(); 
+	        dataBase.closeConnection(); 
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
