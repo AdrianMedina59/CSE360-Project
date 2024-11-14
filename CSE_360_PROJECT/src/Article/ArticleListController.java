@@ -42,10 +42,11 @@ public class ArticleListController {
     @FXML
     private TableColumn<String[], String> Links_column;
     @FXML
+	static
     DataBaseHelper dataBaseHelper = new DataBaseHelper();
     ArticleDisplayController articleDisplayController = new ArticleDisplayController();
 
-    private ObservableList<String[]> articleDataList = FXCollections.observableArrayList();
+    private static ObservableList<String[]> articleDataList = FXCollections.observableArrayList();
 
     public void initialize() {
         // Bind columns to data fields
@@ -113,7 +114,7 @@ public class ArticleListController {
     }
 
 
-    public void loadArticleData(ResultSet resultSet) throws SQLException {
+    public static void loadArticleData(ResultSet resultSet) throws SQLException {
         articleDataList.clear();
 
         while (resultSet.next()) {
@@ -128,7 +129,7 @@ public class ArticleListController {
    
     
 
-    private void loadAllArticles() {
+    public static void loadAllArticles() {
         try {
             dataBaseHelper.connectToDatabase();
             ResultSet resultSet = dataBaseHelper.getArticles(); // Assuming this method fetches all articles

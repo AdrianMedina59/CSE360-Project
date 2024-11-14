@@ -15,6 +15,9 @@ package ConfirmLogin;
 
 
 import java.awt.TextField;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.NotActiveException;
 import java.sql.*;
 
@@ -80,7 +83,8 @@ public class DataBaseHelper {
 		                            "keywords VARCHAR(1000), " +
 		                            "Body VARCHAR(1000), " +
 		                            "references VARCHAR(1000), " +
-		                            "role VARCHAR(20))";
+		                            "role VARCHAR(20), " +
+		                            "deleted BOOLEAN DEFAULT FALSE)";
 		    
 		    try (Statement stmt = connection.createStatement()) {
 		        stmt.execute(createTableSQL);
@@ -446,9 +450,17 @@ public class DataBaseHelper {
 		}
 		
 		public ResultSet getArticles() throws SQLException {
-			String query = "SELECT * FROM articles";
+			String query = "SELECT * FROM articles WHERE deleted = FALSE";
 			return statement.executeQuery(query);
 		}
+		
+		public ResultSet getArticlesD() throws SQLException {
+		    String query = "SELECT * FROM articles WHERE deleted = true";
+		    Statement stmt = connection.createStatement();
+		    return stmt.executeQuery(query);
+		}
+		
+		
 		public ResultSet getHelpArticles() throws SQLException {
 		    String query = "SELECT * FROM help_articles WHERE deleted = FALSE"; // Exclude deleted articles
 		    return statement.executeQuery(query);
@@ -802,7 +814,7 @@ public class DataBaseHelper {
 				
 		// Method to delete an article based on its title
 		public boolean deleteArticle(String title) throws SQLException {
-		    String deleteSQL = "DELETE FROM articles WHERE title = ?";
+		    String deleteSQL = "UPDATE articles SET deleted = TRUE WHERE title = ?";
 		    
 		    try (PreparedStatement pstmt = connection.prepareStatement(deleteSQL)) {
 		        pstmt.setString(1, title); // Set the article title in the query
@@ -814,6 +826,16 @@ public class DataBaseHelper {
 		        return affectedRows > 0;
 		    }
 		}
+		public boolean restoreArticle(String title) throws SQLException {
+		    String updateSQL = "UPDATE articles SET deleted = FALSE WHERE title = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+		        pstmt.setString(1, title); // Set the article title in the query
+		        int affectedRows = pstmt.executeUpdate();
+		        return affectedRows > 0;
+		    }
+		}
+
+		
 		public boolean deleteHelpArticle(String title) throws SQLException {
 		    String updateSQL = "UPDATE help_articles SET deleted = TRUE WHERE title = ?";
 		    try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
@@ -830,8 +852,50 @@ public class DataBaseHelper {
 		        return affectedRows > 0;
 		    }
 		}
-
 		
+<<<<<<< HEAD
+=======
+
+		public void backupArticles() {
+		    String backupFile = "articles_backup.csv"; // Path to the backup file
+		    String query = "SELECT id, title, authors, abstractText, keywords, Body, references, role, deleted FROM articles";
+
+		    try (BufferedWriter writer = new BufferedWriter(new FileWriter(backupFile))) {
+		        // Write CSV header
+		        writer.write("id,title,authors,abstractText,keywords,Body,references,role,deleted");
+		        writer.newLine();
+
+		        // Execute the query to fetch all articles from the database
+		        Statement stmt = connection.createStatement();
+		        ResultSet resultSet = stmt.executeQuery(query);
+
+		        // Write each article's data to the file
+		        while (resultSet.next()) {
+		            int id = resultSet.getInt("id");
+		            String title = resultSet.getString("title");
+		            String authors = resultSet.getString("authors");
+		            String abstractText = resultSet.getString("abstractText");
+		            String keywords = resultSet.getString("keywords");
+		            String body = resultSet.getString("Body");
+		            String references = resultSet.getString("references");
+		            String role = resultSet.getString("role");
+		            boolean deleted = resultSet.getBoolean("deleted");
+
+		            writer.write(String.format("%d,%s,%s,%s,%s,%s,%s,%s,%b", id, title, authors, abstractText, keywords, body, references, role, deleted));
+		            writer.newLine();
+		        }
+
+		        System.out.println("Articles backup completed successfully.");
+		        
+		        // Clean up resources
+		        resultSet.close();
+		        stmt.close();
+		    } catch (SQLException | IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 	
 		
 			
