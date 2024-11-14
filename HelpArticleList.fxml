@@ -8,6 +8,7 @@
 
 
 
+
 <AnchorPane fx:id="hArticleListController" prefHeight="331.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.hArticleListController">
    <children>
       <AnchorPane layoutX="-102.0" layoutY="-228.0" prefHeight="286.0" prefWidth="303.0" />
@@ -21,4 +22,3 @@
       <Button fx:id="closeButton" layoutX="237.0" layoutY="292.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="120.0" text="Close" />
    </children>
 </AnchorPane>
-

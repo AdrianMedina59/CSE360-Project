@@ -238,6 +238,7 @@ public class InstructorPageController
 	
 	
 	
+	
 	public void HelpArticle_delete(ActionEvent event) throws IOException, SQLException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));

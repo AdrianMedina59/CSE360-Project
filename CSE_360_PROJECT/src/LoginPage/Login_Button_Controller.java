@@ -194,8 +194,47 @@ public class Login_Button_Controller {
 		{
 			loadInstructorPage();
 		}
+		else if ("Admin Instructor".equals(role))
+		{
+			loadAdminInstructorPage();
+		}
 		
 	}
+  
+  
+  private void loadAdminInstructorPage() throws SQLException {
+	  try {
+          // Load the FXML file for the Confirm Login scene
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin_Instructor/Admin_Instructor_Page.fxml"));
+          Parent root = loader.load();
+
+          
+          // Get the controller associated with the FXML
+          Admin_Instructor_Controller controller = loader.getController();
+           dataBase.connectToDatabase();
+//           controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
+//           controller.setUserName(dataBase.getFirstNameByUsername(username));
+           dataBase.closeConnection();
+           
+         
+          
+          
+          // Initialize and display the new Confirm Login scene
+          Stage stage = (Stage) titleLabel.getScene().getWindow();
+          Scene AdminInstructorPage = new Scene(root);
+
+         
+          // Set the scene and show the stage
+          stage.setScene(AdminInstructorPage);
+          stage.show();
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+	  
+}
+
+  
   
   private void loadInstructorPage() throws SQLException {
 	  try {
@@ -297,28 +336,6 @@ private void loadStudentPage()throws SQLException {
       }
   }
   
-  private void loadAdminInstructorPage() throws SQLException {
-	    try {
-	        // Load the FXML file for the Admin Instructor page
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin_Instructor/Admin_Instructor_Page.fxml"));
-	        Parent root = loader.load();
-
-	        // Get the controller associated with the FXML
-	        Admin_Instructor_Controller controller = loader.getController();
-	        
-	        dataBase.connectToDatabase();
-	        dataBase.closeConnection();
-
-	        // Initialize and display the new Admin Instructor page scene
-	        Stage stage = (Stage) titleLabel.getScene().getWindow();
-	        Scene adminInstructorScene = new Scene(root);
-
-	        stage.setScene(adminInstructorScene);
-	        stage.show();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
 
 	//checks if the email is already in data base
   	private boolean IsUserNameExists(String username) throws SQLException{

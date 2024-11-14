@@ -79,6 +79,7 @@ public class hArticleListController {
     }
 
     
+    
     // Method to display the content of the selected help article
     public void displayHelpArticleContent(helpArticle helpArticle) throws Exception {
         try {

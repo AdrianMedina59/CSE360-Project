@@ -125,6 +125,21 @@ public class AdminPageController
 	
 	}
 	
+	public void createGroup(ActionEvent event) {
+		 try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("group.fxml")); 
+		        Parent GroupRoot = loader.load();
+		     
+		        
+		        Stage articleStage = new Stage();
+		        articleStage.setTitle("Create Group");
+		        articleStage.setScene(new Scene(GroupRoot));
+		        articleStage.show();
+		    } catch (IOException e) {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+	}
+	
 
 	public void ListUsers(ActionEvent event) throws SQLException, IOException
 	{

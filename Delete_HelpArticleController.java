@@ -32,9 +32,7 @@ import java.sql.SQLException;
 
 
 
-
-
-public class Delete_ArticleController 
+public class Delete_HelpArticleController 
 
 {
 	@FXML
@@ -46,7 +44,7 @@ public class Delete_ArticleController
 	private DataBaseHelper dataBase = new DataBaseHelper();
 	
 	
-	public void DeleteArticle() throws SQLException 
+	public void DeleteHelpArticle() throws SQLException 
 	{
 		String title = Article_title.getText();
 			
@@ -61,10 +59,10 @@ public class Delete_ArticleController
     	if(alert.showAndWait().get() == ButtonType.OK)
     	{
     		
-    		if(dataBase.isValidArticleTitle(title)) 
+    		if(dataBase.isValidHelpArticleTitle(title)) 
     		{
                 //delete article based on title
-              dataBase.deleteArticle(title);
+              dataBase.deleteHelpArticle(title);
                 
             }
     		
