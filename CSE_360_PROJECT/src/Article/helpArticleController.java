@@ -47,6 +47,7 @@ public class helpArticleController {
             e.printStackTrace();
         }
     }
+    
 
     private void insertHelpArticle(String role) throws Exception {
         // Logic to handle finishing the help article
