@@ -60,7 +60,7 @@ public class AdminPageController
 	@FXML
 	private Label UserLabel;
 	@FXML
-	private Button restoreDeletedButton;
+	private Button backupButton;
 	
 	private DataBaseHelper dataBase = new DataBaseHelper();
 	
@@ -426,56 +426,30 @@ public class AdminPageController
 		
 		
 	}
+	public void restore(ActionEvent event) {
+		 try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/RestoreArticles.fxml")); 
+		        Parent RestoreRoot = loader.load();
+		     
+		        
+		        Stage newStage = new Stage();
+		        newStage.setTitle("Restore");
+		        newStage.setScene(new Scene(RestoreRoot));
+		        newStage.show();
+		    } catch (IOException e) {
+		        e.printStackTrace(); 
+		    }
+	}
+
 	@FXML
-	public void restoreDeletedArticles(ActionEvent event) {
-	    // Confirm restoration action
-	    Alert alert = new Alert(AlertType.CONFIRMATION);
-	    alert.setTitle("Restore Help Articles");
-	    alert.setHeaderText("Restore Deleted Help Articles");
-	    alert.setContentText("Are you sure you want to restore all deleted articles?");
-
-	    if (alert.showAndWait().get() == ButtonType.OK) {
-	        try {
-	            // Connect to the database
-	            dataBase.connectToDatabase();  // Use the already existing connection from dataBase
-	            
-	            // Create SQL query to restore deleted articles
-	            String restoreQuery = "UPDATE help_articles SET deleted = false WHERE deleted = true";
-	            
-	            // Create a statement to execute the query
-	            Statement statement = dataBase.getConnection().createStatement();
-	            statement.executeUpdate(restoreQuery);  // Executes the query
-	            
-	            // Inform the user that the articles were restored
-	            showInfoAlert("Success", "Articles Restored", "All deleted articles have been restored.");
-	            
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            // Show error message if something goes wrong
-	            showErrorAlert("Failed to Restore Articles", "There was an error restoring the articles.");
-	        } finally {
-	            // Ensure the connection is closed after the operation
-	            dataBase.closeConnection();
-	        }
+	public void handleBackupArticles() {
+	    try {
+	        dataBase.connectToDatabase(); // Ensure the connection is established
+	        dataBase.backupArticles();  // Call the backup method to write to the CSV
+	        dataBase.closeConnection(); // Close the database connection after the operation
+	    } catch (Exception e) {
+	        e.printStackTrace();
 	    }
-	}
-
-	// Utility method to show success alerts
-	private void showInfoAlert(String title, String header, String content) {
-	    Alert successAlert = new Alert(AlertType.INFORMATION);
-	    successAlert.setTitle(title);
-	    successAlert.setHeaderText(header);
-	    successAlert.setContentText(content);
-	    successAlert.showAndWait();
-	}
-
-	// Utility method to show error alerts
-	private void showErrorAlert(String header, String content) {
-	    Alert errorAlert = new Alert(AlertType.ERROR);
-	    errorAlert.setTitle("Error");
-	    errorAlert.setHeaderText(header);
-	    errorAlert.setContentText(content);
-	    errorAlert.showAndWait();
 	}
 
 	

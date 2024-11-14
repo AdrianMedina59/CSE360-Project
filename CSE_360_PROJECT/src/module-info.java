@@ -5,21 +5,21 @@
  * 
  */
 module CSE_360_PROJECT {
-	requires javafx.graphics;
-	requires javafx.fxml;
-	requires javafx.controls;
+    requires javafx.graphics;
+    requires javafx.fxml;
+    requires javafx.controls;
     opens admin_Instructor to javafx.fxml;
 
-	requires java.sql;
-	requires com.h2database;
-	requires javafx.base;
-	exports Article to javafx.fxml;
+    requires java.sql;
+    requires com.h2database;
+    requires javafx.base;
+    exports Article to javafx.fxml;
     opens Article to javafx.fxml;
-	exports InstructorPage; 
-	requires java.desktop;
-	requires org.bouncycastle.provider;
-	requires java.management;
-	exports ConfirmLogin to javafx.graphics, javafx.fxml;
+    exports InstructorPage; 
+    requires java.desktop;
+    requires org.bouncycastle.provider;
+    requires java.management;
+    exports ConfirmLogin to javafx.graphics, javafx.fxml;
     opens ConfirmLogin to javafx.fxml;
     exports AdminPage to javafx.fxml;
     opens AdminPage to javafx.fxml;
@@ -29,6 +29,8 @@ module CSE_360_PROJECT {
     exports StudentPage;
     opens InstructorPage to javafx.fxml;
     exports admin_Instructor;
+
+
 
     
 

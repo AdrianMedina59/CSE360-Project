@@ -1,4 +1,7 @@
 package Article;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.management.loading.PrivateClassLoader;
 
 import org.h2.expression.function.StringFunction;
@@ -114,5 +117,29 @@ public class ArticleController {
         
         article.displayContent();
     }
+    public void handleRestoreArticle() {
+        try {
+            // Get the deleted help articles using the getHelpArticlesD() method from DataBaseHelper
+            ResultSet deletedArticles = dataBaseHelper.getArticlesD();
+
+            // Assuming you want to get the title of the selected article, process the ResultSet
+            if (deletedArticles.next()) {
+                String selectedTitle = deletedArticles.getString("title"); // Assuming "title" is a column
+                if (selectedTitle != null) {
+                    // Restore the article
+                    dataBaseHelper.restoreArticle(selectedTitle);  // Restore the article using its title
+                    ArticleListController.loadAllArticles(); // Reload all articles (optional)
+                } else {
+                    System.out.println("No deleted articles to restore.");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
     
 }
