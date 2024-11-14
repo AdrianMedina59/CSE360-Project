@@ -779,9 +779,26 @@ public class DataBaseHelper {
 		}
 		
 		
-	
+		public String getGroup(String group) throws SQLException 
 		
-
+		{
+			 String query = "SELECT username Groups users WHERE group = ?";
+			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+			        pstmt.setString(1, group);  // Set the title in the query
+			        ResultSet resultSet = pstmt.executeQuery();
+			        
+			        if (resultSet.next()) {
+			            // Return the found the group name
+			            return resultSet.getString("group");
+			        } else {
+			            // Return null or a message if the group is not found
+			            return "Group not found";
+			        }
+			    }
+			    
+		}
+		
+				
 		// Method to delete an article based on its title
 		public boolean deleteArticle(String title) throws SQLException {
 		    String deleteSQL = "DELETE FROM articles WHERE title = ?";
@@ -814,9 +831,7 @@ public class DataBaseHelper {
 		}
 
 		
-
 	
-
 		
 			
 	}

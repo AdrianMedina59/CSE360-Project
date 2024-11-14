@@ -161,11 +161,21 @@ public class Admin_Instructor_Controller
 	
 	public void AddStudent_Button(ActionEvent event) throws IOException
 	{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudenttoGroup.fxml")); // Assuming it's in the same package
-        Parent articleRoot = loader.load();
-		
-		
+	    try
+	    {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoGroup.fxml")); // Assuming it's in the same package
+	        Parent articleRoot = loader.load();
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Add Student to Group");
+	        articleStage.setScene(new Scene(articleRoot));
+	        articleStage.show();
+	    }
+	    catch (IOException e)
+	    {
+	        e.printStackTrace(); // Print stack trace for debugging
+	    }
 	}
+
 	
 	
 	

@@ -32,7 +32,7 @@
          </font>
       </Label>
       <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="186.0" prefHeight="30.0" prefWidth="112.0" text="Add Class" />
-      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" prefHeight="30.0" prefWidth="112.0" text="Add Student" />
+      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" text="Add Student" />
       <Button fx:id="AddInstructor_Button" layoutX="323.0" layoutY="279.0" prefHeight="30.0" prefWidth="112.0" text="Add Instructor" />
 
       <!-- Remove Article Functions Section -->
@@ -46,6 +46,6 @@
       <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="279.0" prefHeight="30.0" prefWidth="132.0" text="Remove Class" />
 
       <!-- Logout Button -->
-      <Button fx:id="logout_Button" layoutX="335.0" layoutY="364.0" prefHeight="25.0" prefWidth="158.0" onAction="#logout" text="Logout" />
+      <Button fx:id="logout_Button" layoutX="335.0" layoutY="364.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" text="Logout" />
    </children>
 </AnchorPane>

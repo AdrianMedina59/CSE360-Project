@@ -190,7 +190,8 @@ public class AdminPageController
 	    }
 	}
 	
-	public void createHelpArticle(ActionEvent event) {
+	public void createHelpArticle(ActionEvent event)
+	{
 		try {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
 	        Parent helpRoot = loader.load();
