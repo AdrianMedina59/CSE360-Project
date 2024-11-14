@@ -159,6 +159,7 @@ public class Login_Button_Controller {
     	dataBase.connectToDatabase();
     	//debug useage
     	dataBase.PrintUserTables();
+    	dataBase.printGeneralGroups();
     	username = Username_textField.getText();
         password = Password_textField.getText();
         

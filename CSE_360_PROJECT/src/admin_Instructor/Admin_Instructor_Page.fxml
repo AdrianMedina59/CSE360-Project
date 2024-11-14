@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="758.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6f0e6a" height="200.0" layoutX="-5.0" layoutY="-51.0" width="780.0" />
-      <Label layoutX="63.0" layoutY="23.0" prefHeight="123.0" prefWidth="684.0" style="-fx-text-fill: white;" text="Welcome to the Admin Instructors home page">
+      <Label fx:id="TitleLabel" layoutX="63.0" layoutY="23.0" prefHeight="123.0" prefWidth="684.0" style="-fx-text-fill: white;" text="Welcome to the Admin Instructors home page">
          <font>
             <Font size="29.0" />
          </font>
@@ -46,6 +46,6 @@
       <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="279.0" prefHeight="30.0" prefWidth="132.0" text="Remove Class" />
 
       <!-- Logout Button -->
-      <Button fx:id="logout_Button" layoutX="335.0" layoutY="364.0" prefHeight="25.0" prefWidth="158.0" onAction="#logout" text="Logout" />
+      <Button fx:id="logout_Button" layoutX="306.0" layoutY="369.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" text="Logout" />
    </children>
 </AnchorPane>
