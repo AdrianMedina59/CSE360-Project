@@ -19,7 +19,6 @@ public class Group {
 	
 	
 	
-	
 	public void addClass(schoolClass c) {
 		this.classes.add(c);
 	}

@@ -164,10 +164,10 @@ public class Admin_Instructor_Controller
 	    try
 	    {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoGroup.fxml")); // Assuming it's in the same package
-	        Parent articleRoot = loader.load();
+	        Parent studentRoot = loader.load();
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Add Student to Group");
-	        articleStage.setScene(new Scene(articleRoot));
+	        articleStage.setScene(new Scene(studentRoot));
 	        articleStage.show();
 	    }
 	    catch (IOException e)

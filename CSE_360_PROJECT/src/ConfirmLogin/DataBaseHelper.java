@@ -667,6 +667,24 @@ public class DataBaseHelper {
 		}
 		
 		
+		public String getGroup(String Group) throws SQLException {
+			String query = "SELECT role FROM users WHERE username = ?";
+			try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, Group);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+		        
+		        if (resultSet.next()) {
+		            // Return the role if the user is found
+		            return resultSet.getString("role");
+		        } else {
+		            // Return null or throw an exception if the user is not found
+		            return null;
+		        }
+		    }
+		}
+		
+		
+		
 		
 		//method is used to retrieve first name with give user name
 		public String getFirstNameByUsername(String username) throws SQLException {
@@ -779,25 +797,7 @@ public class DataBaseHelper {
 		}
 		
 		
-		public String getGroup(String group) throws SQLException 
-		
-		{
-			 String query = "SELECT username Groups users WHERE group = ?";
-			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-			        pstmt.setString(1, group);  // Set the title in the query
-			        ResultSet resultSet = pstmt.executeQuery();
-			        
-			        if (resultSet.next()) {
-			            // Return the found the group name
-			            return resultSet.getString("group");
-			        } else {
-			            // Return null or a message if the group is not found
-			            return "Group not found";
-			        }
-			    }
-			    
-		}
-		
+
 		
 				
 		// Method to delete an article based on its title
