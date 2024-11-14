@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Remove_student" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="363.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="31.0" layoutY="14.0" prefHeight="73.0" prefWidth="331.0" text="What student would you like to delete" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="143.0" prefHeight="37.0" prefWidth="109.0" text="Student Name:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="219.0" prefHeight="37.0" prefWidth="109.0" text="Group Name:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Delete_User" layoutX="146.0" layoutY="149.0" promptText="Ex: Mark" />
+      <TextField fx:id="Group_name" layoutX="146.0" layoutY="225.0" promptText="Ex: CSC 360" />
+      <Button fx:id="RemoveStudentFromGroup" layoutX="115.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Submit" />
+   </children>
+</AnchorPane>

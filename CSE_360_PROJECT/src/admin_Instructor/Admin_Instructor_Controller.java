@@ -61,8 +61,9 @@ public class Admin_Instructor_Controller
 		newStage.show();
 
   }
-	private void loadLoginPage() {
-        try {
+	public void switchbacktoLogin(ActionEvent event) throws IOException
+	{
+		try {
             // Load the FXML file for the Confirm Login scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginPage/Login.fxml"));
             Parent root = loader.load();
@@ -89,7 +90,7 @@ public class Admin_Instructor_Controller
             e.printStackTrace();
         }
     }
-
+	
 	public void logout(ActionEvent event) throws IOException
 	{
 		
@@ -102,7 +103,7 @@ public class Admin_Instructor_Controller
 			
 	if(alert.showAndWait().get() == ButtonType.OK)
 	{
-		loadLoginPage();
+		switchbacktoLogin(event);
 	}
 	
 	
