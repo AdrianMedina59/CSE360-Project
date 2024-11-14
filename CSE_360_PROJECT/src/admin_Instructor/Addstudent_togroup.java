@@ -27,8 +27,6 @@ public class Addstudent_togroup
 		if(dataBase.getUser(StudentName) != null && "Student".equals(dataBase.getRole(StudentName)))
 		{
 			
-			
-			
 		}
     	
     	
