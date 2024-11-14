@@ -46,6 +46,7 @@ public class helpArticle {
 	
 	
 	
+	
 	public String getDecryptBody() throws Exception{
 		//using the title for the iv
 		byte[] iv = EncryptionUtils.getInitializationVector(this.title);

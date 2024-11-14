@@ -338,6 +338,7 @@ private void loadStudentPage()throws SQLException {
   }
   
 
+  
 	//checks if the email is already in data base
   	private boolean IsUserNameExists(String username) throws SQLException{
   		String query = "SELECT COUNT(*) AS count FROM users WHERE username = ?";

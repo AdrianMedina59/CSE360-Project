@@ -7,6 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
+
 <AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="472.0" style="-fx-background-color: #34eb49;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstructorPage.InstructorPageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#16c42a" height="208.0" layoutX="-41.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="513.0" />

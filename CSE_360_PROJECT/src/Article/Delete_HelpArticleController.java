@@ -74,6 +74,7 @@ public class Delete_HelpArticleController
 	}
 	
 	
+	
     void closeWindow()
     {
     	 // Code to close the window
