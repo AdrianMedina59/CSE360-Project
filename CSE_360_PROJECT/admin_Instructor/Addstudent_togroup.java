@@ -16,7 +16,7 @@ public class Addstudent_togroup
 	@FXML
     private DataBaseHelper dataBase = new DataBaseHelper();
 
-    public void Add_student_to_group() throws SQLException
+    public void AddStudentToClass() throws SQLException
     {
     	//getting  contents of the textfields
 		String group  = S_Group_Textfield.getText();
@@ -24,12 +24,10 @@ public class Addstudent_togroup
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		
+		//checks if the student is valid inside the database
 		if(dataBase.getUser(StudentName) != null && "Student".equals(dataBase.getRole(StudentName)))
 		{
-			group.setAdminInstructor(StudentName)
-			dataBase.saveGroup(group);
-			System.out.println("Success!");
-			dataBase.printGeneralGroups();
+			
 			
 			
 		}

@@ -159,15 +159,38 @@ public class Admin_Instructor_Controller
 	}
 	
 	
+	public void AddClass_Button() {
+		try
+	    {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addClass.fxml")); 
+	        Parent studentRoot = loader.load();
+	        Addstudent_togroup Addstudent_togroup = loader.getController();
+			
+			
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Add Student to Group");
+	        articleStage.setScene(new Scene(studentRoot));
+	        articleStage.show();
+	    }
+	    catch (IOException e)
+	    {
+	        e.printStackTrace(); // Print stack trace for debugging
+	    }
+		
+		
+	}
+	
+	
+	
+	
 	public void AddStudent_Button(ActionEvent event) throws IOException
 	{
 	    try
 	    {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoGroup.fxml")); // Assuming it's in the same package
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoClass.fxml")); 
 	        Parent studentRoot = loader.load();
 	        Addstudent_togroup Addstudent_togroup = loader.getController();
-			DataBaseHelper dataBase = new DataBaseHelper();
-			dataBase.connectToDatabase();
+			
 			
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Add Student to Group");

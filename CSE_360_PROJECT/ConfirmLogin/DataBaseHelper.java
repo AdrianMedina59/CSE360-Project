@@ -234,6 +234,8 @@ public class DataBaseHelper {
 	        statement.execute(createTableSQL);
 	    }
 	    
+	    
+	    
 	    // method to create the ClassStudents join table
 	    private void createClassStudentsTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classStudents ("
@@ -894,17 +896,7 @@ public class DataBaseHelper {
 		    }
 		}
 
-		public boolean Add_to_group(String title) throws SQLException
-		{
-			
-			String query = "SELECT role FROM users WHERE username = ?";
-			try (PreparedStatement pstmt = connection.prepareStatement(query)) 
-			{
-		        pstmt.setString(1, Group);  // Set the username in the query
-		        ResultSet resultSet = pstmt.executeQuery();
-			
-		}
-			
-	}
+	
+}
 	
 	 
