@@ -165,6 +165,10 @@ public class Admin_Instructor_Controller
 	    {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoGroup.fxml")); // Assuming it's in the same package
 	        Parent studentRoot = loader.load();
+	        Addstudent_togroup Addstudent_togroup = loader.getController();
+			DataBaseHelper dataBase = new DataBaseHelper();
+			dataBase.connectToDatabase();
+			
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Add Student to Group");
 	        articleStage.setScene(new Scene(studentRoot));

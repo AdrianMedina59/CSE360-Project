@@ -22,6 +22,7 @@ public class Addstudent_togroup
 		String group  = S_Group_Textfield.getText();
 		String StudentName = Student_Name_Textfield.getText();
 		
+		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		
 		if(dataBase.getUser(StudentName) != null && "Student".equals(dataBase.getRole(StudentName)))
