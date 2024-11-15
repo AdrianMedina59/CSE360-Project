@@ -853,8 +853,7 @@ public class DataBaseHelper {
 		    }
 		}
 		
-<<<<<<< HEAD
-=======
+
 
 		public void backupArticles() {
 		    String backupFile = "articles_backup.csv"; // Path to the backup file
@@ -895,8 +894,6 @@ public class DataBaseHelper {
 		    }
 		}
 
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
-	
 		
 			
 	}

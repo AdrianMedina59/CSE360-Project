@@ -1,9 +1,4 @@
-/**
- * 
- */
-/**
- * 
- */
+
 module CSE_360_PROJECT {
     requires javafx.graphics;
     requires javafx.fxml;
@@ -31,8 +26,6 @@ module CSE_360_PROJECT {
     exports admin_Instructor;
 
 
-
-    
 
 
 }
