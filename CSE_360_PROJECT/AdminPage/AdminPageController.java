@@ -423,10 +423,8 @@ public class AdminPageController
 	public void setUserName(String username) {
 		this.userName = username;
 		
-		
-		
-		
-	}
+		}
+	
 	public void restore(ActionEvent event) {
 		 try {
 		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/RestoreArticles.fxml")); 

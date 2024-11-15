@@ -894,7 +894,16 @@ public class DataBaseHelper {
 		    }
 		}
 
-		
+		public boolean Add_to_group(String title) throws SQLException
+		{
+			
+			String query = "SELECT role FROM users WHERE username = ?";
+			try (PreparedStatement pstmt = connection.prepareStatement(query)) 
+			{
+		        pstmt.setString(1, Group);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+			
+		}
 			
 	}
 	
