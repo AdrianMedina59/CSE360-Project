@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sound.midi.VoiceStatus;
+
 import Article.ArticleController;
 import Article.ArticleListController;
 import Article.Delete_ArticleController;
@@ -27,6 +29,8 @@ public class Admin_Instructor_Controller
 	@FXML
     private Button CreateArticlesButton;
 	@FXML
+    private Button listClassesButton;
+	@FXML
 	private Button ListArticlesButton;
 	@FXML
 	private Button Logout;
@@ -39,6 +43,13 @@ public class Admin_Instructor_Controller
 	private Parent root;
 	private String username;
 	private String groupName;
+	@FXML
+	private Label GroupLabel;
+	
+	
+	public void SetGroupLabel(String username) {
+		GroupLabel.setText(username);
+	}
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
@@ -51,6 +62,15 @@ public class Admin_Instructor_Controller
 	public String getUserName()
 	{
 		return username;
+	}
+	
+	public void setListButtonName(String name) {
+		this.listClassesButton.setText("List " + name + " classes");
+	}
+	
+	
+	private void ListArticles() {
+		
 	}
 	
 	public void Article_delete(ActionEvent event) throws IOException, SQLException

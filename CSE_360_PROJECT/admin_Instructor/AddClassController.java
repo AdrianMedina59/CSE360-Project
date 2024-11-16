@@ -2,6 +2,7 @@ package admin_Instructor;
 
 import javafx.scene.control.TextField;
 
+import java.awt.Label;
 import java.awt.desktop.PrintFilesEvent;
 import java.sql.SQLException;
 import ClassManager.schoolClass;
@@ -14,6 +15,10 @@ public class AddClassController {
 	@FXML
 	private TextField className_TextField, InstructorName_TextField;
 	private DataBaseHelper dataDataBase = new DataBaseHelper();
+	
+	
+	
+	
 	public void addClass() throws SQLException
 	{
 		dataDataBase.connectToDatabase();

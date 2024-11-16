@@ -7,19 +7,19 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="758.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="780.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6f0e6a" height="200.0" layoutX="-5.0" layoutY="-51.0" width="780.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6f0e6a" height="200.0" layoutX="-5.0" layoutY="-51.0" width="799.0" />
       <Label fx:id="TitleLabel" layoutX="63.0" layoutY="23.0" prefHeight="123.0" prefWidth="684.0" style="-fx-text-fill: white;" text="Welcome to the Admin Instructors home page">
          <font>
-            <Font size="29.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
       </Label>
       
       <!-- Help Article Functions Section -->
       <Label layoutX="15.0" layoutY="146.0" prefHeight="33.0" prefWidth="207.0" style="-fx-text-fill: white;" text="Help Article Functions">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <Button fx:id="createHelpArticles_button" layoutX="15.0" layoutY="192.0" mnemonicParsing="false" onAction="#createArticle" style="-fx-background-color: #c41088;" text="Create Help Article" textFill="WHITE" />
@@ -29,16 +29,16 @@
       <!-- General Groups Functions Section -->
       <Label layoutX="276.0" layoutY="146.0" style="-fx-text-fill: white;" text="General Groups Functions">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="186.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="Add Class" textFill="WHITE" />
       <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="Add Student" textFill="WHITE" />
 
       <!-- Remove Article Functions Section -->
-      <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="207.0" style="-fx-text-fill: white;" text="Remove Article Functions">
+      <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Article Functions">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="19.0" />
          </font>
       </Label>
       <Button fx:id="RemoveStudent_Button" layoutX="587.0" layoutY="192.0" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #c41088;" text="Remove Student" textFill="WHITE" />
@@ -50,15 +50,31 @@
          <children>
             <Label text="Hello" textFill="WHITE">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <Label fx:id="UserLabel" text="Name" textFill="WHITE">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="17.0" />
                </font>
             </Label>
          </children>
       </HBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8d2671" height="84.0" layoutX="-17.0" layoutY="-28.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="246.0" />
+      <HBox alignment="CENTER" layoutX="-2.0" layoutY="-1.0" prefHeight="57.0" prefWidth="218.0" spacing="10.0">
+         <children>
+            <Label fx:id="GroupLabel" text="Group" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" text="Department" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="List classes" textFill="WHITE" />
    </children>
 </AnchorPane>
