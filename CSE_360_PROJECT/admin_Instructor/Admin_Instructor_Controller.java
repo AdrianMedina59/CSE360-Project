@@ -38,13 +38,19 @@ public class Admin_Instructor_Controller
 	private Scene scene;
 	private Parent root;
 	private String username;
+	private String groupName;
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
 	}
+	
 	public void setUserName(String username)
 	{
 		this.username = username;
+	}
+	public String getUserName()
+	{
+		return username;
 	}
 	
 	public void Article_delete(ActionEvent event) throws IOException, SQLException
@@ -160,15 +166,17 @@ public class Admin_Instructor_Controller
 	
 	
 	public void AddClass_Button() {
+		
 		try
 	    {
+			
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addClass.fxml")); 
 	        Parent studentRoot = loader.load();
-	        Addstudent_togroup Addstudent_togroup = loader.getController();
-			
-			
+	        
+	        AddClassController addClassController = loader.getController();
+	        addClassController.setAdminInstructorController(this);
 	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Add Student to Group");
+	        articleStage.setTitle("Add Class");
 	        articleStage.setScene(new Scene(studentRoot));
 	        articleStage.show();
 	    }

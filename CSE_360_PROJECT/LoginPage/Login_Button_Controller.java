@@ -213,8 +213,8 @@ public class Login_Button_Controller {
           // Get the controller associated with the FXML
           Admin_Instructor_Controller controller = loader.getController();
            dataBase.connectToDatabase();
-//           controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
-//           controller.setUserName(dataBase.getFirstNameByUsername(username));
+           controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
+           controller.setUserName(dataBase.getFirstNameByUsername(username));
            dataBase.closeConnection();
            
          

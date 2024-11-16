@@ -24,6 +24,7 @@ import java.sql.*;
 import Article.Article;
 import Article.helpArticle;
 import ClassManager.Group;
+import ClassManager.schoolClass;
 public class DataBaseHelper {
 	
 	// JDBC driver name and database URL 
@@ -182,13 +183,41 @@ public class DataBaseHelper {
 	        statement.execute(createTableSQL);
 	        System.out.println("Table created successfully (if it didn't already exist).");
 	    }
-	    
+	    public String getGroupNameByAdminInstructor(String adminInstructor) throws SQLException {
+	        String query = "SELECT name FROM generalGroups WHERE AdminInstructor = ? LIMIT 1";
+	        String groupName = null;
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, adminInstructor); 
+
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                if (resultSet.next()) {
+	                    groupName = resultSet.getString("name"); // Get the group name
+	                }
+	            }
+	        }
+
+	        return groupName;
+	    }
+
+	    public int getGroupIdByAdminInstructor(String adminInstructor) throws SQLException {
+	        String query = "SELECT id FROM generalGroups WHERE AdminInstructor = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, adminInstructor);
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("id");
+	                }
+	            }
+	        }
+	        return -1; // Return -1 if no group found
+	    }
 	    //saving group in database function
 	    public void saveGroup(Group group) throws SQLException {
 	        String insertSQL = "INSERT INTO generalGroups (AdminInstructor,name) VALUES (?, ?)";
 	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
-	            pstmt.setString(1, group.getName());
-	            pstmt.setString(2, group.getAdminInstructor());
+	            pstmt.setString(2, group.getName());
+	            pstmt.setString(1, group.getAdminInstructor());
 	            pstmt.executeUpdate();
 
 	            // Retrieve the generated group ID
@@ -224,18 +253,64 @@ public class DataBaseHelper {
 	            e.printStackTrace();
 	        }
 	    }
-	    //method to create classes table
+	 // Method to create classes table
 	    private void createClassesTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classes ("
-	                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-	                + "name VARCHAR(255) NOT NULL, "
-	                + "generalGroupId INT, "
-	                + "FOREIGN KEY (generalGroupId) REFERENCES generalGroups(id))";
+	                + "id INT AUTO_INCREMENT PRIMARY KEY, "            // Auto-increment for sequential IDs
+	                + "name VARCHAR(255) NOT NULL, "                   // Class name cannot be null
+	                + "generalGroupId INT, "                           // Reference to generalGroups table
+	                + "Instructor VARCHAR(255) NOT NULL, "				//Instructor
+	                + "FOREIGN KEY (generalGroupId) REFERENCES generalGroups(id) " // Foreign key constraint
+	                + "ON DELETE SET NULL ON UPDATE CASCADE)";         // Handle deletion and updates for FK
 	        statement.execute(createTableSQL);
 	    }
 	    
+	    public void saveClasses(schoolClass schoolClass) throws SQLException {
+	        String insertSQL = "INSERT INTO classes (name, generalGroupId, Instructor) VALUES (?, ?, ?)";
+	        
+	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
+	            // Set the values for the prepared statement
+	            pstmt.setString(1, schoolClass.getName());                 // Class name
+	            pstmt.setInt(2, schoolClass.getGeneralGroupId());          // Group ID
+	            pstmt.setString(3, schoolClass.getInstructor());       	   //instructor	
+	            
+	            // Execute the query
+	            pstmt.executeUpdate();
+	            
+	            // Retrieve the auto-generated ID
+	            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+	                if (generatedKeys.next()) {
+	                    int classId = generatedKeys.getInt(1);             // Get the generated class ID
+	                    schoolClass.setID(classId);                       // Set the ID for the schoolClass object
+	                } else {
+	                    throw new SQLException("Failed to insert class, no ID obtained.");
+	                }
+	            }
+	        }
+	    }
 	    
-	    
+	    public void printClassesTable() throws SQLException {
+	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +
+	                       "FROM classes c " +
+	                       "LEFT JOIN generalGroups g ON c.generalGroupId = g.id";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query);
+	             ResultSet rs = pstmt.executeQuery()) {
+
+	            System.out.println("Classes Table:");
+	            System.out.println("ID\tClass Name\tGroup ID\tInstructor");
+
+	            while (rs.next()) {
+	                int id = rs.getInt("id");
+	                String className = rs.getString("name");
+	                int groupId = rs.getInt("generalGroupId");
+	                String groupName = rs.getString("groupName");
+	                String instructor = rs.getString("Instructor");
+
+	                System.out.printf("%d\t%s\t%d\t%s\t%s%n", id, className, groupId, groupName,instructor);
+	            }
+	        }
+	    }
 	    // method to create the ClassStudents join table
 	    private void createClassStudentsTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classStudents ("
