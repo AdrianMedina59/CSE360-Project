@@ -65,6 +65,43 @@ public class InstructorPageController
 	{
 		this.username = username;
 	}
+	//function to create an article
+	public void createArticle(ActionEvent event) {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
+	        Parent articleRoot = loader.load();
+	        
+	        ArticleController articleController = loader.getController();
+	        articleController.setRole("Instructor");
+	        articleController.setName(username);
+	        
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(articleRoot));
+	        articleStage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace(); // Print stack trace for debugging
+	    }
+	}
+	
+	
+	// Function in order to create a help article
+	public void createHelpArticle(ActionEvent event) {
+		try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
+	        Parent helpRoot = loader.load();
+	        helpArticleController helpArticleController = loader.getController();
+	        helpArticleController.setRole("Instructor");
+	        helpArticleController.setName(username);
+	        
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(helpRoot));
+	        articleStage.show();
+		 } catch (IOException e) {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+	}
 	
 	
 	public void Article_delete(ActionEvent event) throws IOException, SQLException
@@ -81,6 +118,22 @@ public class InstructorPageController
 		newStage.show();
 
   }
+	
+	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
+	{
+		// This will be able to delete an article when you put in the title
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+  }	
+
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
 	{
@@ -193,60 +246,9 @@ public class InstructorPageController
         newStage.show();
 	}
 	
-	
 
 
-	//function to create an article
-	public void createArticle(ActionEvent event) {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
-	        Parent articleRoot = loader.load();
-	        
-	        ArticleController articleController = loader.getController();
-	        articleController.setRole("Instructor");
-	        articleController.setName(username);
-	        
-	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Create Article");
-	        articleStage.setScene(new Scene(articleRoot));
-	        articleStage.show();
-	    } catch (IOException e) {
-	        e.printStackTrace(); // Print stack trace for debugging
-	    }
-	}
 	
-	
-	// Function in order to create a help article
-	public void createHelpArticle(ActionEvent event) {
-		try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
-	        Parent helpRoot = loader.load();
-	        helpArticleController helpArticleController = loader.getController();
-	        helpArticleController.setRole("Instructor");
-	        helpArticleController.setName(username);
-	        
-	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Create Article");
-	        articleStage.setScene(new Scene(helpRoot));
-	        articleStage.show();
-		 } catch (IOException e) {
-		        e.printStackTrace(); // Print stack trace for debugging
-		    }
-	}
-	
-	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
-	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
-		Parent deleteHelpRoot = loader.load();
-		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
-		DataBaseHelper dataBase = new DataBaseHelper();
-		dataBase.connectToDatabase();
-		Stage newStage = new Stage();
-		Scene RemoveArticle= new Scene(deleteHelpRoot);
-		newStage.setTitle("Remove Article");
-		newStage.setScene(RemoveArticle);
-		newStage.show();
-  }	
 
 	
 	public void back_up_Article(ActionEvent event)
