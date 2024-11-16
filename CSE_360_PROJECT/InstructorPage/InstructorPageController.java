@@ -112,6 +112,7 @@ public class InstructorPageController
         }
     }
 	
+	//This will log out of the user and will go back to the login in screen
 	public void logout(ActionEvent event) throws IOException
 	{
 		
@@ -171,7 +172,7 @@ public class InstructorPageController
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		try {
-            // Execute SQL query to get all users from the database
+            //Try SQL query to get all users from the database
             ResultSet resultSet = dataBase.getHelpArticles(); // Assuming this method fetches the ResultSet for all articles
 
             // Pass the resultSet to the UserListController to load the data
@@ -214,6 +215,8 @@ public class InstructorPageController
 	    }
 	}
 	
+	
+	// Function in order to create a help article
 	public void createHelpArticle(ActionEvent event) {
 		try {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
@@ -229,18 +232,9 @@ public class InstructorPageController
 		 } catch (IOException e) {
 		        e.printStackTrace(); // Print stack trace for debugging
 		    }
-
-
-
-		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	public void HelpArticle_delete(ActionEvent event) throws IOException, SQLException
+	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
 		Parent deleteHelpRoot = loader.load();
@@ -252,12 +246,52 @@ public class InstructorPageController
 		newStage.setTitle("Remove Article");
 		newStage.setScene(RemoveArticle);
 		newStage.show();
-
   }	
 
+	
+	public void back_up_Article(ActionEvent event)
+	{
+		
+		
+		
+	}
+	public void Restore_Article(ActionEvent event)
+	{
+		
+	}
+	public void Edit_articlesbutton(ActionEvent event)
+	{
+		
+	}
+	public void ListArticles_Special_Access(ActionEvent event)
+	{
+		
+	}
+	
+	
+	public void EditHelpArticles(ActionEvent event)
+	{
+		
+	}
+	
+	public void Edit_articlesbutton_Special_Access(ActionEvent event)
+	{
+		
+	}
+	
+	
+	public void CreateArticlesButton_Special_Access(ActionEvent event)
+	{
+		
+	}
+
+	public void Article_delete_Special_Access(ActionEvent event)
+	{
+		
+	}
+
 
 	
-	
-	
-	
 }
+
+
