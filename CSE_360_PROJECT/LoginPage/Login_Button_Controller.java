@@ -214,6 +214,7 @@ public class Login_Button_Controller {
           Admin_Instructor_Controller controller = loader.getController();
            dataBase.connectToDatabase();
            controller.SetGroupLabel(dataBase.getGroupNameByAdminInstructor(username));
+           controller.setListStudentButtonName(dataBase.getGroupNameByAdminInstructor(username));
            controller.setListButtonName(dataBase.getGroupNameByAdminInstructor(username));
            controller.SetUserLabel(dataBase.getFirstNameByUsername(username));
            controller.setUserName(dataBase.getFirstNameByUsername(username));

@@ -20,6 +20,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.NotActiveException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import Article.Article;
 import Article.helpArticle;
@@ -51,6 +53,7 @@ public class DataBaseHelper {
 				createHelpArticlesTable();
 				createGeneralGroupsTable();
 				createClassesTable();
+				createEnrollmentTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
 			}
@@ -72,9 +75,6 @@ public class DataBaseHelper {
 		}
 		
 		// Create the articles table if it doesn't exist
-
-		
-
 		private void createArticlesTable() throws SQLException {
 		    String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
 		                            "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -311,27 +311,97 @@ public class DataBaseHelper {
 	            }
 	        }
 	    }
-	    // method to create the ClassStudents join table
-	    private void createClassStudentsTable() throws SQLException {
-	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classStudents ("
-	                + "id INT AUTO_INCREMENT PRIMARY KEY, "
-	                + "userId INT NOT NULL, "
-	                + "classId INT NOT NULL, "
-	                + "FOREIGN KEY (userId) REFERENCES users(id), "
-	                + "FOREIGN KEY (classId) REFERENCES classes(id))";
+	    private void createEnrollmentTable() throws SQLException {
+	        String createTableSQL = "CREATE TABLE IF NOT EXISTS enrollment (" +
+	                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+	                                "userId INT, " +
+	                                "classId INT, " +
+	                                "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE, " +
+	                                "FOREIGN KEY (classId) REFERENCES classes(id) ON DELETE CASCADE, " +
+	                                "CHECK (EXISTS (SELECT 1 FROM users WHERE id = userId AND role = 'student'))" + 
+	                                ")";
 	        statement.execute(createTableSQL);
 	    }
 	    
-	    // Method to enroll a student in a class 
-	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
-	        String insertSQL = "INSERT INTO classStudents (userId, classId) VALUES (?, ?)";
-	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+	    public void enrollUserInClass(int userId, int classId) throws SQLException {
+	        // Check if the user is a student
+	        String roleQuery = "SELECT role FROM users WHERE id = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(roleQuery)) {
 	            pstmt.setInt(1, userId);
-	            pstmt.setInt(2, classId);
-	            pstmt.executeUpdate();
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    String role = rs.getString("role");
+	                    if ("student".equals(role)) {
+	                        // Enroll the user if they are a student
+	                        String insertSQL = "INSERT INTO enrollment (userId, classId) VALUES (?, ?)";
+	                        try (PreparedStatement enrollStmt = connection.prepareStatement(insertSQL)) {
+	                            enrollStmt.setInt(1, userId);
+	                            enrollStmt.setInt(2, classId);
+	                            enrollStmt.executeUpdate();
+	                        }
+	                    } else {
+	                        System.out.println("This user is not a student.");
+	                    }
+	                } else {
+	                    System.out.println("User not found.");
+	                }
+	            }
 	        }
 	    }
 	    
+	    public void printStudentsInClass(int classId) throws SQLException {
+	        String query = "SELECT u.id, u.FirstName, u.LastName, u.email " +
+	                       "FROM users u " +
+	                       "JOIN enrollment e ON u.id = e.userId " +
+	                       "WHERE e.classId = ? AND u.role = 'student'"; 
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setInt(1, classId);
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                System.out.println("Students in class " + classId + ":");
+	                while (rs.next()) {
+	                    int studentId = rs.getInt("id");
+	                    String firstName = rs.getString("FirstName");
+	                    String lastName = rs.getString("LastName");
+	                    String email = rs.getString("email");
+
+	                    System.out.printf("ID: %d, Name: %s %s, Email: %s%n", studentId, firstName, lastName, email);
+	                }
+	            }
+	        }
+	    }
+	    public String getStudentName(String studentName) throws SQLException {
+	        String query = "SELECT CONCAT(FirstName, ' ', LastName) AS fullName FROM users WHERE role = 'student' AND CONCAT(FirstName, ' ', LastName) = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, studentName);  // Set the student full name in the query
+	            ResultSet resultSet = pstmt.executeQuery();
+
+	            if (resultSet.next()) {
+	                // Return the found student full name
+	                return resultSet.getString("fullName");
+	            } else {
+	                // Return null or a message if the student is not found
+	                return "Student not found.";
+	            }
+	        }
+	    }
+	    
+	 // Method to fetch all student names from the database (only users with 'student' role)
+	    public List<String> getStudentNames() throws SQLException {
+	        List<String> studentNames = new ArrayList<>();
+	        String query = "SELECT CONCAT(FirstName, ' ', LastName) AS fullName FROM users WHERE role = 'Student'";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query);
+	             ResultSet resultSet = pstmt.executeQuery()) {
+	            
+	            while (resultSet.next()) {
+	                studentNames.add(resultSet.getString("fullName"));
+	            }
+	        }
+
+	        return studentNames;
+	    }
 	    
 	    /*
 	     * 
@@ -658,6 +728,21 @@ public class DataBaseHelper {
 		}
 		
 		
+		// Method to get all class names from the database (modified from original function)
+		public List<String> getClassNames() throws SQLException {
+		    List<String> classNames = new ArrayList<>();
+		    String query = "SELECT name FROM classes";
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query);
+		         ResultSet resultSet = pstmt.executeQuery()) {
+		        
+		        while (resultSet.next()) {
+		            classNames.add(resultSet.getString("name"));
+		        }
+		    }
+
+		    return classNames;
+		}
 		
 		public boolean deleteUser(String username) throws SQLException 
 		{

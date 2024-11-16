@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,9 +23,12 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="createHelpArticles_button" layoutX="15.0" layoutY="192.0" mnemonicParsing="false" onAction="#createArticle" style="-fx-background-color: #c41088;" text="Create Help Article" textFill="WHITE" />
-      <Button fx:id="deleteHelpArticles_button" layoutX="15.0" layoutY="234.0" mnemonicParsing="false" onAction="#Article_delete" style="-fx-background-color: #c41088;" text="Delete Help Article" textFill="WHITE" />
-      <Button fx:id="restoreHelpArticles_button" layoutX="15.0" layoutY="279.0" mnemonicParsing="false" style="-fx-background-color: #c41088;" text="Restore Help Article" textFill="WHITE" />
+      <Button fx:id="createHelpArticles_button" layoutX="15.0" layoutY="192.0" mnemonicParsing="false" onAction="#createArticle" stylesheets="@application.css" text="Create Help Article" textFill="WHITE">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Button>
+      <Button fx:id="deleteHelpArticles_button" layoutX="15.0" layoutY="234.0" mnemonicParsing="false" onAction="#Article_delete" stylesheets="@application.css" text="Delete Help Article" textFill="WHITE" />
+      <Button fx:id="restoreHelpArticles_button" layoutX="15.0" layoutY="279.0" mnemonicParsing="false" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
 
       <!-- General Groups Functions Section -->
       <Label layoutX="276.0" layoutY="146.0" style="-fx-text-fill: white;" text="General Groups Functions">
@@ -32,8 +36,8 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="186.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="Add Class" textFill="WHITE" />
-      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="Add Student" textFill="WHITE" />
+      <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="186.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
+      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
 
       <!-- Remove Article Functions Section -->
       <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Article Functions">
@@ -41,11 +45,11 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="RemoveStudent_Button" layoutX="587.0" layoutY="192.0" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #c41088;" text="Remove Student" textFill="WHITE" />
-      <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="234.0" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #c41088;" text="Remove Class" textFill="WHITE" />
+      <Button fx:id="RemoveStudent_Button" layoutX="587.0" layoutY="192.0" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Student" textFill="WHITE" />
+      <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="234.0" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
 
       <!-- Logout Button -->
-      <Button fx:id="logout_Button" layoutX="300.0" layoutY="362.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #c41088;" text="Logout" textFill="WHITE" />
+      <Button fx:id="logout_Button" layoutX="300.0" layoutY="362.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
       <HBox alignment="CENTER" layoutX="276.0" layoutY="106.0" prefHeight="43.0" prefWidth="168.0" spacing="10.0">
          <children>
             <Label text="Hello" textFill="WHITE">
@@ -75,6 +79,7 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: #c41088;" text="List classes" textFill="WHITE" />
+      <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
+      <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -31,7 +31,7 @@ public class Admin_Instructor_Controller
 	@FXML
     private Button listClassesButton;
 	@FXML
-	private Button ListArticlesButton;
+	private Button ListArticlesButton,listStudentsButton;
 	@FXML
 	private Button Logout;
 	@FXML
@@ -68,10 +68,11 @@ public class Admin_Instructor_Controller
 		this.listClassesButton.setText("List " + name + " classes");
 	}
 	
-	
-	private void ListArticles() {
-		
+	public void setListStudentButtonName(String name) {
+		this.listStudentsButton.setText("List " + name + " students");
 	}
+	
+
 	
 	public void Article_delete(ActionEvent event) throws IOException, SQLException
 	{
@@ -135,7 +136,7 @@ public class Admin_Instructor_Controller
 	
 	}
 	
-	public void ListArtilces(ActionEvent event) throws SQLException, IOException
+	public void ListArtices(ActionEvent event) throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
 	    Parent listArticleRoot = loader.load();
@@ -217,7 +218,7 @@ public class Admin_Instructor_Controller
 	    {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoClass.fxml")); 
 	        Parent studentRoot = loader.load();
-	        Addstudent_togroup Addstudent_togroup = loader.getController();
+	        Addstudent_toclass Addstudent_togroup = loader.getController();
 			
 			
 	        Stage articleStage = new Stage();
