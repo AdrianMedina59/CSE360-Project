@@ -290,7 +290,37 @@ public class DataBaseHelper {
 	            }
 	        }
 	    }
-	    
+	 // Method to get all class names from the database (modified from original function)
+	    public List<String> getClassNames() throws SQLException {
+	        List<String> classNames = new ArrayList<>();
+	        String query = "SELECT name FROM classes";
+
+	        try (PreparedStatement pstmt = getConnection().prepareStatement(query);
+	             ResultSet resultSet = pstmt.executeQuery()) {
+	            
+	            while (resultSet.next()) {
+	                classNames.add(resultSet.getString("name"));
+	            }
+	        }
+
+	        return classNames;
+	    }
+	 // Method to fetch all student names from the database (only users with 'student' role)
+	    public List<String> getStudentNames() throws SQLException {
+	        List<String> studentNames = new ArrayList<>();
+	        String query = "SELECT CONCAT(FirstName, ' ', LastName) AS fullName FROM users WHERE role = 'Student'";
+
+	        try (PreparedStatement pstmt = getConnection().prepareStatement(query);
+	             ResultSet resultSet = pstmt.executeQuery()) {
+	            
+	            while (resultSet.next()) {
+	                studentNames.add(resultSet.getString("fullName"));
+	            }
+	        }
+
+	        return studentNames;
+	    }
+
 	    public void printClassesTable() throws SQLException {
 	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +
 	                       "FROM classes c " +
