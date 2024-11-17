@@ -1,12 +1,20 @@
-.root{
-	
-	-fx-backround-color:"orange";
+.button
+{
+	-fx-background-color:  #0f872a;
 }
 
 
 
+.button:hover
+{
+	-fx-background-color: #07eb3c;
+}
 
-
+.button:pressed
+{
+	-fx-background-color: #054714;
+	
+}
 
 
 
