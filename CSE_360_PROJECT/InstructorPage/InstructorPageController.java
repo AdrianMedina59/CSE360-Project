@@ -65,6 +65,7 @@ public class InstructorPageController
 	{
 		this.username = username;
 	}
+	
 	//function to create an article
 	public void createArticle(ActionEvent event) {
 	    try {
@@ -85,25 +86,7 @@ public class InstructorPageController
 	}
 	
 	
-	// Function in order to create a help article
-	public void createHelpArticle(ActionEvent event) {
-		try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
-	        Parent helpRoot = loader.load();
-	        helpArticleController helpArticleController = loader.getController();
-	        helpArticleController.setRole("Instructor");
-	        helpArticleController.setName(username);
-	        
-	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Create Article");
-	        articleStage.setScene(new Scene(helpRoot));
-	        articleStage.show();
-		 } catch (IOException e) {
-		        e.printStackTrace(); // Print stack trace for debugging
-		    }
-	}
-	
-	
+
 	public void Article_delete(ActionEvent event) throws IOException, SQLException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/Delete_article.fxml"));
@@ -119,20 +102,6 @@ public class InstructorPageController
 
   }
 	
-	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
-	{
-		// This will be able to delete an article when you put in the title
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
-		Parent deleteHelpRoot = loader.load();
-		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
-		DataBaseHelper dataBase = new DataBaseHelper();
-		dataBase.connectToDatabase();
-		Stage newStage = new Stage();
-		Scene RemoveArticle= new Scene(deleteHelpRoot);
-		newStage.setTitle("Remove Article");
-		newStage.setScene(RemoveArticle);
-		newStage.show();
-  }	
 
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
@@ -181,7 +150,6 @@ public class InstructorPageController
 		switchbacktoLogin(event);
 	}
 	
-	
 	}
 	
 	
@@ -214,7 +182,30 @@ public class InstructorPageController
         newStage.setTitle("Article List");
         newStage.setScene(articleListScene);
         newStage.show();
+        
     }
+	// The following use the Help Articles
+	
+	
+	// Function in order to create a help article
+	public void createHelpArticle(ActionEvent event) {
+		try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
+	        Parent helpRoot = loader.load();
+	        helpArticleController helpArticleController = loader.getController();
+	        helpArticleController.setRole("Instructor");
+	        helpArticleController.setName(username);
+	        
+	        Stage articleStage = new Stage();
+	        articleStage.setTitle("Create Article");
+	        articleStage.setScene(new Scene(helpRoot));
+	        articleStage.show();
+		 } catch (IOException e) {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+	}
+	
+	
 	public void ListHelpArticles(ActionEvent event) throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/HelpArticleList.fxml"));
@@ -246,6 +237,20 @@ public class InstructorPageController
         newStage.show();
 	}
 	
+	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
+	{
+		// This will be able to delete an article when you put in the title
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/DeleteHelpArticle.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		Delete_HelpArticleController DeleteHelpArticleController = loader.getController();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
+  }	
 
 
 	
@@ -292,7 +297,48 @@ public class InstructorPageController
 		
 	}
 
+// The following functions will have to do with managing students to the help system  group
+	public void Add_Student_ToHelpSystem(ActionEvent event)
+	{
+		
+	}
+	
+	
 
+	
+	public void DeleteStudents_from_helpsystem(ActionEvent event)
+	{
+		
+	}
+
+	
+	
+	public void ViewStudents_from_helpsystem(ActionEvent event)
+	{
+		
+	}
+	
+	// The following functions will have to do with managing students to the general groups
+	public void Add_Student_ToGeneralgroup(ActionEvent event)
+	{
+		
+	}
+
+
+	public void delete_Student_fromGeneralgroup(ActionEvent event)
+	{
+		
+	}
+
+	
+	
+	public void view_from_general_group(ActionEvent event)
+	{
+		
+	}
+
+	
+	
 	
 }
 
