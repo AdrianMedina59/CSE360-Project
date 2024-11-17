@@ -181,9 +181,14 @@ public class LoginConfirmController {
                 }else if  ("Student".equals(role)){
                    loadStudentPage();
                 }
+                
+          
+                }
             }
         }
-    }
+    
+    
+    
 	
     public void loadAdminPage()
     {
