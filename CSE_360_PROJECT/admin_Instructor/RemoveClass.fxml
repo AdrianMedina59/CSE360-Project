@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="227.0" style="-fx-background-color: #28bd4b;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.RemoveClassController">
+   <children>
+      <Label layoutX="33.0" layoutY="22.0" text="REMOVE CLASS">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="removeClass_ChoiceBox" layoutX="39.0" layoutY="80.0" prefWidth="150.0" />
+      <Label layoutX="39.0" layoutY="63.0" text="Select a class to remove:" />
+      <Button layoutX="88.0" layoutY="121.0" mnemonicParsing="false" onAction="#removeClass" text="remove" />
+   </children>
+</AnchorPane>

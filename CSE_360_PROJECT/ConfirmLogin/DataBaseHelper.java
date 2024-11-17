@@ -53,6 +53,7 @@ public class DataBaseHelper {
 				createHelpArticlesTable();
 				createGeneralGroupsTable();
 				createClassesTable();
+				createClassStudentsTable();
 			} catch (ClassNotFoundException e) {
 				System.err.println("JDBC Driver not found: " + e.getMessage());
 			}
@@ -157,6 +158,17 @@ public class DataBaseHelper {
 
 		}
 
+		public int getUserIdByName(String fullName) throws SQLException {
+		    String query = "SELECT id FROM users WHERE CONCAT(FirstName, ' ', LastName) = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, fullName);
+		        ResultSet rs = pstmt.executeQuery();
+		        if (rs.next()) {
+		            return rs.getInt("id");
+		        }
+		    }
+		    return -1; // Return -1 if not found
+		}
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS passcodes ("
@@ -320,7 +332,65 @@ public class DataBaseHelper {
 
 	        return studentNames;
 	    }
+	    public int getClassIdByName(String className) throws SQLException {
+	        String query = "SELECT id FROM classes WHERE name = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, className);
+	            ResultSet rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                return rs.getInt("id");
+	            }
+	        }
+	        return -1; // Return -1 if not found
+	    }
 
+	    public void removeClass(int classId) throws SQLException {
+	        // First, delete the students from the class in the classStudents table
+	        String deleteStudentsQuery = """
+	            DELETE FROM classStudents WHERE classId = ?
+	        """;
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(deleteStudentsQuery)) {
+	            pstmt.setInt(1, classId);
+
+	            int rowsDeleted = pstmt.executeUpdate();
+	            if (rowsDeleted > 0) {
+	                System.out.println("Successfully removed students from class with ID: " + classId);
+	            } else {
+	                System.out.println("No students found in class with ID: " + classId);
+	            }
+	        }
+
+	        // Then, remove the class from the classes table
+	        String deleteClassQuery = """
+	            DELETE FROM classes WHERE id = ?
+	        """;
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(deleteClassQuery)) {
+	            pstmt.setInt(1, classId);
+
+	            int rowsDeleted = pstmt.executeUpdate();
+	            if (rowsDeleted > 0) {
+	                System.out.println("Successfully removed class with ID: " + classId);
+	            } else {
+	                System.out.println("Class with ID: " + classId + " not found.");
+	            }
+	        }
+	    }
+	    
+	    public ResultSet getClasses() throws SQLException {
+	        // SQL query to retrieve class ID, name, and instructor
+	        String query = "SELECT id, name, Instructor FROM classes";
+	        
+	        // Print the query being executed
+	        System.out.println("Executing query: " + query);
+	        
+	        // Execute the query and return the ResultSet
+	        ResultSet resultSet = statement.executeQuery(query);
+
+	        // Return the resultSet without checking for next() immediately
+	        return resultSet;
+	    }
 	    public void printClassesTable() throws SQLException {
 	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +
 	                       "FROM classes c " +
@@ -343,28 +413,112 @@ public class DataBaseHelper {
 	            }
 	        }
 	    }
-	    // method to create the ClassStudents join table
+	    //method to create the students class table
 	    private void createClassStudentsTable() throws SQLException {
 	        String createTableSQL = "CREATE TABLE IF NOT EXISTS classStudents ("
 	                + "id INT AUTO_INCREMENT PRIMARY KEY, "
 	                + "userId INT NOT NULL, "
 	                + "classId INT NOT NULL, "
-	                + "FOREIGN KEY (userId) REFERENCES users(id), "
-	                + "FOREIGN KEY (classId) REFERENCES classes(id))";
-	        statement.execute(createTableSQL);
-	    }
-	    
-	    // Method to enroll a student in a class 
-	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
-	        String insertSQL = "INSERT INTO classStudents (userId, classId) VALUES (?, ?)";
-	        try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
-	            pstmt.setInt(1, userId);
-	            pstmt.setInt(2, classId);
-	            pstmt.executeUpdate();
+	                + "FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE, "
+	                + "FOREIGN KEY (classId) REFERENCES classes(id) ON DELETE CASCADE, "
+	                + "UNIQUE(userId, classId))"; // Ensures no duplicate enrollments
+	        try (PreparedStatement pstmt = connection.prepareStatement(createTableSQL)) {
+	            pstmt.execute();
+	            System.out.println("classStudents table created successfully.");
 	        }
 	    }
 	    
+	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
+	        String checkSQL = "SELECT COUNT(*) FROM classStudents WHERE userId = ? AND classId = ?";
+	        String insertSQL = "INSERT INTO classStudents (userId, classId) VALUES (?, ?)";
+
+	        try (PreparedStatement checkStmt = connection.prepareStatement(checkSQL);
+	             PreparedStatement insertStmt = connection.prepareStatement(insertSQL)) {
+
+	            // Check if the student is already enrolled in the class
+	            checkStmt.setInt(1, userId);
+	            checkStmt.setInt(2, classId);
+	            ResultSet rs = checkStmt.executeQuery();
+	            if (rs.next() && rs.getInt(1) > 0) {
+	                System.out.println("Student is already enrolled in the class.");
+	                return;
+	            }
+
+	            //enroll the student
+	            insertStmt.setInt(1, userId);
+	            insertStmt.setInt(2, classId);
+	            insertStmt.executeUpdate();
+	            System.out.println("Student enrolled successfully.");
+	        }
+	    }
 	    
+	    public void removeStudentFromClass(int studentId, int classId) throws SQLException {
+	        // Query to delete the student from the specified class
+	        String deleteQuery = """
+	            DELETE FROM classStudents WHERE userId = ? AND classId = ?
+	        """;
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(deleteQuery)) {
+	            pstmt.setInt(1, studentId);
+	            pstmt.setInt(2, classId);
+
+	            int rowsDeleted = pstmt.executeUpdate();
+	            if (rowsDeleted > 0) {
+	                System.out.println("Successfully removed student with ID " + studentId + " from class with ID: " + classId);
+	            } else {
+	                System.out.println("No association found for student ID " + studentId + " in class with ID: " + classId);
+	            }
+	        }
+	    }
+
+	    public List<String> getStudentsInClass(String className) throws SQLException {
+	        List<String> studentNames = new ArrayList<>();
+
+	        String query = "SELECT u.FirstName, u.LastName FROM classStudents cs " +
+	                       "JOIN users u ON cs.userId = u.id " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE c.name = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, className);
+	            ResultSet rs = pstmt.executeQuery();
+
+	            while (rs.next()) {
+	                String fullName = rs.getString("FirstName") + " " + rs.getString("LastName");
+	                studentNames.add(fullName);
+	            }
+	        }
+	        
+	        return studentNames;
+	    }
+	    public void printClassStudentsTable() throws SQLException {
+	        String query = """
+	            SELECT cs.id, u.FirstName, u.LastName, c.name
+	            FROM classStudents cs
+	            JOIN users u ON cs.userId = u.id
+	            JOIN classes c ON cs.classId = c.id
+	        """;
+
+	        try (Statement stmt = connection.createStatement();
+	             ResultSet rs = stmt.executeQuery(query)) {
+	            
+	            System.out.println("ClassStudents Table:");
+	            System.out.println("------------------------------------");
+	            System.out.printf("%-5s %-20s %-20s%n", "ID", "Student Name", "Class Name");
+	            System.out.println("------------------------------------");
+
+	            while (rs.next()) {
+	            	int id = rs.getInt("id");
+	                String firstName = rs.getString("FirstName");
+	                String lastName = rs.getString("LastName");
+	                String className = rs.getString("name");
+
+	                System.out.printf("%-20s %-20s %-20s %-20s\n", id, firstName, lastName, className);
+	            }
+
+	            System.out.println("------------------------------------");
+	        }
+	    }
 	    /*
 	     * 
 	     * 

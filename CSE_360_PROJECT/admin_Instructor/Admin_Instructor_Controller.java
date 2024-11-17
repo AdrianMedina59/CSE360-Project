@@ -118,6 +118,42 @@ public class Admin_Instructor_Controller
         }
     }
 	
+	public void ListClasses() throws SQLException, IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListClasses.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ListClassesController listClassesController = loader.getController();
+
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+			// Debug: Print the entire ResultSet for debugging purposes
+	        System.out.println("Loading classes from the database...");
+            // Execute SQL query to get all users from the database
+            ResultSet resultSet = dataBase.getClasses();
+            
+           
+            listClassesController.loadClassData(resultSet);
+
+            // Pass the resultSet to the UserListController to load the data
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Class List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+	}
+	
 	public void logout(ActionEvent event) throws IOException
 	{
 		
@@ -209,8 +245,45 @@ public class Admin_Instructor_Controller
 		
 	}
 	
+	public void RemoveStudent_Button()
+	{
+		  try
+		    {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("removeStudent.fxml")); 
+		        Parent studentRoot = loader.load();
+		        removeStudentController removeStudentController = loader.getController();
+				
+				
+		        Stage articleStage = new Stage();
+		        articleStage.setTitle("Add Student to class");
+		        articleStage.setScene(new Scene(studentRoot));
+		        articleStage.show();
+		    }
+		    catch (IOException e)
+		    {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+	}
 	
-	
+	public void removeClass()
+	{
+		 try
+		    {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveClass.fxml")); 
+		        Parent studentRoot = loader.load();
+		        RemoveClassController removeClassController = loader.getController();
+				
+				
+		        Stage articleStage = new Stage();
+		        articleStage.setTitle("Add Student to class");
+		        articleStage.setScene(new Scene(studentRoot));
+		        articleStage.show();
+		    }
+		    catch (IOException e)
+		    {
+		        e.printStackTrace(); // Print stack trace for debugging
+		    }
+	}
 	
 	public void AddStudent_Button(ActionEvent event) throws IOException
 	{
@@ -222,7 +295,7 @@ public class Admin_Instructor_Controller
 			
 			
 	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Add Student to Group");
+	        articleStage.setTitle("Add Student to class");
 	        articleStage.setScene(new Scene(studentRoot));
 	        articleStage.show();
 	    }
