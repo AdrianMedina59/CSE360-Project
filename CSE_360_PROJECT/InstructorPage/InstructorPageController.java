@@ -120,6 +120,7 @@ public class InstructorPageController
 
             
 			// Initialize and display the new Confirm Login scene
+            Stage stage = (Stage) TitleLabel.getScene().getWindow();
             Scene confirmLoginScene = new Scene(root);
 
             // Add the CSS file to the scene

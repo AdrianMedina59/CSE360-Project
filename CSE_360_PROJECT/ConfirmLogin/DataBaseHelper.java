@@ -303,15 +303,29 @@ public class DataBaseHelper {
 	        }
 	    }
 	 // Method to get all class names from the database (modified from original function)
-	    public List<String> getClassNames() throws SQLException {
+	    public List<String> getClassNamesByDepartment(int departmentId) throws SQLException {
 	        List<String> classNames = new ArrayList<>();
-	        String query = "SELECT name FROM classes";
+	        String query = """
+	            SELECT 
+	                c.name AS className
+	            FROM 
+	                classes c
+	            JOIN 
+	                generalGroups g ON c.generalGroupId = g.id
+	            WHERE 
+	                g.id = ?;
+	        """;
 
-	        try (PreparedStatement pstmt = getConnection().prepareStatement(query);
-	             ResultSet resultSet = pstmt.executeQuery()) {
-	            
-	            while (resultSet.next()) {
-	                classNames.add(resultSet.getString("name"));
+	        try (PreparedStatement pstmt = getConnection().prepareStatement(query)) {
+	            // Set the department ID in the prepared statement
+	            pstmt.setInt(1, departmentId);
+
+	            // Execute the query
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                // Loop through the results and add class names to the list
+	                while (resultSet.next()) {
+	                    classNames.add(resultSet.getString("className"));
+	                }
 	            }
 	        }
 
@@ -404,18 +418,30 @@ public class DataBaseHelper {
 	        }
 	    }
 	    
-	    public ResultSet getClasses() throws SQLException {
-	        // SQL query to retrieve class ID, name, and instructor
-	        String query = "SELECT id, name, Instructor FROM classes";
+	    public ResultSet getClassesByDepartment(int departmentId) throws SQLException {
+	        // SQL query to retrieve class ID, name, and instructor by department
+	        String query = """
+	            SELECT 
+	                c.id AS classId, 
+	                c.name AS className, 
+	                c.Instructor AS instructorName
+	            FROM 
+	                classes c
+	            JOIN 
+	                generalGroups g ON c.generalGroupId = g.id
+	            WHERE 
+	                g.id = ?;
+	        """;
 	        
 	        // Print the query being executed
 	        System.out.println("Executing query: " + query);
-	        
-	        // Execute the query and return the ResultSet
-	        ResultSet resultSet = statement.executeQuery(query);
 
-	        // Return the resultSet without checking for next() immediately
-	        return resultSet;
+	        // Prepare the statement to prevent SQL injection
+	        PreparedStatement pstmt = connection.prepareStatement(query);
+	        pstmt.setInt(1, departmentId);
+
+	        // Execute the query and return the ResultSet
+	        return pstmt.executeQuery();
 	    }
 	    public void printClassesTable() throws SQLException {
 	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +

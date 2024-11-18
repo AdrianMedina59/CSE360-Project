@@ -25,6 +25,7 @@ public class ListClassesController {
 
 		    private static final DataBaseHelper dataBaseHelper = new DataBaseHelper();
 		    private static final ObservableList<String[]> classDataList = FXCollections.observableArrayList();
+		    private String  username;
 		
 		    public void initialize() throws SQLException {
 		        // Bind columns to data fields
@@ -40,13 +41,20 @@ public class ListClassesController {
 		        loadAllClasses(); 
 		    }
 		    
+
+		    public void setUsername(String usernname)
+		    {
+		    	this.username = usernname;
+		    }
+		    
+		    
 		    @FXML
 		    public void loadAllClasses() throws SQLException {
 		        // Connect to the database
 		        dataBaseHelper.connectToDatabase();
 		        
 		        // Fetch the classes from the database
-		        ResultSet resultSet = dataBaseHelper.getClasses(); // Method to fetch all classes
+		        ResultSet resultSet = dataBaseHelper.getClassesByDepartment(dataBaseHelper.getGroupIdByAdminInstructor(username)); // Method to fetch all classes
 		        loadClassData(resultSet);
 		        // Clear existing data from the list before loading new data
 		        classDataList.clear();

@@ -194,7 +194,8 @@ public class Admin_Instructor_Controller
 			// Debug: Print the entire ResultSet for debugging purposes
 	        System.out.println("Loading classes from the database...");
             // Execute SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getClasses();
+	        listClassesController.setUsername(this.username);
+            ResultSet resultSet = dataBase.getClassesByDepartment(dataBase.getGroupIdByAdminInstructor(username));
             
             printStudentsByDepartment();
             listClassesController.loadClassData(resultSet);
@@ -315,7 +316,7 @@ public class Admin_Instructor_Controller
 		        FXMLLoader loader = new FXMLLoader(getClass().getResource("removeStudent.fxml")); 
 		        Parent studentRoot = loader.load();
 		        removeStudentController removeStudentController = loader.getController();
-				
+		        removeStudentController.setUsername(this.username);
 				
 		        Stage articleStage = new Stage();
 		        articleStage.setTitle("Add Student to class");
@@ -335,7 +336,7 @@ public class Admin_Instructor_Controller
 		        FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveClass.fxml")); 
 		        Parent studentRoot = loader.load();
 		        RemoveClassController removeClassController = loader.getController();
-				
+		        removeClassController.setUsername(this.username);
 				
 		        Stage articleStage = new Stage();
 		        articleStage.setTitle("Add Student to class");
@@ -354,8 +355,10 @@ public class Admin_Instructor_Controller
 	    {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudentoClass.fxml")); 
 	        Parent studentRoot = loader.load();
-	        Addstudent_toclass Addstudent_togroup = loader.getController();
-			
+	        Addstudent_toclass Addstudent_toclass = loader.getController();
+	        
+	        	Addstudent_toclass.setUsername(this.username);
+	       
 			
 	        Stage articleStage = new Stage();
 	        articleStage.setTitle("Add Student to class");
