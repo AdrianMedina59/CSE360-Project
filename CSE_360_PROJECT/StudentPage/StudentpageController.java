@@ -155,6 +155,17 @@ public class StudentpageController
         newStage.setScene(articleListScene);
         newStage.show();
     }
+	
+	public void Generic_Messgage(ActionEvent event)
+	{
+		
+	}
+	
+	public void Specific_Messgage(ActionEvent event)
+	{
+		
+	}
+	
 
 
 }

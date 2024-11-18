@@ -67,7 +67,8 @@ public class InstructorPageController
 	}
 	
 	//function to create an article
-	public void createArticle(ActionEvent event) {
+	public void createArticle(ActionEvent event) 
+	{
 	    try {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
 	        Parent articleRoot = loader.load();
@@ -119,7 +120,6 @@ public class InstructorPageController
 
             
 			// Initialize and display the new Confirm Login scene
-            Stage stage = (Stage) TitleLabel.getScene().getWindow();
             Scene confirmLoginScene = new Scene(root);
 
             // Add the CSS file to the scene
@@ -184,6 +184,13 @@ public class InstructorPageController
         newStage.show();
         
     }
+	
+	public void Edit_articlesbutton(ActionEvent event)
+	{
+		
+	}
+	
+	
 	// The following use the Help Articles
 	
 	
@@ -251,7 +258,11 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
   }	
-
+	public void EditHelpArticles(ActionEvent event)
+	{
+		
+	}
+	
 
 	
 
@@ -266,21 +277,15 @@ public class InstructorPageController
 	{
 		
 	}
-	public void Edit_articlesbutton(ActionEvent event)
-	{
-		
-	}
+
+	//The following with work the th Special Acrcess groups
 	public void ListArticles_Special_Access(ActionEvent event)
 	{
 		
 	}
 	
 	
-	public void EditHelpArticles(ActionEvent event)
-	{
-		
-	}
-	
+
 	public void Edit_articlesbutton_Special_Access(ActionEvent event)
 	{
 		
@@ -317,6 +322,7 @@ public class InstructorPageController
 	{
 		
 	}
+	
 	
 	// The following functions will have to do with managing students to the general groups
 	public void Add_Student_ToGeneralgroup(ActionEvent event)
