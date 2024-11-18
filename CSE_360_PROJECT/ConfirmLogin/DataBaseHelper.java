@@ -317,7 +317,33 @@ public class DataBaseHelper {
 
 	        return classNames;
 	    }
-	 // Method to fetch all student names from the database (only users with 'student' role)
+	    //returns a resultSet of students for departments
+	    public ResultSet getStudentsByDepartment(int departmentId) throws SQLException {
+	    	   String query = """
+	    		        SELECT 
+	    		            u.id AS studentId,
+	    		            CONCAT(u.FirstName, ' ', u.LastName) AS studentName,
+	    		            GROUP_CONCAT(c.name ORDER BY c.name ASC SEPARATOR ', ') AS enrolledClasses
+	    		        FROM 
+	    		            classStudents cs
+	    		        JOIN 
+	    		            users u ON cs.userId = u.id
+	    		        JOIN 
+	    		            classes c ON cs.classId = c.id
+	    		        JOIN 
+	    		            generalGroups g ON c.generalGroupId = g.id
+	    		        WHERE 
+	    		            g.id = ?
+	    		        GROUP BY 
+	    		            u.id, studentName
+	    		        ORDER BY 
+	    		            studentName ASC;
+	    		    """;
+	        PreparedStatement pstmt = connection.prepareStatement(query);
+	        pstmt.setInt(1, departmentId);
+	        return pstmt.executeQuery();
+	    }
+	    
 	    public List<String> getStudentNames() throws SQLException {
 	        List<String> studentNames = new ArrayList<>();
 	        String query = "SELECT CONCAT(FirstName, ' ', LastName) AS fullName FROM users WHERE role = 'Student'";

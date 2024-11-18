@@ -5,10 +5,22 @@
 	-fx-background-color:D53730;
 	
 }
-.label{
-	 -fx-alignment: center;
-	-fx-font-family: "Calibri";
-	-fx-font-weight: bold;
 
+
+.button
+{
+	-fx-background-color:  #9c1a00;
+}
+
+
+
+.button:hover
+{
+	-fx-background-color: #e84646;
+}
+
+.button:pressed
+{
+	-fx-background-color: #4d0303;
 	
 }

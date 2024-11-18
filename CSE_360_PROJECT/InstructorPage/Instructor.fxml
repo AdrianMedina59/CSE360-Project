@@ -65,7 +65,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="704.0" layoutY="212.0" prefHeight="27.0" prefWidth="151.0" text="General Groups">
+      <Label layoutX="719.0" layoutY="212.0" prefHeight="27.0" prefWidth="151.0" text="My Classes">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

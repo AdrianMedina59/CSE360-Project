@@ -118,11 +118,74 @@ public class Admin_Instructor_Controller
         }
     }
 	
+	public void ListStudents() throws IOException, SQLException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ListStudentsController listStudentsController = loader.getController();
+
+		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+			// Debug: Print the entire ResultSet for debugging purposes
+	        System.out.println("Loading classes from the database...");
+            // Execute SQL query to get all students based on department
+	        listStudentsController.setUsername(username);
+	        ResultSet rs = dataBase.getStudentsByDepartment(dataBase.getGroupIdByAdminInstructor(getUserName()));
+            
+           
+            listStudentsController.loadStudentsData(rs);
+
+            // Pass the resultSet to the UserListController to load the data
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+            dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Class List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+	}
+	
+	
+	public void printStudentsByDepartment() {
+	    try {
+	    	DataBaseHelper dataBaseHelper = new DataBaseHelper();
+	    	dataBaseHelper.connectToDatabase();
+	        ResultSet rs = dataBaseHelper.getStudentsByDepartment(dataBaseHelper.getGroupIdByAdminInstructor(getUserName()));
+	        
+	        System.out.println("=== Students in Department ID: " + dataBaseHelper.getGroupIdByAdminInstructor(getUserName()) + " ===");
+	        
+	        while (rs.next()) {
+	            // Check and match the column names with your SQL query
+	            int studentId = rs.getInt("studentId"); // Ensure "studentId" matches the query alias
+	            String studentName = rs.getString("studentName"); // Ensure alias matches here too
+	            String enrolledClasses = rs.getString("enrolledClasses"); // Same for this column
+
+	            System.out.println("Student ID: " + studentId);
+	            System.out.println("Student Name: " + studentName);
+	            System.out.println("Enrolled Classes: " + enrolledClasses);
+	            System.out.println("----------------------------------");
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error fetching or printing students by department: " + e.getMessage());
+	    }
+	}
 	public void ListClasses() throws SQLException, IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListClasses.fxml"));
 	    Parent listArticleRoot = loader.load();
 
+	    
 		ListClassesController listClassesController = loader.getController();
 
 		DataBaseHelper dataBase = new DataBaseHelper();
@@ -133,7 +196,7 @@ public class Admin_Instructor_Controller
             // Execute SQL query to get all users from the database
             ResultSet resultSet = dataBase.getClasses();
             
-           
+            printStudentsByDepartment();
             listClassesController.loadClassData(resultSet);
 
             // Pass the resultSet to the UserListController to load the data

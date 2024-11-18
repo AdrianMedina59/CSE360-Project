@@ -15,7 +15,7 @@
         <!-- Title Label -->
         <Label layoutX="28.0" layoutY="129.0" text="Login" textFill="WHITE">
             <font>
-                <Font size="24.0" />
+                <Font name="System Bold" size="24.0" />
             </font>
         </Label>
 
@@ -28,7 +28,7 @@
         <PasswordField fx:id="Password_textField" layoutX="21.0" layoutY="231.0" promptText="Password" />
 
         <!-- Login Button -->
-        <Button fx:id="Login_Button" layoutX="28.0" layoutY="266.0" onAction="#Login" text="Login" />
+        <Button fx:id="Login_Button" layoutX="28.0" layoutY="266.0" onAction="#Login" stylesheets="@application.css" text="Login" textFill="WHITE" />
 
         <!-- Feedback Label -->
         <Label fx:id="feedbackLabel" layoutX="10.0" layoutY="160.0" textFill="#FF0000" />
@@ -39,7 +39,7 @@
       </Label>
       <Label fx:id="Register_label" layoutX="223.0" layoutY="129.0" text="Register" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <Label fx:id="usernameLabel1" layoutX="211.0" layoutY="171.0" text="Username:" textFill="#000000" />
@@ -48,10 +48,10 @@
       <PasswordField fx:id="Reg_Password_TextField" layoutX="211.0" layoutY="230.0" promptText="Password" />
       <Label fx:id="passwordLabel2" layoutX="213.0" layoutY="258.0" text="Confirm Password:" textFill="#000000" />
       <PasswordField fx:id="Reg_confirmPassword_TextField" layoutX="211.0" layoutY="279.0" promptText="Password" />
-      <Button fx:id="Register_button" layoutX="206.0" layoutY="366.0" onAction="#Register" text="Register" />
-      <Button fx:id="InviteCodeButton" layoutX="24.0" layoutY="341.0" mnemonicParsing="false" onAction="#InviteCode" prefHeight="53.0" prefWidth="79.0" text="Codes" />
+      <Button fx:id="Register_button" layoutX="206.0" layoutY="366.0" onAction="#Register" stylesheets="@application.css" text="Register" textFill="WHITE" />
+      <Button fx:id="InviteCodeButton" layoutX="24.0" layoutY="341.0" mnemonicParsing="false" onAction="#InviteCode" prefHeight="53.0" prefWidth="79.0" stylesheets="@application.css" text="Codes" textFill="WHITE" />
       <TextField fx:id="InviteCode_textField" layoutX="211.0" layoutY="331.0" promptText="123" />
       <Label fx:id="passwordLabel21" layoutX="209.0" layoutY="309.0" text="Invite Code:" textFill="#000000" />
-      <Button fx:id="ForgotPassword_Button" layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#loadForgot" text="Forgot Password" />
+      <Button fx:id="ForgotPassword_Button" layoutX="25.0" layoutY="305.0" mnemonicParsing="false" onAction="#loadForgot" stylesheets="@application.css" text="Forgot Password" textFill="WHITE" />
     </children>
 </AnchorPane>
