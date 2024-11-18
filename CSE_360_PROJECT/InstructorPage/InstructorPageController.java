@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 import Article.ArticleController;
 import Article.ArticleListController;
+import Article.ArticleTypeChoiceController;
 import Article.Delete_ArticleController;
 import Article.Delete_HelpArticleController;
 import Article.hArticleListController;
@@ -70,15 +71,15 @@ public class InstructorPageController
 	public void createArticle(ActionEvent event) 
 	{
 	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateArticle.fxml")); // Assuming it's in the same package
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleTypeChoice.fxml")); // Assuming it's in the same package
 	        Parent articleRoot = loader.load();
 	        
-	        ArticleController articleController = loader.getController();
-	        articleController.setRole("Instructor");
-	        articleController.setName(username);
+	        ArticleTypeChoiceController articleTypeChoiceController = loader.getController();
+	        articleTypeChoiceController.setRole("Instructor");
+	        articleTypeChoiceController.setName(username);
 	        
 	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Create Article");
+	        articleStage.setTitle("Article Choice");
 	        articleStage.setScene(new Scene(articleRoot));
 	        articleStage.show();
 	    } catch (IOException e) {
@@ -195,23 +196,7 @@ public class InstructorPageController
 	// The following use the Help Articles
 	
 	
-	// Function in order to create a help article
-	public void createHelpArticle(ActionEvent event) {
-		try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateHelp.fxml")); // Assuming it's in the same package
-	        Parent helpRoot = loader.load();
-	        helpArticleController helpArticleController = loader.getController();
-	        helpArticleController.setRole("Instructor");
-	        helpArticleController.setName(username);
-	        
-	        Stage articleStage = new Stage();
-	        articleStage.setTitle("Create Article");
-	        articleStage.setScene(new Scene(helpRoot));
-	        articleStage.show();
-		 } catch (IOException e) {
-		        e.printStackTrace(); // Print stack trace for debugging
-		    }
-	}
+	
 	
 	
 	public void ListHelpArticles(ActionEvent event) throws SQLException, IOException

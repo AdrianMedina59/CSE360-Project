@@ -22,7 +22,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="CreateHelpArticle" layoutX="29.0" layoutY="295.0" mnemonicParsing="false" onAction="#createHelpArticle" prefHeight="26.0" prefWidth="93.0" stylesheets="@application.css" text="Create Articles" textFill="WHITE" />
+      <Button fx:id="CreateHelpArticle" layoutX="29.0" layoutY="295.0" mnemonicParsing="false" onAction="#createArticle" prefHeight="26.0" prefWidth="93.0" stylesheets="@application.css" text="Create Articles" textFill="WHITE" />
       <Button fx:id="HelpArticle_Delete1" layoutX="29.0" layoutY="384.0" mnemonicParsing="false" onAction="#HelpArticle_delete1" prefHeight="26.0" prefWidth="93.0" stylesheets="@application.css" text="Delete Articles" textFill="WHITE" />
       <Button fx:id="ListHelpArticles" layoutX="28.0" layoutY="255.0" mnemonicParsing="false" onAction="#ListHelpArticles" prefHeight="26.0" prefWidth="98.0" stylesheets="@application.css" text="View Articles" textFill="WHITE" />
       <Button fx:id="back_up_Article" layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#back_up_Article" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
