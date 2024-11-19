@@ -59,6 +59,23 @@ public class ArticleTypeChoiceController {
 			        e.printStackTrace(); // Print stack trace for debugging
 			    }
 		}
+		
+		public void createSpecialArticle(ActionEvent event) {
+			try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateSpecialArticle.fxml")); // Assuming it's in the same package
+		        Parent helpRoot = loader.load();
+		        ArticleController articleController = loader.getController();
+		        articleController.setRole("Instructor");
+		        articleController.setName(username);
+		        
+		        Stage articleStage = new Stage();
+		        articleStage.setTitle("Create Article");
+		        articleStage.setScene(new Scene(helpRoot));
+		        articleStage.show();
+			 } catch (IOException e) {
+			        e.printStackTrace(); // Print stack trace for debugging
+			    }
+		}
 	
 
 	
