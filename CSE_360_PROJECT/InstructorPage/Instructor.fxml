@@ -4,19 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="536.0" style="-fx-background-color: #34eb49;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstructorPage.InstructorPageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#16c42a" height="178.0" layoutX="-41.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="511.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#169425" height="233.0" layoutY="-17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="560.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#169425" height="233.0" layoutY="-17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="536.0" />
       <Button fx:id="InstructorLoout" layoutX="154.0" layoutY="462.0" mnemonicParsing="false" onAction="#logout" prefHeight="48.0" prefWidth="260.0" stylesheets="@application.css" text="Log out" textFill="WHITE" />
       <Label fx:id="TitleLabel" layoutX="-150.0" layoutY="34.0" prefHeight="59.0" prefWidth="904.0" text="                                      Welcome to the Instructor View" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+
       <Label layoutX="8.0" layoutY="220.0" prefHeight="27.0" prefWidth="151.0" text="Article System:">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -25,9 +27,11 @@
       <Button fx:id="CreateHelpArticle" layoutX="29.0" layoutY="295.0" mnemonicParsing="false" onAction="#createArticle" prefHeight="26.0" prefWidth="93.0" stylesheets="@application.css" text="Create Articles" textFill="WHITE" />
       <Button fx:id="HelpArticle_Delete1" layoutX="29.0" layoutY="384.0" mnemonicParsing="false" onAction="#HelpArticle_delete1" prefHeight="26.0" prefWidth="93.0" stylesheets="@application.css" text="Delete Articles" textFill="WHITE" />
       <Button fx:id="ListHelpArticles" layoutX="28.0" layoutY="255.0" mnemonicParsing="false" onAction="#ListHelpArticles" prefHeight="26.0" prefWidth="98.0" stylesheets="@application.css" text="View Articles" textFill="WHITE" />
-      <Button fx:id="back_up_Article" layoutX="26.0" layoutY="462.0" mnemonicParsing="false" onAction="#back_up_Article" prefHeight="25.0" prefWidth="78.0" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
+      <Button fx:id="back_up_Article" layoutX="159.0" layoutY="425.0" mnemonicParsing="false" onAction="#back_up_Article" prefHeight="25.0" prefWidth="78.0" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
       <Button fx:id="Restore_Article" layoutX="29.0" layoutY="424.0" mnemonicParsing="false" onAction="#Restore_Article" prefHeight="25.0" prefWidth="93.0" stylesheets="@application.css" text="Restore Articles" textFill="WHITE" />
       <Button fx:id="EditHelpArticles" layoutX="26.0" layoutY="342.0" mnemonicParsing="false" onAction="#EditHelpArticles" prefHeight="26.0" prefWidth="98.0" stylesheets="@application.css" text="Edit Articles" textFill="WHITE" />
+      <Button fx:id="back_up_Article" layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#back_up_Article" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
+      <Button fx:id="Restore_Article" layoutX="422.0" layoutY="473.0" mnemonicParsing="false" onAction="#Restore_Article" stylesheets="@application.css" text="Restore Articles" textFill="WHITE" />
       <HBox alignment="CENTER" layoutX="173.0" layoutY="125.0" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Label text="Hello" textFill="WHITE">
@@ -58,6 +62,54 @@
       <Button fx:id="ViewStudents_from_helpsystem" layoutX="220.0" layoutY="355.0" mnemonicParsing="false" onAction="#ViewStudents_from_helpsystem" prefHeight="26.0" prefWidth="102.0" stylesheets="@application.css" text="View Students" textFill="WHITE" />
       <Button fx:id="delete_Student_fromGeneralgroup" layoutX="395.0" layoutY="307.0" mnemonicParsing="false" onAction="#delete_Student_fromGeneralgroup" prefHeight="26.0" prefWidth="102.0" stylesheets="@application.css" text="Delete Students" textFill="WHITE" />
       <Button fx:id="view_from_general_group" layoutX="402.0" layoutY="355.0" mnemonicParsing="false" onAction="#view_from_general_group" prefHeight="26.0" prefWidth="102.0" stylesheets="@application.css" text="View Students" textFill="WHITE" />
-      <Button layoutX="443.0" layoutY="475.0" mnemonicParsing="false" text="Messages" />
+      <Button layoutX="443.0" layoutY="437.0" mnemonicParsing="false" text="Messages" />
+      <VBox layoutX="15.0" layoutY="249.0" prefHeight="172.0" prefWidth="100.0" spacing="20.0" />
+      <HBox layoutX="10.0" layoutY="216.0" prefHeight="25.0" prefWidth="549.0" spacing="60.0" />
+      <HBox alignment="CENTER" layoutX="2.0" layoutY="175.0" prefHeight="17.0" prefWidth="536.0" spacing="10.0">
+         <children>
+            <Label text="Classes in charge:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="ClassList_TextLabel" text="CLASS LIST">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Button fx:id="HelpArticle_Delete1" layoutX="154.0" layoutY="396.0" mnemonicParsing="false" onAction="#HelpArticle_delete1" prefHeight="26.0" prefWidth="86.0" stylesheets="@application.css" text="Delete Articles" textFill="WHITE" />
+      <Button fx:id="EditHelpArticles" layoutX="139.0" layoutY="342.0" mnemonicParsing="false" onAction="#EditHelpArticles" prefHeight="26.0" prefWidth="60.0" stylesheets="@application.css" text="Edit Articles" textFill="WHITE" />
+      <Button fx:id="CreateHelpArticle" layoutX="128.0" layoutY="294.0" mnemonicParsing="false" onAction="#createArticle" prefHeight="26.0" prefWidth="48.0" stylesheets="@application.css" text="Create Articles" textFill="WHITE" />
+      <Button layoutX="132.0" layoutY="255.0" mnemonicParsing="false" onAction="#ListArtilces" prefHeight="26.0" prefWidth="48.0" stylesheets="@application.css" text="View Articles" textFill="WHITE" />
+      <Label layoutX="50.0" layoutY="154.0" prefHeight="30.0" prefWidth="164.0" text="Article System:">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="102.0" prefHeight="27.0" prefWidth="176.0" text="My Classes:">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="DeleteStudents_from_helpsystem" layoutX="292.0" layoutY="400.0" mnemonicParsing="false" onAction="#DeleteStudents_from_helpsystem" prefHeight="26.0" prefWidth="171.0" stylesheets="@application.css" text="View messages" textFill="WHITE" />
+      <VBox layoutX="427.0" layoutY="150.0" prefHeight="83.0" prefWidth="109.0" spacing="20.0">
+         <children>
+            <Button fx:id="delete_Student_fromGeneralgroup" mnemonicParsing="false" onAction="#RemoveStudentFromClass" prefHeight="26.0" prefWidth="160.0" stylesheets="@application.css" text="Delete Students" textFill="WHITE" />
+         </children>
+      </VBox>
+      <Button fx:id="Add_Student_ToHelpSystem" layoutX="357.0" layoutY="136.0" mnemonicParsing="false" onAction="#Add_Student_ToHelpSystem" prefHeight="26.0" prefWidth="112.0" stylesheets="@application.css" text="Message student" textFill="WHITE" />
+      <Button fx:id="Add_Student_ToGeneral" layoutX="411.0" layoutY="81.0" mnemonicParsing="false" onAction="#AddStudentToClass" prefHeight="25.0" prefWidth="90.0" stylesheets="@application.css" text="Add Students" textFill="WHITE" />
+      <VBox layoutX="327.0" layoutY="242.0" prefHeight="107.0" prefWidth="60.0" spacing="20.0">
+         <children>
+            <Button fx:id="view_from_general_group" mnemonicParsing="false" onAction="#ListStudents" prefHeight="26.0" prefWidth="156.0" stylesheets="@application.css" text="View Students" textFill="WHITE" />
+         </children>
+      </VBox>
+      <Label layoutX="23.0" layoutY="180.0" prefHeight="27.0" prefWidth="151.0" text="Help System:">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -360,6 +360,23 @@ public class DataBaseHelper {
 
 	        return classNames;
 	    }
+	    
+	    public List<String> getInstructorClasses(String instructor) throws SQLException {
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, instructor);
+	            
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
+	    }
 	    //returns a resultSet of students for departments
 	    public ResultSet getStudentsByDepartment(int departmentId) throws SQLException {
 	    	   String query = """
@@ -507,6 +524,40 @@ public class DataBaseHelper {
 	            pstmt.execute();
 	            System.out.println("classStudents table created successfully.");
 	        }
+	    }
+	    
+	    public ResultSet getStudentsByInstructor(String instructorName) throws SQLException {
+	        String query = "SELECT " +
+	                       "u.id AS studentId, " +
+	                      " CONCAT(u.FirstName, ' ', u.LastName) AS studentName," +
+	                       "c.name AS className " +
+	                       "FROM classStudents cs " +
+	                       "JOIN users u ON cs.userId = u.id " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE c.instructor = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, instructorName);
+
+	        // Execute the query and return the result set
+	        return preparedStatement.executeQuery();
+	    }
+	
+	    
+	    public List<String> getClassesFromInstructor(String instructorName) throws SQLException { // Gets classes by the Instructor
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	            preparedStatement.setString(1, instructorName);
+
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
 	    }
 	    
 	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
@@ -759,6 +810,20 @@ public class DataBaseHelper {
 
 		        // If affectedRows is greater than 0, it means the password was updated
 		        return affectedRows > 0;
+		    }
+		}
+		
+		public String getStudentList(String username) throws SQLException {
+		    String query = "SELECT studentList FROM users WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+
+		        if (resultSet.next()) {
+		            return resultSet.getString("studentList");  // Return the studentList
+		        } else {
+		            return null; // User not found, handle accordingly
+		        }
 		    }
 		}
 		
