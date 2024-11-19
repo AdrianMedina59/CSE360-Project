@@ -33,9 +33,6 @@
          </font>
       </Label>
 
-      <Button fx:id="AddClass_Button" layoutX="220.0" layoutY="195.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
-      <Button fx:id="AddStudent_Button" layoutX="220.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
-
 
       <!-- Remove Article Functions Section -->
       <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Group Functions">
@@ -45,7 +42,7 @@
       </Label>
 
       <!-- Logout Button -->
-      <Button fx:id="logout_Button" layoutX="281.0" layoutY="350.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
+      <Button fx:id="logout_Button" layoutX="300.0" layoutY="363.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
       <HBox alignment="CENTER" layoutX="276.0" layoutY="106.0" prefHeight="43.0" prefWidth="168.0" spacing="10.0">
          <children>
             <Label text="Hello" textFill="WHITE">
@@ -78,7 +75,7 @@
 
       <Button fx:id="listClassesButton" layoutX="368.0" layoutY="195.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
       <Button fx:id="listStudentsButton" layoutX="368.0" layoutY="235.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
-      <Button layoutX="654.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Messages" />
+      <Button layoutX="668.0" layoutY="363.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Messages" />
 
       <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
       <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
@@ -93,15 +90,18 @@
             <Button fx:id="restoreHelpArticles_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
          </children>
       </VBox>
-      <VBox layoutX="310.0" layoutY="192.0" prefHeight="101.0" prefWidth="112.0" spacing="20.0" />
-      <VBox layoutX="604.0" layoutY="192.0" prefHeight="101.0" prefWidth="127.0" spacing="20.0">
+      <VBox layoutX="601.0" layoutY="316.0" prefHeight="26.0" prefWidth="133.0" spacing="20.0">
+         <children>
+      
+                  <Button fx:id="AddClass_Button" onAction="#AddClass_Button" prefHeight="26.0" prefWidth="133.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
+         </children></VBox>
+      <VBox layoutX="604.0" layoutY="192.0" prefHeight="35.0" prefWidth="127.0" spacing="20.0">
          <children>
             <Button fx:id="RemoveStudent_Button" onAction="#RemoveStudent_Button" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Student" textFill="WHITE" />
-            <Button fx:id="RemoveClass_Button" onAction="#removeClass" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
          </children>
       </VBox>
-      <Button fx:id="AddClass_Button" layoutX="183.0" layoutY="300.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
-      <Button fx:id="AddStudent_Button" layoutX="359.0" layoutY="287.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
+      <Button fx:id="AddStudent_Button" layoutX="602.0" layoutY="265.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
+      <Button fx:id="RemoveClass_Button" layoutX="602.0" layoutY="228.0" onAction="#removeClass" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
 
    </children>
 </AnchorPane>
