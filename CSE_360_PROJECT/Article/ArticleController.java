@@ -30,6 +30,8 @@ public class ArticleController {
     private ChoiceBox<String> groupCategory; // For Class Category input
     @FXML
     private Button finish_button; // Button to finalize the article
+    @FXML
+    private ChoiceBox<String> studentArticleSend; // For choice of students to send to for artcile
     
     private DataBaseHelper dataBaseHelper = new DataBaseHelper();
     private String role;
