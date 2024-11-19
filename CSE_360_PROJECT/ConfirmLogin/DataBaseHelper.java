@@ -27,6 +27,7 @@ import Article.Article;
 import Article.helpArticle;
 import ClassManager.Group;
 import ClassManager.schoolClass;
+import Messages.Message;
 public class DataBaseHelper {
 	
 	// JDBC driver name and database URL 
@@ -51,6 +52,8 @@ public class DataBaseHelper {
 				createPasscodeTable();
 				createArticlesTable();
 				createHelpArticlesTable();
+				createMessageTable();
+
 				createGeneralGroupsTable();
 				createClassesTable();
 				createClassStudentsTable();
@@ -75,9 +78,6 @@ public class DataBaseHelper {
 		}
 		
 		// Create the articles table if it doesn't exist
-
-		
-
 		private void createArticlesTable() throws SQLException {
 		    String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
 		                            "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -103,9 +103,23 @@ public class DataBaseHelper {
 		                            "deleted BOOLEAN DEFAULT FALSE)";
 			try (Statement stmt = connection.createStatement()) {
 		        stmt.execute(createTableSQL);
-		        System.out.println("is it working");
 		    }
 		}
+		
+		private void createMessageTable() throws SQLException {
+		    String createTableSQL = "CREATE TABLE IF NOT EXISTS messages ("
+		            + "message_id INT AUTO_INCREMENT PRIMARY KEY, "
+		            + "sender VARCHAR(255) NOT NULL, "
+		            + "receiver VARCHAR(255) NOT NULL, "
+		            + "role VARCHAR(255) NOT NULL, "  
+		            + "message_content TEXT NOT NULL)";
+
+		    try (Statement stmt = connection.createStatement()) {
+		        stmt.execute(createTableSQL);
+		        System.out.println("Message Table has been created");
+		    }
+		}
+
 		
 		// Method to update a user's role based on their username
 		public boolean updateUserRole(String username, String newRole) throws SQLException {
@@ -157,6 +171,21 @@ public class DataBaseHelper {
 		    }
 
 		}
+		
+		public void insertMessage(Message message, String role) throws SQLException {
+		    String insertSQL = "INSERT INTO messages (sender, receiver, role, message_content) VALUES (?, ?, ?, ?)";
+		    try (PreparedStatement stmt = connection.prepareStatement(insertSQL)) {
+		        stmt.setString(1, message.getSender());      // Use getSender() to get sender
+		        stmt.setString(2, message.getReceiver());    // Use getReceiver() to get receiver
+		        stmt.setString(3, role);                     // role is passed as parameter
+		        stmt.setString(4, message.getMessage());     // Use getMessage() to get message content
+		        int rowsAffected = stmt.executeUpdate(); // Get number of affected rows
+		        System.out.println("Rows affected: " + rowsAffected);
+		    }
+		}
+
+
+
 
 		public int getUserIdByName(String fullName) throws SQLException {
 		    String query = "SELECT id FROM users WHERE CONCAT(FirstName, ' ', LastName) = ?";
@@ -801,6 +830,13 @@ public class DataBaseHelper {
 		    Statement stmt = connection.createStatement();
 		    return stmt.executeQuery(query);
 		}
+		
+		public ResultSet getMessages() throws SQLException {
+		    String query = "SELECT * FROM messages";
+		    Statement stmt = connection.createStatement();
+		    return stmt.executeQuery(query);
+		}
+
 
 		
 		//returns connection
@@ -1103,6 +1139,27 @@ public class DataBaseHelper {
 
 		            // Print the help article details, including the role
 		            System.out.println(id + " | " + title + " | " + body + " | " + role);
+		        }
+		    }
+		}
+
+		public void displayMessages() throws SQLException {
+		    String query = "SELECT * FROM messages"; // SQL query to retrieve all messages
+		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
+		        // Print column headers for clarity
+		        System.out.println("Message ID | Sender | Receiver | Role | Message Content");
+		        System.out.println("----------------------------------------------------------");
+
+		        // Loop through the result set and print each message's details
+		        while (resultSet.next()) {
+		            int messageId = resultSet.getInt("message_id");
+		            String sender = resultSet.getString("sender");
+		            String receiver = resultSet.getString("receiver");
+		            String role = resultSet.getString("role");
+		            String messageContent = resultSet.getString("message_content");
+
+		            // Print the message details
+		            System.out.println(messageId + " | " + sender + " | " + receiver + " | " + role + " | " + messageContent);
 		        }
 		    }
 		}

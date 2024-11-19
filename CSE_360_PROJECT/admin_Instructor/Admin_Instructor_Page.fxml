@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="780.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="780.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9a3995" height="200.0" layoutX="-3.0" layoutY="-15.0" width="799.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6f0e6a" height="200.0" layoutX="-11.0" layoutY="-51.0" width="815.0" />
@@ -37,8 +37,8 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="192.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
-      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
+      <Button fx:id="AddClass_Button" layoutX="220.0" layoutY="195.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
+      <Button fx:id="AddStudent_Button" layoutX="220.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
 
       <!-- Remove Article Functions Section -->
       <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Article Functions">
@@ -50,7 +50,7 @@
       <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="234.0" onAction="#removeClass" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
 
       <!-- Logout Button -->
-      <Button fx:id="logout_Button" layoutX="300.0" layoutY="362.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
+      <Button fx:id="logout_Button" layoutX="281.0" layoutY="350.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
       <HBox alignment="CENTER" layoutX="276.0" layoutY="106.0" prefHeight="43.0" prefWidth="168.0" spacing="10.0">
          <children>
             <Label text="Hello" textFill="WHITE">
@@ -80,7 +80,8 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
-      <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
+      <Button fx:id="listClassesButton" layoutX="368.0" layoutY="195.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
+      <Button fx:id="listStudentsButton" layoutX="368.0" layoutY="235.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
+      <Button layoutX="602.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Messages" />
    </children>
 </AnchorPane>

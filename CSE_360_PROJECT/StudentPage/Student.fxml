@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentPage.StudentpageController">
+<AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StudentPage.StudentpageController">
    <children>
-      <Button fx:id="studentLogout" layoutX="100.0" layoutY="364.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
+      <Button fx:id="studentLogout" layoutX="151.0" layoutY="371.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
       <Label fx:id="TitleLabel" layoutX="94.0" layoutY="56.0" text="Welcome to Student page!">
          <font>
             <Font size="24.0" />
@@ -23,14 +23,9 @@
             <Font size="20.0" />
          </font>
       </Label>
-     <Button fx:id="searchButton" layoutX="188.0" layoutY="364.0" mnemonicParsing="false" onAction="#loadSearchArticlesPage" text="View Article" />
-      <Button layoutX="302.0" layoutY="364.0" mnemonicParsing="false" onAction="#ListArtilces" text="List Articles" />
-      <Button fx:id="Generic_Messgage" layoutX="140.0" layoutY="236.0" mnemonicParsing="false" onAction="#Generic_Messgage" text="Send Generic Message" />
-      <Button fx:id="Specific_Message" layoutX="321.0" layoutY="236.0" mnemonicParsing="false" onAction="#Specific_Messgage" text="Send Specific Message" />
-      <Label layoutX="17.0" layoutY="231.0" prefHeight="35.0" prefWidth="154.0" text="Messgaes: ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+     <Button fx:id="searchButton" layoutX="111.0" layoutY="175.0" mnemonicParsing="false" onAction="#loadSearchArticlesPage" text="View Article" />
+      <Button layoutX="252.0" layoutY="175.0" mnemonicParsing="false" onAction="#ListArtilces" text="List Articles" />
+      <Button layoutX="411.0" layoutY="371.0" mnemonicParsing="false" onAction="#HelpPage" text="Help" />
+      <Button layoutX="236.0" layoutY="371.0" mnemonicParsing="false" onAction="#MessageList" text="Messages" />
    </children>
 </AnchorPane>
