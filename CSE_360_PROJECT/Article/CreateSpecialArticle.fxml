@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Import necessary JavaFX controls -->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="492.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.ArticleController">
+	<children>
+		<Label layoutX="109.0" layoutY="25.0" prefHeight="51.0" prefWidth="266.0" text="Setup an article" textAlignment="CENTER" textFill="#030303">
+			<font>
+				<Font size="28.0" />
+			</font>
+		</Label>
+
+		<Label fx:id="usernameLabel1" layoutX="30.0" layoutY="89.0" prefHeight="17.0" prefWidth="109.0" text="Title Of Article:" textFill="#000000">
+			<font>
+				<Font size="15.0" />
+			</font>
+		</Label>
+		<TextField fx:id="Title_textField" layoutX="30.0" layoutY="110.0" prefHeight="25.0" prefWidth="149.0" promptText="Title" />
+
+		<Label fx:id="usernameLabel11" layoutX="35.0" layoutY="159.0" prefHeight="27.0" prefWidth="149.0" text="Abstract Text:" textFill="#000000">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</Label>
+
+		<Label fx:id="usernameLabel12" layoutX="194.0" layoutY="86.0" prefHeight="27.0" prefWidth="109.0" text="Keywords:" textFill="#000000">
+			<font>
+				<Font size="15.0" />
+			</font>
+		</Label>
+
+		<Label fx:id="usernameLabel13" layoutX="33.0" layoutY="274.0" prefHeight="17.0" prefWidth="109.0" text="Body of Article:" textFill="#000000">
+			<font>
+				<Font size="16.0" />
+			</font>
+		</Label>
+
+		<Label fx:id="usernameLabel14" layoutX="33.0" layoutY="386.0" prefHeight="17.0" prefWidth="109.0" text="Links:" textFill="#000000">
+			<font>
+				<Font size="16.0" />
+			</font>
+		</Label>
+
+		<TextField fx:id="Keyword_textField" layoutX="194.0" layoutY="110.0" prefHeight="25.0" prefWidth="149.0" promptText="(i.e Grades, Attendance) " />
+
+		<!-- Added fx:id for shortDescription, bodyOfArticle, links, and
+		sensitiveInfo -->
+		<TextArea fx:id="Abstract_textArea" layoutX="27.0" layoutY="186.0" prefHeight="70.0" prefWidth="232.0" promptText="Chris's grades are not good" />
+		<TextArea fx:id="Body_textArea" layoutX="34.0" layoutY="299.0" prefHeight="70.0" prefWidth="416.0" promptText="Don't make this long cause we dont have enough space" />
+		<TextArea fx:id="Links_textArea" layoutX="30.0" layoutY="411.0" prefHeight="51.0" prefWidth="416.0" promptText="google.com" />
+
+		<Button fx:id="finish_button" layoutX="110.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleFinishArticle" prefHeight="25.0" prefWidth="207.0" text="Finish Article" />
+		<Label layoutX="282.0" layoutY="159.0" prefHeight="20.0" prefWidth="136.0" text="Class Category">
+			<font>
+				<Font size="18.0" />
+			</font>
+		</Label>
+		<ChoiceBox fx:id="groupCategory" layoutX="275.0" layoutY="186.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="studentArticleSend" layoutX="275.0" layoutY="259.0" prefWidth="150.0" />
+      <Label layoutX="282.0" layoutY="228.0" prefHeight="20.0" prefWidth="136.0" text="Send to Student">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+	</children>
+</AnchorPane>

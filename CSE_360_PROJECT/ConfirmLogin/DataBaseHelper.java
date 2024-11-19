@@ -497,6 +497,23 @@ public class DataBaseHelper {
 	        }
 	    }
 	    
+	    public List<String> getClassesFromInstructor(String instructorName) throws SQLException { // Gets classes by the Instructor
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	            preparedStatement.setString(1, instructorName);
+
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
+	    }
+	    
 	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
 	        String checkSQL = "SELECT COUNT(*) FROM classStudents WHERE userId = ? AND classId = ?";
 	        String insertSQL = "INSERT INTO classStudents (userId, classId) VALUES (?, ?)";
@@ -747,6 +764,20 @@ public class DataBaseHelper {
 
 		        // If affectedRows is greater than 0, it means the password was updated
 		        return affectedRows > 0;
+		    }
+		}
+		
+		public String getStudentList(String username) throws SQLException {
+		    String query = "SELECT studentList FROM users WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+
+		        if (resultSet.next()) {
+		            return resultSet.getString("studentList");  // Return the studentList
+		        } else {
+		            return null; // User not found, handle accordingly
+		        }
 		    }
 		}
 		

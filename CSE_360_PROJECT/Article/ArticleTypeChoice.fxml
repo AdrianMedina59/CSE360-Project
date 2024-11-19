@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="242.0" style="-fx-background-color: #785555;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.ArticleTypeChoiceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="242.0" style="-fx-background-color: #785555;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.ArticleTypeChoiceController">
    <children>
       <Label layoutX="18.0" layoutY="22.0" text="What kind of article?" textFill="WHITE">
          <font>
@@ -17,7 +17,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#createGeneralArticle" text="General" />
             <Button mnemonicParsing="false" onAction="#createHelpArticle" text="Help" />
-            <Button mnemonicParsing="false" text="Special" />
+            <Button mnemonicParsing="false" onAction="#createSpecialArticle" text="Special" />
          </children>
       </HBox>
    </children>
