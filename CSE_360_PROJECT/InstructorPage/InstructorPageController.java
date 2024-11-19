@@ -27,6 +27,7 @@ import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+import admin_Instructor.removeStudentController;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -277,22 +278,62 @@ public class InstructorPageController
 	
 	
 	// The following functions will have to do with managing students to the general groups
-	public void Add_Student_ToGeneralgroup(ActionEvent event)
+	public void AddStudentToClass(ActionEvent event) throws SQLException, IOException
 	{
-		
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("addStudent.fxml"));
+				Parent deleteHelpRoot = loader.load();
+				AddStudentController addStudentController = loader.getController();
+				
+				DataBaseHelper dataBase = new DataBaseHelper();
+				dataBase.connectToDatabase();
+				addStudentController.setUsername(username);
+				
+				Stage newStage = new Stage();
+				Scene RemoveArticle= new Scene(deleteHelpRoot);
+				newStage.setTitle("Remove Article");
+				newStage.setScene(RemoveArticle);
+				newStage.show();
 	}
 
 
-	public void delete_Student_fromGeneralgroup(ActionEvent event)
+	public void RemoveStudentFromClass(ActionEvent event) throws IOException, SQLException
 	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveStudent.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		RemoveStudentController  removeStudentController = loader.getController();
 		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		removeStudentController.setUsername(username);
+		
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
 	}
 
 	
 	
-	public void view_from_general_group(ActionEvent event)
+	public void ListStudents(ActionEvent event) throws IOException, SQLException
 	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
+		Parent deleteHelpRoot = loader.load();
+		ListInstructorController  listInstructorController = loader.getController();
 		
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		listInstructorController.setUsername(username);
+		ResultSet rs = dataBase.getStudentsByInstructor(username);
+        
+        
+        listInstructorController.loadStudentsData(rs);
+		
+		Stage newStage = new Stage();
+		Scene RemoveArticle= new Scene(deleteHelpRoot);
+		newStage.setTitle("Remove Article");
+		newStage.setScene(RemoveArticle);
+		newStage.show();
 	}
 
 	

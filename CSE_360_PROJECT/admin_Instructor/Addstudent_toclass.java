@@ -31,9 +31,7 @@ public class Addstudent_toclass
 	        }
 
 	    }
-	 public String getUsername() {
-		 return this.username;
-	 }
+	
 	
 	 public void initialize() {//
 	        System.out.println("initialize() called.");

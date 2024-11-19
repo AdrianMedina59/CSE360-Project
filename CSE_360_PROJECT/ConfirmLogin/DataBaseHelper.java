@@ -497,6 +497,23 @@ public class DataBaseHelper {
 	        }
 	    }
 	    
+	    public ResultSet getStudentsByInstructor(String instructorName) throws SQLException {
+	        String query = "SELECT " +
+	                       "u.id AS studentId, " +
+	                      " CONCAT(u.FirstName, ' ', u.LastName) AS studentName," +
+	                       "c.name AS className " +
+	                       "FROM classStudents cs " +
+	                       "JOIN users u ON cs.userId = u.id " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE c.instructor = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, instructorName);
+
+	        // Execute the query and return the result set
+	        return preparedStatement.executeQuery();
+	    }
+	
+	    
 	    public List<String> getClassesFromInstructor(String instructorName) throws SQLException { // Gets classes by the Instructor
 	        List<String> classList = new ArrayList<>();
 	        String query = "SELECT name FROM classes WHERE Instructor = ?";

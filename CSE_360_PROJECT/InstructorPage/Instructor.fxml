@@ -48,11 +48,11 @@
             <Button fx:id="DeleteStudents_from_helpsystem" mnemonicParsing="false" onAction="#DeleteStudents_from_helpsystem" prefHeight="26.0" prefWidth="171.0" stylesheets="@application.css" text="View messages" textFill="WHITE" />
          </children>
       </VBox>
-      <VBox layoutX="401.0" layoutY="249.0" prefHeight="132.0" prefWidth="100.0" spacing="20.0">
+      <VBox layoutX="401.0" layoutY="249.0" prefHeight="132.0" prefWidth="109.0" spacing="20.0">
          <children>
-            <Button fx:id="Add_Student_ToGeneral" mnemonicParsing="false" onAction="#Add_Student_ToGeneralgroup" prefHeight="26.0" prefWidth="153.0" stylesheets="@application.css" text="Add Students" textFill="WHITE" />
-            <Button fx:id="delete_Student_fromGeneralgroup" mnemonicParsing="false" onAction="#delete_Student_fromGeneralgroup" prefHeight="26.0" prefWidth="160.0" stylesheets="@application.css" text="Delete Students" textFill="WHITE" />
-            <Button fx:id="view_from_general_group" mnemonicParsing="false" onAction="#view_from_general_group" prefHeight="26.0" prefWidth="156.0" stylesheets="@application.css" text="View Students" textFill="WHITE" />
+            <Button fx:id="Add_Student_ToGeneral" mnemonicParsing="false" onAction="#AddStudentToClass" prefHeight="26.0" prefWidth="153.0" stylesheets="@application.css" text="Add Students" textFill="WHITE" />
+            <Button fx:id="delete_Student_fromGeneralgroup" mnemonicParsing="false" onAction="#RemoveStudentFromClass" prefHeight="26.0" prefWidth="160.0" stylesheets="@application.css" text="Delete Students" textFill="WHITE" />
+            <Button fx:id="view_from_general_group" mnemonicParsing="false" onAction="#ListStudents" prefHeight="26.0" prefWidth="156.0" stylesheets="@application.css" text="View Students" textFill="WHITE" />
          </children>
       </VBox>
       <HBox layoutX="10.0" layoutY="216.0" prefHeight="25.0" prefWidth="549.0" spacing="60.0">
