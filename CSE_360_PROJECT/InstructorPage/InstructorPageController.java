@@ -15,10 +15,12 @@ package InstructorPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import Article.ArticleController;
 import Article.ArticleListController;
 import Article.ArticleTypeChoiceController;
+import Article.ArticleTypeChoiceController2;
 import Article.Delete_ArticleController;
 import Article.Delete_HelpArticleController;
 import Article.hArticleListController;
@@ -51,12 +53,12 @@ public class InstructorPageController
 	@FXML
 	private AnchorPane InstructorPage;
 	@FXML
-	private Label TitleLabel, UserLabel;  // Make sure UserLabel is defined here
+	private Label TitleLabel, UserLabel, ClassList_TextLabel;  // Make sure UserLabel is defined here
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	private String username;
-	
+	private DataBaseHelper database = new DataBaseHelper();
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
@@ -67,6 +69,14 @@ public class InstructorPageController
 		this.username = username;
 	}
 	
+	//this method sets the class text in the Instructor UI
+	public void setClassText(List<String> classes) {
+		// Join the list of class names into a single string, separated by commas
+        String classText = String.join(", ", classes);
+        
+        // Set the concatenated string as the text of the ClassList_TextLabel
+        ClassList_TextLabel.setText(classText);
+	}
 	//function to create an article
 	public void createArticle(ActionEvent event) 
 	{
@@ -157,26 +167,12 @@ public class InstructorPageController
 	
 	public void ListArtilces(ActionEvent event) throws SQLException, IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleTypeChoice2.fxml"));
 	    Parent listArticleRoot = loader.load();
 
-		ArticleListController articlelistController = loader.getController();
+		ArticleTypeChoiceController2 articleTypeChoiceController2 = loader.getController();
 
-		DataBaseHelper dataBase = new DataBaseHelper();
-		dataBase.connectToDatabase();
-		try {
-            // Execute SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getArticles(); // Assuming this method fetches the ResultSet for all articles
-
-            // Pass the resultSet to the UserListController to load the data
-            articlelistController.loadArticleData(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            
-        } finally {
-            // Close the database connection
-            dataBase.closeConnection();
-        }
+		
 
         // Set up the new stage and scene for the user list
         Stage newStage = new Stage();
@@ -193,42 +189,12 @@ public class InstructorPageController
 	}
 	
 	
-	// The following use the Help Articles
 	
 	
 	
 	
 	
-	public void ListHelpArticles(ActionEvent event) throws SQLException, IOException
-	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/HelpArticleList.fxml"));
-	    Parent listArticleRoot = loader.load();
-
-		hArticleListController harticlelistController = loader.getController();
-		
-		DataBaseHelper dataBase = new DataBaseHelper();
-		dataBase.connectToDatabase();
-		try {
-            //Try SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getHelpArticles(); // Assuming this method fetches the ResultSet for all articles
-
-            // Pass the resultSet to the UserListController to load the data
-            harticlelistController.loadHelpArticleData(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            
-        } finally {
-            // Close the database connection
-            dataBase.closeConnection();
-        }
-
-        // Set up the new stage and scene for the user list
-        Stage newStage = new Stage();
-        Scene articleListScene = new Scene(listArticleRoot);
-        newStage.setTitle("Help Article List");
-        newStage.setScene(articleListScene);
-        newStage.show();
-	}
+	
 	
 	public void HelpArticle_delete1(ActionEvent event) throws IOException, SQLException
 	{

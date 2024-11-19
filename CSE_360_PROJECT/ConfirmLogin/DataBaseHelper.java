@@ -331,6 +331,23 @@ public class DataBaseHelper {
 
 	        return classNames;
 	    }
+	    
+	    public List<String> getInstructorClasses(String instructor) throws SQLException {
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, instructor);
+	            
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
+	    }
 	    //returns a resultSet of students for departments
 	    public ResultSet getStudentsByDepartment(int departmentId) throws SQLException {
 	    	   String query = """

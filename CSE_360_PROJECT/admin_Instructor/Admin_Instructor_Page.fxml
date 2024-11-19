@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -24,12 +25,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="createHelpArticles_button" layoutX="15.0" layoutY="195.0" mnemonicParsing="false" onAction="#createArticle" stylesheets="@application.css" text="Create Help Article" textFill="WHITE">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></Button>
-      <Button fx:id="deleteHelpArticles_button" layoutX="15.0" layoutY="237.0" mnemonicParsing="false" onAction="#Article_delete" stylesheets="@application.css" text="Delete Help Article" textFill="WHITE" />
-      <Button fx:id="restoreHelpArticles_button" layoutX="12.0" layoutY="278.0" mnemonicParsing="false" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
 
       <!-- General Groups Functions Section -->
       <Label layoutX="270.0" layoutY="149.0" style="-fx-text-fill: white;" text="General Groups Functions">
@@ -37,17 +32,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="AddClass_Button" layoutX="323.0" layoutY="192.0" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
-      <Button fx:id="AddStudent_Button" layoutX="323.0" layoutY="234.0" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
 
       <!-- Remove Article Functions Section -->
-      <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Article Functions">
+      <Label layoutX="549.0" layoutY="146.0" prefHeight="33.0" prefWidth="239.0" style="-fx-text-fill: white;" text="Remove Group Functions">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="RemoveStudent_Button" layoutX="587.0" layoutY="192.0" onAction="#RemoveStudent_Button" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Student" textFill="WHITE" />
-      <Button fx:id="RemoveClass_Button" layoutX="587.0" layoutY="234.0" onAction="#removeClass" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
 
       <!-- Logout Button -->
       <Button fx:id="logout_Button" layoutX="300.0" layoutY="362.0" onAction="#logout" prefHeight="25.0" prefWidth="158.0" stylesheets="@application.css" text="Logout" textFill="WHITE" />
@@ -82,5 +73,28 @@
       </HBox>
       <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
       <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
+      <VBox layoutX="46.0" layoutY="192.0" prefHeight="123.0" prefWidth="137.0" spacing="20.0">
+         <children>
+            <Button fx:id="createHelpArticles_button" mnemonicParsing="false" onAction="#createArticle" prefHeight="25.0" prefWidth="136.0" stylesheets="@application.css" text="Create Help Article" textFill="WHITE">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="deleteHelpArticles_button" mnemonicParsing="false" onAction="#Article_delete" prefHeight="25.0" prefWidth="134.0" stylesheets="@application.css" text="Delete Help Article" textFill="WHITE" />
+            <Button fx:id="restoreHelpArticles_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="310.0" layoutY="192.0" prefHeight="101.0" prefWidth="112.0" spacing="20.0">
+         <children>
+            <Button fx:id="AddClass_Button" onAction="#AddClass_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Class" textFill="WHITE" />
+            <Button fx:id="AddStudent_Button" onAction="#AddStudent_Button" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="Add Student" textFill="WHITE" />
+         </children>
+      </VBox>
+      <VBox layoutX="604.0" layoutY="192.0" prefHeight="101.0" prefWidth="127.0" spacing="20.0">
+         <children>
+            <Button fx:id="RemoveStudent_Button" onAction="#RemoveStudent_Button" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Student" textFill="WHITE" />
+            <Button fx:id="RemoveClass_Button" onAction="#removeClass" prefHeight="30.0" prefWidth="132.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
