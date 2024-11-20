@@ -6,7 +6,6 @@ public class Message {
     private String role;
     private String message;
 
-    
     // Constructor
     public Message(String sender, String receiver, String message) {
         this.sender = sender;

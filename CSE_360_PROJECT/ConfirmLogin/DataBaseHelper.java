@@ -14,7 +14,6 @@ package ConfirmLogin;
 
 
 
-
 import java.awt.TextField;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -1247,7 +1246,25 @@ public class DataBaseHelper {
 		        }
 		    }
 		}
-		
+		public String getAdminInstructorByUserName(String role) throws SQLException {
+		    // Query to select the username based on the provided role
+		    String query = "SELECT username FROM users WHERE role = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, role); 
+		        
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                // Return the username if a matching user is found
+		                return resultSet.getString("username");
+		            } else {
+		                // Return a message or null if the user is not found
+		                return "User not found.";
+		            }
+		        }
+		    }
+		}
+
 		
 		// Method to display all articles in the articles table
 		public void displayArticles() throws SQLException {
@@ -1319,6 +1336,7 @@ public class DataBaseHelper {
 		    }
 		}
 
+		
 		
 		
 

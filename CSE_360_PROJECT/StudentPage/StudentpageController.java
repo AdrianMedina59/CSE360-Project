@@ -170,8 +170,9 @@ public class StudentpageController
 	public void HelpPage(ActionEvent event) throws IOException {
 
 	    FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
-	    Parent root = loader.load();
+	    Parent root = loader.load(); 
 	    MessageController messageController = loader.getController();
+	    messageController.setUsername(userName);
 	    messageController.setSender(this.userName);
 	    messageController.setReceiver("Admin Instructor");  
 	    Stage messageStage = new Stage();
