@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import Messages.MessageController;
 import Messages.MessageListController;
+import Article.ArticleChoice;
 import Article.ArticleListController;
+import Article.SearchArticlesController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
@@ -114,21 +116,25 @@ public class StudentpageController
 	
 	}
 	@FXML
-	 private void loadSearchArticlesPage() {
-	        try {
-	            // Load the FXML file for the new scene
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleChoice.fxml"));
-	            AnchorPane newPage = loader.load();
+	 private void loadSearchArticlesPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleChoice.fxml"));
+	    Parent listArticleRoot = loader.load();
 
-	            // Create a new scene and set it to the current stage
-	            Scene scene = new Scene(newPage);
-	            Stage stage = (Stage) searchButton.getScene().getWindow(); // Get the current stage
-	            stage.setScene(scene); // Switch to the new scene
-	            stage.show(); // Show the new scene
-	        } catch (IOException e) {
-	            e.printStackTrace(); // Handle the exception appropriately
-	        }
-	    }
+		ArticleChoice articleChoice = loader.getController();
+		System.out.print("System page controller name passed: " + userName);
+		articleChoice.setUsername(userName);
+		
+		
+		
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article Search");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
+
 
 
 	public void setUserName(String username) {
@@ -151,6 +157,7 @@ public class StudentpageController
 
             // Pass the resultSet to the UserListController to load the data
             articlelistController.loadArticleData(resultSet);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             

@@ -284,7 +284,7 @@ private void loadStudentPage()throws SQLException {
            StudentpageController loginController = loader.getController();
            dataBase.connectToDatabase();
            loginController.SetUserLabel(dataBase.getFirstNameByUsername(username));
-           loginController.setUserName(dataBase.getFirstNameByUsername(username));
+           loginController.setUserName((username));
            dataBase.closeConnection();
            
          

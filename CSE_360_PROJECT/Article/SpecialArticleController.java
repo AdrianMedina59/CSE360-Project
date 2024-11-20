@@ -98,19 +98,12 @@ public class SpecialArticleController {
 
         // Storing the article inside the database
         dataBaseHelper.connectToDatabase();
+        System.out.println("FULL Name:" + studentArticleSend.getValue());
+        String namepass = dataBaseHelper.getUsernameFromFullName(studentArticleSend.getValue());
+        System.out.println(namepass);
+        dataBaseHelper.insertSpecialArticles(article, role,namepass);
+        dataBaseHelper.printSpecialArticles();
         
-        // Inserting article based on role who is inserting
-        if(role == "Admin") {
-            dataBaseHelper.insertSpecialArticles(article, "Admin", studentArticleSend.getValue());
-        } else if(role == "Instructor") {
-            dataBaseHelper.insertSpecialArticles(article, "Instructor", studentArticleSend.getValue());
-        } else if(role == "Student") {
-            dataBaseHelper.insertSpecialArticles(article, "Student", studentArticleSend.getValue());
-        } else if(role == "Admin Instructor") {
-            dataBaseHelper.insertSpecialArticles(article, "Admin Instructor", studentArticleSend.getValue());    
-        }
-        
-        dataBaseHelper.displayArticles();
         dataBaseHelper.closeConnection();
 
         article.displayContent();

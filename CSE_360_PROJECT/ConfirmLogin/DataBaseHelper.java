@@ -156,7 +156,32 @@ public class DataBaseHelper {
 		        stmt.execute(createTableSQL);
 		    }
 		}
-		
+		public void printSpecialArticles() throws SQLException {
+		    String query = "SELECT id, title, Authors, abstractText, keywords, Body, references, role, username, deleted FROM specialArticles";
+		    try (Statement statement = connection.createStatement();
+		         ResultSet resultSet = statement.executeQuery(query)) {
+
+		        System.out.printf("%-5s %-30s %-20s %-30s %-20s %-30s %-30s %-15s %-15s %-10s%n",
+		                          "ID", "Title", "Authors", "Abstract", "Keywords", "Body", "References", "Role", "Username", "Deleted");
+		        System.out.println("=".repeat(200));
+
+		        while (resultSet.next()) {
+		            int id = resultSet.getInt("id");
+		            String title = resultSet.getString("title");
+		            String authors = resultSet.getString("Authors");
+		            String abstractText = resultSet.getString("abstractText");
+		            String keywords = resultSet.getString("keywords");
+		            String body = resultSet.getString("Body");
+		            String references = resultSet.getString("references");
+		            String role = resultSet.getString("role");
+		            String username = resultSet.getString("username");
+		            boolean deleted = resultSet.getBoolean("deleted");
+
+		            System.out.printf("%-5d %-30s %-20s %-30s %-20s %-30s %-30s %-15s %-15s %-10b%n",
+		                              id, title, authors, abstractText, keywords, body, references, role, username, deleted);
+		        }
+		    }
+		}
 		public void insertSpecialArticles(Article article, String role, String username) throws Exception {
 		    String insertSQL = "INSERT INTO specialArticles (title, authors, abstractText, keywords, Body, references, role, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		    try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
@@ -230,6 +255,27 @@ public class DataBaseHelper {
 		        }
 		    }
 		    return -1; // Return -1 if not found
+		}
+		
+		public String getUsernameFromFullName(String fullName) throws SQLException {
+			System.out.println("Full name passed to getUsernameFromFullName: " + fullName);
+		    String query = """
+		        SELECT username 
+		        FROM users 
+		        WHERE LOWER(TRIM(CONCAT(FirstName, ' ', LastName))) = LOWER(TRIM(?));
+		    """;
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, fullName.trim()); // Trim the input to avoid leading/trailing spaces
+
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                return resultSet.getString("username");
+		            } else {
+		                throw new SQLException("User not found for full name: " + fullName);
+		            }
+		        }
+		    }
 		}
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
@@ -1359,11 +1405,13 @@ public class DataBaseHelper {
 		    }
 		 
 		 public ResultSet getSpecialArticles(String username) throws SQLException {
-		        String query = "SELECT * FROM specialArticles WHERE username = ?";
+		        String query = "SELECT id,title,Authors  FROM specialArticles WHERE username = ? AND deleted = FALSE";
 
+		        // Prepare the statement
 		        PreparedStatement preparedStatement = connection.prepareStatement(query);
-		        preparedStatement.setString(1, "Student");
+		        preparedStatement.setString(1, username);
 
+		        // Execute the query and return the result set
 		        return preparedStatement.executeQuery();
 		    }
 		 

@@ -70,6 +70,7 @@ public class ArticleChoice {
 		    Parent listArticleRoot = loader.load();
 
 		    SpecialArticleListController specialArticlelistController = loader.getController();
+		    
 		    specialArticlelistController.setUsername(username);
 			
 
