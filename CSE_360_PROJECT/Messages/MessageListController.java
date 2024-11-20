@@ -83,7 +83,8 @@ public class MessageListController {
             Message message = new Message(
                 resultSet.getString("sender"),
                 resultSet.getString("receiver"),
-                resultSet.getString("message_content")  // Directly use the String value for message content
+                resultSet.getString("message_content") 
+
             );
             MessageDataList.add(message);  // Add the message to the list
         }

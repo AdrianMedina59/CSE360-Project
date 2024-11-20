@@ -18,7 +18,7 @@ public class MessageController {
     private String role;
     private String sender;
     private String receiver; 
-
+    private String username;
     
     @FXML
     public void initialize() {
@@ -26,9 +26,6 @@ public class MessageController {
         System.out.println(YourInstructor);
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public void setSender(String sender) {
         this.sender = sender; // Set the sender's name
@@ -37,11 +34,18 @@ public class MessageController {
     public void setReceiver(String receiver) {
         this.receiver = receiver; // Set the receiver's name
     }
+    
+    public void setUsername(String usernname)
+    {
+    	this.username = usernname;
+    }
+    
 
     @FXML
     public void handleFinishAdminIns() {
         try {
-            setReceiver(sender);
+
+            setReceiver(dataBaseHelper.getAdminInstructorByUserName(username));
             insertMessage(this.role);
             System.out.println("Admin Instructor will be notified.");
             Stage stage = (Stage) AdminInstructor.getScene().getWindow();
@@ -65,9 +69,12 @@ public class MessageController {
     }
 
     private void insertMessage(String role) throws Exception {
-        // Get the message content
+    	
+        dataBaseHelper.connectToDatabase();
         String messageInput = message_Input.getText();
-
+        System.out.println(username);
+        role = (dataBaseHelper.getRole(username));
+        System.out.println(role);
         if (messageInput.isEmpty()) {
             System.out.println("Message cannot be empty.");
             return;
@@ -83,15 +90,18 @@ public class MessageController {
 
         // Create a new Message object
         Message message = new Message(sender, receiver, messageInput);
-        dataBaseHelper.connectToDatabase();
         if(role == "Admin Instructor") {
-            dataBaseHelper.insertMessage(message, "Admin Instructor");
-        } else if(role == "Instructor") {
-            dataBaseHelper.insertMessage(message, "Instructor");
-        } else if(role == "Student") {
-            dataBaseHelper.insertMessage(message, "Student");
+        	dataBaseHelper.insertMessage(message, role);
         }
+        else if(role == "Instructor") {
+        	dataBaseHelper.insertMessage(message, role);
+        }
+        else {
+        	
+        	dataBaseHelper.insertMessage(message, role);
 
+        }
+        
         dataBaseHelper.displayMessages(); 
         dataBaseHelper.closeConnection();
    
