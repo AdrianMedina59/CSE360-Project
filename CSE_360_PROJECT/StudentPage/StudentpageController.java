@@ -168,20 +168,12 @@ public class StudentpageController
     }
 	
 	public void HelpPage(ActionEvent event) throws IOException {
-	    // Load Help.fxml
+
 	    FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
 	    Parent root = loader.load();
-	    
-	    // Get the controller of Help.fxml (MessageController)
 	    MessageController messageController = loader.getController();
-
-	    // Set the sender's name (use the username of the student)
 	    messageController.setSender(this.userName);
-	    
-	    // Set the receiver (could be "Admin Instructor" or "Your Instructor")
-	    messageController.setReceiver("Admin Instructor");  // or "Your Instructor" based on the button clicked
-	    
-	    // Create a new stage for the Help page and show it
+	    messageController.setReceiver("Admin Instructor");  
 	    Stage messageStage = new Stage();
 	    messageStage.setTitle("Help");
 	    messageStage.setScene(new Scene(root));
@@ -194,20 +186,16 @@ public class StudentpageController
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
 		try {
-            // Execute SQL query to get all users from the database
-            ResultSet resultSet = dataBase.getMessages(); // Assuming this method fetches the ResultSet for all articles
-
-            // Pass the resultSet to the UserListController to load the data
+ 
+            ResultSet resultSet = dataBase.getMessages(); 
         MessageListController.loadMessageData(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            // Close the database connection
             dataBase.closeConnection();
         }
 
-        // Set up the new stage and scene for the user list
         Stage newStage = new Stage();
         Scene articleListScene = new Scene(MessageRoot);
         newStage.setTitle("Messages");

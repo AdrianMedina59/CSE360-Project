@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Messages.MessageListController">
    <children>
       <TableView fx:id="messageTable" layoutX="-1.0" layoutY="-3.0" prefHeight="321.0" prefWidth="600.0">
@@ -17,3 +18,4 @@
       <Button layoutX="264.0" layoutY="361.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="74.0" text="Close" />
    </children>
 </AnchorPane>
+

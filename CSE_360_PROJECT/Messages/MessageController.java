@@ -19,6 +19,7 @@ public class MessageController {
     private String sender;
     private String receiver; 
 
+    
     @FXML
     public void initialize() {
         System.out.println(AdminInstructor);

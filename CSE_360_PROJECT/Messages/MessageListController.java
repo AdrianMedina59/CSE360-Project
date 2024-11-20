@@ -41,6 +41,7 @@ public class MessageListController {
     private Button sendMessageButton;
     
     
+    
     static DataBaseHelper databaseHelper = new DataBaseHelper();
     MessageDisplayController MessageDisplayController = new MessageDisplayController();
     // ObservableList to hold article data

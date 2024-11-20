@@ -12,13 +12,14 @@ public class MessageDisplayController {
     @FXML
     private Label senderLabel;
     @FXML
-    private Label roleLabel;  // Display the role associated with the help article
+    private Label roleLabel;  
     @FXML
     private Label receiverLabel;
     @FXML
-    private TextArea messagetextArea; // Display the body of the help article
+    private TextArea messagetextArea; 
 
-    // Set help article data into the UI components
+    
+    
     public void setMessageData(Message Message) throws Exception {
         senderLabel.setText(Message.getSender()); 
         roleLabel.setText(Message.getRole());
@@ -28,7 +29,7 @@ public class MessageDisplayController {
 
     @FXML
     private void closeWindow() {
-        senderLabel.getScene().getWindow().hide();  // Close the current window
+        senderLabel.getScene().getWindow().hide(); 
     }
 
 
