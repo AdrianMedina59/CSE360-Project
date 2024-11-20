@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class ArticleChoice {
 
 	 private ArticleListController articleListController;
+	 private String username;
 	
 	 
 	 public ArticleChoice()
@@ -36,6 +37,16 @@ public class ArticleChoice {
 	  
 	 
 	  
+	  public void displaySpecialArticles() throws SQLException, IOException
+	  {
+		  ListSpecialArticles(username);
+	  }
+	  
+	  public void setUsername(String username)
+	    {
+	    	this.username = username;
+	    }
+	  
 	  public void searchArticlesDisplay() throws SQLException, IOException
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/SearchArticles.fxml"));
@@ -49,6 +60,23 @@ public class ArticleChoice {
 	        Stage newStage = new Stage();
 	        Scene articleListScene = new Scene(listArticleRoot);
 	        newStage.setTitle("Article Search");
+	        newStage.setScene(articleListScene);
+	        newStage.show();
+	    }
+	  
+	  public void ListSpecialArticles(String role) throws SQLException, IOException
+		{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/SpecialArticleList.fxml"));
+		    Parent listArticleRoot = loader.load();
+
+		    SpecialArticleListController specialArticlelistController = loader.getController();
+		    specialArticlelistController.setUsername(username);
+			
+
+	        // Set up the new stage and scene for the user list
+	        Stage newStage = new Stage();
+	        Scene articleListScene = new Scene(listArticleRoot);
+	        newStage.setTitle("Article List");
 	        newStage.setScene(articleListScene);
 	        newStage.show();
 	    }

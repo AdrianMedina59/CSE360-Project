@@ -172,6 +172,7 @@ public class InstructorPageController
 	    Parent listArticleRoot = loader.load();
 
 		ArticleTypeChoiceController2 articleTypeChoiceController2 = loader.getController();
+		articleTypeChoiceController2.setName(username);
 
 		
 

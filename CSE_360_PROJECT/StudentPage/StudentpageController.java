@@ -2,7 +2,8 @@ package StudentPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import Messages.MessageController;
+import Messages.MessageListController;
 import Article.ArticleListController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
@@ -17,6 +18,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -43,12 +46,20 @@ public class StudentpageController
 	private AnchorPane InstructorPage;
 	@FXML
 	private Label TitleLabel,UserLabel;
+    @FXML
+	private Button adminInstructorButton;
+	@FXML
+	private Button yourInstructorButton;
+	@FXML
+	private TextField messageInput;
+
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	private String userName;
-	
+    private DataBaseHelper dataBaseHelper = new DataBaseHelper(); 
+
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
@@ -156,16 +167,46 @@ public class StudentpageController
         newStage.show();
     }
 	
-	public void Generic_Messgage(ActionEvent event)
-	{
-		
+	public void HelpPage(ActionEvent event) throws IOException {
+
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
+	    Parent root = loader.load();
+	    MessageController messageController = loader.getController();
+	    messageController.setSender(this.userName);
+	    messageController.setReceiver("Admin Instructor");  
+	    Stage messageStage = new Stage();
+	    messageStage.setTitle("Help");
+	    messageStage.setScene(new Scene(root));
+	    messageStage.show();
 	}
 	
-	public void Specific_Messgage(ActionEvent event)
-	{
-		
+	public void MessageList(ActionEvent event) throws SQLException, IOException{
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent MessageRoot = loader.load();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+ 
+            ResultSet resultSet = dataBase.getMessages(); 
+        MessageListController.loadMessageData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            dataBase.closeConnection();
+        }
+
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(MessageRoot);
+        newStage.setTitle("Messages");
+        newStage.setScene(articleListScene);
+        newStage.show();
+
+
 	}
+
 	
+   
 
 
 }
