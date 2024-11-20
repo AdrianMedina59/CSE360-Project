@@ -460,6 +460,7 @@ public class DataBaseHelper {
 	        // Execute the query and return the ResultSet
 	        return pstmt.executeQuery();
 	    }
+	    
 	    public void printClassesTable() throws SQLException {
 	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +
 	                       "FROM classes c " +

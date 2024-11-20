@@ -31,7 +31,7 @@ public class ArticleController {
     @FXML
     private Button finish_button; // Button to finalize the article
     @FXML
-    private ChoiceBox<String> studentArticleSend; // For choice of students to send to for artcile
+    private ChoiceBox<String> studentArticleSend; // For choice of students to send to for article
     
     private DataBaseHelper dataBaseHelper = new DataBaseHelper();
     private String role;
@@ -42,6 +42,30 @@ public class ArticleController {
     	dataBaseHelper.connectToDatabase();
     	List<String> groupNames = dataBaseHelper.getGroups();
     	groupCategory.getItems().addAll(groupNames);
+    	
+    	groupCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    	    if (newValue != null) {
+    	        System.out.println("Selected group: " + newValue); // Debugging
+    	        try {
+    	            updateStudentChoiceBox(newValue);
+    	        } catch (SQLException e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
+    	});
+    }
+    private void updateStudentChoiceBox(String className) throws SQLException {
+        System.out.println("Updating ChoiceBox for class: " + className); // Debugging
+        studentArticleSend.getItems().clear();
+        List<String> students = dataBaseHelper.getStudentsInClass(className);
+
+        if (students.isEmpty()) {
+            System.out.println("No students found for class: " + className); // Debugging
+        } else {
+            System.out.println("Students found: " + students); // Debugging
+        }
+
+        studentArticleSend.getItems().addAll(students);
     }
 
     public void setName(String name) {
