@@ -23,9 +23,14 @@ public class AddStudentController {
         System.out.println("Child Controller Username: " + username);
         
         // Populate choice boxes if they haven't been initialized yet
-        if (!isChoiceBoxInitialized) {
-            populateChoiceBoxes();
-        }
+        try {
+			if (!isChoiceBoxInitialized) {
+			    populateChoiceBoxes();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
 	
