@@ -10,12 +10,9 @@
  * @version 1.00		2024-11-20
  *  
  */
-package Testing;
+package LoginPage;
 
 import org.junit.Test;
-
-import LoginPage.LoginHandler;
-
 import org.junit.Before;
 import static org.junit.Assert.*;
 
