@@ -336,6 +336,30 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
 	}
+	public void restore(ActionEvent event) {
+		 try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/RestoreArticles.fxml")); 
+		        Parent RestoreRoot = loader.load();
+		     
+		        
+		        Stage newStage = new Stage();
+		        newStage.setTitle("Restore");
+		        newStage.setScene(new Scene(RestoreRoot));
+		        newStage.show();
+		    } catch (IOException e) {
+		        e.printStackTrace(); 
+		    }
+	}
+	@FXML
+	public void handleBackupArticles() {
+	    try {
+	        database.connectToDatabase(); 
+	        database.backupArticles(); 
+	        database.closeConnection(); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 
 	
 	
