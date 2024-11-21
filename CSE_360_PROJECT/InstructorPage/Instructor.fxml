@@ -8,7 +8,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="536.0" style="-fx-background-color: #34eb49;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstructorPage.InstructorPageController">
+
+
+<AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="536.0" style="-fx-background-color: #34eb49;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstructorPage.InstructorPageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#16c42a" height="178.0" layoutX="-41.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="511.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#169425" height="233.0" layoutY="-17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="560.0" />
@@ -18,8 +20,8 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="back_up_Article" layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#back_up_Article" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
-      <Button fx:id="Restore_Article" layoutX="422.0" layoutY="473.0" mnemonicParsing="false" onAction="#Restore_Article" stylesheets="@application.css" text="Restore Articles" textFill="WHITE" />
+      <Button fx:id="back_up_Article" layoutX="14.0" layoutY="475.0" mnemonicParsing="false" onAction="#handleBackupArticles" stylesheets="@application.css" text="Back Up Articles" textFill="WHITE" />
+      <Button fx:id="Restore_Article" layoutX="422.0" layoutY="473.0" mnemonicParsing="false" onAction="#restore" stylesheets="@application.css" text="Restore Articles" textFill="WHITE" />
       <HBox alignment="CENTER" layoutX="173.0" layoutY="125.0" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Label text="Hello" textFill="WHITE">
@@ -39,13 +41,14 @@
             <Button mnemonicParsing="false" onAction="#ListArtilces" prefHeight="26.0" prefWidth="135.0" stylesheets="@application.css" text="View Articles" textFill="WHITE" />
             <Button fx:id="CreateHelpArticle" mnemonicParsing="false" onAction="#createArticle" prefHeight="26.0" prefWidth="105.0" stylesheets="@application.css" text="Create Articles" textFill="WHITE" />
             <Button fx:id="EditHelpArticles" mnemonicParsing="false" onAction="#EditHelpArticles" prefHeight="26.0" prefWidth="145.0" stylesheets="@application.css" text="Edit Articles" textFill="WHITE" />
-            <Button fx:id="HelpArticle_Delete1" mnemonicParsing="false" onAction="#HelpArticle_delete1" prefHeight="26.0" prefWidth="156.0" stylesheets="@application.css" text="Delete Articles" textFill="WHITE" />
+            <Button fx:id="Delete_Articles" mnemonicParsing="false" onAction="#Article_delete" prefHeight="26.0" prefWidth="156.0" stylesheets="@application.css" text="Delete Articles" textFill="WHITE" />
+            <Button fx:id="DeleteHelp" mnemonicParsing="false" onAction="#HelpArticle_delete1" prefHeight="25.0" prefWidth="102.0" stylesheets="@application.css" text="Delete Help" textFill="#fffdfd" />
          </children>
       </VBox>
       <VBox layoutX="214.0" layoutY="249.0" prefHeight="83.0" prefWidth="109.0" spacing="20.0">
          <children>
             <Button fx:id="Add_Student_ToHelpSystem" mnemonicParsing="false" onAction="#Add_Student_ToHelpSystem" prefHeight="26.0" prefWidth="112.0" stylesheets="@application.css" text="Message student" textFill="WHITE" />
-            <Button fx:id="DeleteStudents_from_helpsystem" mnemonicParsing="false" onAction="#DeleteStudents_from_helpsystem" prefHeight="26.0" prefWidth="171.0" stylesheets="@application.css" text="View messages" textFill="WHITE" />
+            <Button fx:id="DeleteStudents_from_helpsystem" mnemonicParsing="false" onAction="#MessageList" prefHeight="26.0" prefWidth="171.0" stylesheets="@application.css" text="View messages" textFill="WHITE" />
          </children>
       </VBox>
       <VBox layoutX="401.0" layoutY="249.0" prefHeight="132.0" prefWidth="109.0" spacing="20.0">

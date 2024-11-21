@@ -1,10 +1,9 @@
-
 /**
  * <p> functionality class for Instructor page. </p>
  * 
  * <p> Description: The class loads houses all the functionality for the instructor class.</p>
  * 
- * <p> Copyright: Adrian Medina © 2024 </p>
+ * <p> Copyright: Adrian Medina Â© 2024 </p>
  * 
  * @author Adrian Medina
  * 
@@ -21,13 +20,13 @@ import Article.ArticleController;
 import Article.ArticleListController;
 import Article.ArticleTypeChoiceController;
 import Article.ArticleTypeChoiceController2;
-import Article.ArticleTypeChoiceController3;
 import Article.Delete_ArticleController;
 import Article.Delete_HelpArticleController;
 import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+import Messages.MessageListController;
 import admin_Instructor.removeStudentController;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -42,6 +41,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 
 public class InstructorPageController 
@@ -213,22 +213,9 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
   }	
-	public void EditHelpArticles(ActionEvent event) throws IOException
+	public void EditHelpArticles(ActionEvent event)
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleTypeChoice3.fxml"));
-	    Parent listArticleRoot = loader.load();
-
-		ArticleTypeChoiceController3 articleTypeChoiceController3 = loader.getController();
-		articleTypeChoiceController3.setName(username);
-
 		
-
-        // Set up the new stage and scene for the user list
-        Stage newStage = new Stage();
-        Scene articleListScene = new Scene(listArticleRoot);
-        newStage.setTitle("Article List");
-        newStage.setScene(articleListScene);
-        newStage.show();
 	}
 	
 
@@ -350,10 +337,65 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
 	}
+	public void restore(ActionEvent event) {
+		 try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/RestoreArticles.fxml")); 
+		        Parent RestoreRoot = loader.load();
+		     
+		        
+		        Stage newStage = new Stage();
+		        newStage.setTitle("Restore");
+		        newStage.setScene(new Scene(RestoreRoot));
+		        newStage.show();
+		    } catch (IOException e) {
+		        e.printStackTrace(); 
+		    }
+	}
+	@FXML
+	public void handleBackupArticles() {
+	    try {
+	        database.connectToDatabase(); 
+	        database.backupArticles(); 
+	        database.closeConnection(); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void MessageList(ActionEvent event) throws SQLException, IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		MessageListController messageListController = loader.getController();
+
+	
+		database.connectToDatabase();
+		try {
+			ResultSet resultSet = database.getMessages(); // Assuming this method fetches the ResultSet for all articles
+
+			 // Debug: Print the ResultSet contents
+		   
+            // Pass the resultSet to the UserListController to load the data
+			messageListController.setName(username);
+            messageListController.loadMessageData(resultSet);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+        	database.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Message List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
 
 	
 	
 	
 }
-
-
