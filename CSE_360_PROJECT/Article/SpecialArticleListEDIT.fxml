@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Article.SpecialArticleListControllerEDIT">
+   <children>
+      <TableView fx:id="SpecialArticlesTable" layoutX="200.0" layoutY="61.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="ID_Column" prefWidth="186.4000244140625" text="ID" />
+          <TableColumn fx:id="Title_Column" minWidth="0.0" prefWidth="192.0" text="Title" />
+            <TableColumn fx:id="Authors_Column" prefWidth="221.5999755859375" text="Authors" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ArticleTypeChoiceController2 {
+public class ArticleTypeChoiceController3 {
 
 	private String role,username;
 
@@ -90,10 +90,10 @@ public class ArticleTypeChoiceController2 {
 		
 		public void ListSpecialArticles(ActionEvent event) throws SQLException, IOException
 		{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/SpecialArticleList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/SpecialArticleListEDIT.fxml"));
 		    Parent listArticleRoot = loader.load();
 
-			SpecialArticleListController specialArticleListController = loader.getController();
+			SpecialArticleListControllerEDIT specialArticleListController = loader.getController();
 			
 			DataBaseHelper dataBase = new DataBaseHelper();
 			dataBase.connectToDatabase();

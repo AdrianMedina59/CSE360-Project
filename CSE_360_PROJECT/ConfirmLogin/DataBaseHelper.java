@@ -1560,6 +1560,15 @@ public class DataBaseHelper {
 		        // Execute the query and return the result set
 		        return preparedStatement.executeQuery();
 		    }
+		 public ResultSet getAllSpecialArticles() throws SQLException {
+			    String query = "SELECT id, title, Authors FROM specialArticles WHERE deleted = FALSE";
+
+			    // Prepare the statement
+			    PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+			    // Execute the query and return the result set
+			    return preparedStatement.executeQuery();
+			}
 		 
 			
 		public String getArticle(String title) throws SQLException 
