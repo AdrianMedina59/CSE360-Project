@@ -3,6 +3,7 @@ package admin_Instructor;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sound.midi.VoiceStatus;
 
@@ -13,6 +14,8 @@ import Article.Delete_HelpArticleController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+import Messages.MessageController;
+import Messages.MessageListController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -433,6 +436,59 @@ public class Admin_Instructor_Controller
 		newStage.show();
 
   }	
+	public void MessageList(ActionEvent event) throws SQLException, IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		MessageListController messageListController = loader.getController();
+
+	
+		dataBase.connectToDatabase();
+		try {
+			ResultSet resultSet = dataBase.getMessages(); // Assuming this method fetches the ResultSet for all articles
+
+			 // Debug: Print the ResultSet contents
+		   
+            // Pass the resultSet to the UserListController to load the data
+			messageListController.setName(username);
+            messageListController.loadMessageData(resultSet);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+        	dataBase.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Message List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
+	public void HelpPage(ActionEvent event) throws IOException, SQLException {
+
+		dataBase.connectToDatabase();
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/Help.fxml"));
+	    Parent root = loader.load(); 
+	    MessageController messageController = loader.getController();
+	    messageController.setUsername(username);
+	    
+	    messageController.setUsername(this.username);
+	    
+	    List<String> classes = dataBase.getClassesFromStudent(dataBase.getUserIdByName(dataBase.getFullName(username)));
+	 
+	    messageController.setUsername(username);
+	    messageController.setClasses(classes);
+	    Stage messageStage = new Stage();
+	    messageStage.setTitle("Help");
+	    messageStage.setScene(new Scene(root));
+	    messageStage.show();
+	    dataBase.closeConnection();
+	}
+	
 
 	
 	

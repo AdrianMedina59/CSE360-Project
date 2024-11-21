@@ -2,6 +2,8 @@ package StudentPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import Messages.MessageController;
 import Messages.MessageListController;
 import Article.ArticleChoice;
@@ -47,7 +49,7 @@ public class StudentpageController
 	@FXML
 	private AnchorPane InstructorPage;
 	@FXML
-	private Label TitleLabel,UserLabel;
+	private Label TitleLabel,UserLabel,ClassesLabel;
     @FXML
 	private Button adminInstructorButton;
 	@FXML
@@ -66,7 +68,14 @@ public class StudentpageController
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
 	}
-	
+	//this method sets the class text in the Instructor UI
+		public void setClassText(List<String> classes) {
+			// Join the list of class names into a single string, separated by commas
+	        String classText = String.join(", ", classes);
+	        
+	        // Set the concatenated string as the text of the ClassList_TextLabel
+	        ClassesLabel.setText(classText);
+		}
 	
 	public void switchbacktoLogin(ActionEvent event) throws IOException
 	{
@@ -174,41 +183,61 @@ public class StudentpageController
         newStage.show();
     }
 	
-	public void HelpPage(ActionEvent event) throws IOException {
+	public void HelpPage(ActionEvent event) throws IOException, SQLException {
 
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
+		dataBaseHelper.connectToDatabase();
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/Help.fxml"));
 	    Parent root = loader.load(); 
 	    MessageController messageController = loader.getController();
 	    messageController.setUsername(userName);
-	    messageController.setSender(this.userName);
-	    messageController.setReceiver("Admin Instructor");  
+	    
+	    messageController.setUsername(this.userName);
+	    
+	    List<String> classes = dataBaseHelper.getClassesFromStudent(dataBaseHelper.getUserIdByName(dataBaseHelper.getFullName(userName)));
+	 
+	    messageController.setUsername(userName);
+	    messageController.setClasses(classes);
 	    Stage messageStage = new Stage();
 	    messageStage.setTitle("Help");
 	    messageStage.setScene(new Scene(root));
 	    messageStage.show();
+	    dataBaseHelper.closeConnection();
 	}
 	
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
-	    Parent MessageRoot = loader.load();
-		DataBaseHelper dataBase = new DataBaseHelper();
-		dataBase.connectToDatabase();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		MessageListController messageListController = loader.getController();
+
+	
+		dataBaseHelper.connectToDatabase();
 		try {
- 
-            ResultSet resultSet = dataBase.getMessages(); 
-        MessageListController.loadMessageData(resultSet);
+			ResultSet resultSet = dataBaseHelper.getMessages(); // Assuming this method fetches the ResultSet for all articles
+
+			 // Debug: Print the ResultSet contents
+		   
+            // Pass the resultSet to the UserListController to load the data
+			messageListController.setName(userName);
+            messageListController.loadMessageData(resultSet);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             
         } finally {
-            dataBase.closeConnection();
+            // Close the database connection
+        	dataBaseHelper.closeConnection();
         }
 
+        // Set up the new stage and scene for the user list
         Stage newStage = new Stage();
-        Scene articleListScene = new Scene(MessageRoot);
-        newStage.setTitle("Messages");
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Message List");
         newStage.setScene(articleListScene);
         newStage.show();
+    }
+
+        
 
 
 	}
@@ -217,4 +246,4 @@ public class StudentpageController
    
 
 
-}
+

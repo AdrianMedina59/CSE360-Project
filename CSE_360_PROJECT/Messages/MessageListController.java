@@ -42,14 +42,16 @@ public class MessageListController {
     
     
     
-    static DataBaseHelper databaseHelper = new DataBaseHelper();
-    MessageDisplayController MessageDisplayController = new MessageDisplayController();
+    private static final DataBaseHelper databaseHelper = new DataBaseHelper();
+
+	private String name;
     // ObservableList to hold article data
-    private static ObservableList<Message> MessageDataList = FXCollections.observableArrayList();
+	private static final ObservableList<Message> MessageDataList = FXCollections.observableArrayList();
 
     // Initialize the message table and populate it with existing messages
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
+    	
         // Ensure these columns are set up correctly
         Sender_column.setCellValueFactory(new PropertyValueFactory<>("sender"));
         Receiver_column.setCellValueFactory(new PropertyValueFactory<>("receiver"));
@@ -64,16 +66,22 @@ public class MessageListController {
     }
 
     // Method to load all messages into the table (from database or any other source)
-    static void loadAllMessages() {
-        try {
+    public void loadAllMessages() throws SQLException {
+        
             databaseHelper.connectToDatabase();
             ResultSet resultSet = databaseHelper.getMessages();  // Assuming you have a method that fetches all messages
+            // Debug: Print the ResultSet contents
+            while (resultSet.next()) {
+                // Print the contents of each row in the ResultSet
+                String sender = resultSet.getString("sender");
+                String receiver = resultSet.getString("receiver");
+                String messageContent = resultSet.getString("message_content");
+                System.out.println("Sender: " + sender + ", Receiver: " + receiver + ", Message: " + messageContent);
+            }
             loadMessageData(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+            MessageDataList.clear();
             databaseHelper.closeConnection();
-        }
+        
     }
 
     public static void loadMessageData(ResultSet resultSet) throws SQLException {
@@ -91,25 +99,8 @@ public class MessageListController {
     }
 
     
-    public void displayMessages(Message Message) {
-        try {
-            // Load the FXML for the MessageDisplayController
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Messages.fxml"));
-            Parent root = loader.load();
-            
-            // Get the MessageDisplayController instance from the FXML file
-            MessageDisplayController displayController = loader.getController();
-            
-            Stage stage = new Stage();
-            stage.setTitle("Message Details");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    
+  
+  
 
 
 
@@ -119,4 +110,9 @@ public class MessageListController {
         Stage stage = (Stage) messageTable.getScene().getWindow();
         stage.close();
     }
+
+	public void setName(String userName) throws SQLException {
+		this.name = userName;
+		loadAllMessages();
+	}
 }

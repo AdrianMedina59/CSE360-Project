@@ -22,7 +22,6 @@ public class MessageDisplayController {
     
     public void setMessageData(Message Message) throws Exception {
         senderLabel.setText(Message.getSender()); 
-        roleLabel.setText(Message.getRole());
         receiverLabel.setText(Message.getReceiver());
         messagetextArea.setText(Message.getMessage());
     }

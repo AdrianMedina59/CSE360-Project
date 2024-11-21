@@ -72,18 +72,14 @@ public class helpArticleController {
         // Storing the help article inside the database
         dataBaseHelper.connectToDatabase();
         //Inserting article based on role who is inserting
-        if(role == "Admin")
-        {
-        	dataBaseHelper.insertHelpArticle(helpArticle,"Admin");
-        }
-        else if(role == "Instructor")
-        {
-        	dataBaseHelper.insertHelpArticle(helpArticle,"Instructor");
-        }
-
-        else if(role == "Admin Instructor")
-        {
-        	dataBaseHelper.insertHelpArticle(helpArticle,"Admin Instructor");	
+        if(role == "Admin") {
+            dataBaseHelper.insertHelpArticle(helpArticle, "Admin");
+        } else if(role == "Instructor") {
+            dataBaseHelper.insertHelpArticle(helpArticle, "Instructor");
+        } else if(role == "Student") {
+            dataBaseHelper.insertHelpArticle(helpArticle, "Student");
+        } else if(role == "Admin Instructor") {
+            dataBaseHelper.insertHelpArticle(helpArticle, "Admin Instructor");    
         }
         dataBaseHelper.displayArticles();
         dataBaseHelper.closeConnection();

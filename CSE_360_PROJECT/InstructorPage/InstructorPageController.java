@@ -28,6 +28,8 @@ import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+import Messages.MessageController;
+import Messages.MessageListController;
 import admin_Instructor.removeStudentController;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -362,6 +364,59 @@ public class InstructorPageController
 	        e.printStackTrace();
 	    }
 	}
+	public void HelpPage(ActionEvent event) throws IOException, SQLException {
+
+		database.connectToDatabase();
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/Help.fxml"));
+	    Parent root = loader.load(); 
+	    MessageController messageController = loader.getController();
+	    messageController.setUsername(username);
+	    
+	    messageController.setUsername(this.username);
+	    
+	    List<String> classes = database.getClassesFromStudent(database.getUserIdByName(database.getFullName(username)));
+	 
+	    messageController.setUsername(username);
+	    messageController.setClasses(classes);
+	    Stage messageStage = new Stage();
+	    messageStage.setTitle("Help");
+	    messageStage.setScene(new Scene(root));
+	    messageStage.show();
+	    database.closeConnection();
+	}
+	
+	public void MessageList(ActionEvent event) throws SQLException, IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		MessageListController messageListController = loader.getController();
+
+	
+		database.connectToDatabase();
+		try {
+			ResultSet resultSet = database.getMessages(); // Assuming this method fetches the ResultSet for all articles
+
+			 // Debug: Print the ResultSet contents
+		   
+            // Pass the resultSet to the UserListController to load the data
+			messageListController.setName(username);
+            messageListController.loadMessageData(resultSet);
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            // Close the database connection
+        	database.closeConnection();
+        }
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Message List");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
 
 	
 	

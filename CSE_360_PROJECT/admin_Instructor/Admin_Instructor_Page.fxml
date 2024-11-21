@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="780.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="780.0" style="-fx-background-color: dab2d8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin_Instructor.Admin_Instructor_Controller">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9a3995" height="200.0" layoutX="-3.0" layoutY="-15.0" width="799.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6f0e6a" height="200.0" layoutX="-11.0" layoutY="-51.0" width="815.0" />
@@ -72,7 +72,7 @@
             </Label>
          </children>
       </HBox>
-      <Button layoutX="668.0" layoutY="363.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Messages" />
+      <Button layoutX="668.0" layoutY="363.0" mnemonicParsing="false" onAction="#MessageList" prefHeight="25.0" prefWidth="102.0" text="Messages" />
 
       <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
       <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
@@ -99,6 +99,7 @@
             <Button fx:id="RemoveClass_Button" onAction="#removeClass" prefHeight="30.0" prefWidth="127.0" stylesheets="@application.css" text="Remove Class" textFill="WHITE" />
          </children>
       </VBox>
+      <Button layoutX="665.0" layoutY="327.0" mnemonicParsing="false" onAction="#HelpPage" text="Message Student" />
 
    </children>
 </AnchorPane>
