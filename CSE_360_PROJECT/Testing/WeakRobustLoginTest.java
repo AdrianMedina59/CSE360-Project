@@ -10,8 +10,12 @@
  * @version 1.00		2024-11-20
  *  
  */
+package Testing;
 
 import org.junit.Test;
+
+import LoginPage.LoginHandler;
+
 import org.junit.Before;
 import static org.junit.Assert.*;
 
@@ -98,7 +102,7 @@ public class WeakRobustLoginTest {
     }
 
     @Test
-    public void WR14() {
+    public void WR141() {
         String result = LoginHandler.verifyLogin("adminé", VALID_PASSWORD);
         assertEquals("Username must contain only letters and numbers", result);
     }
