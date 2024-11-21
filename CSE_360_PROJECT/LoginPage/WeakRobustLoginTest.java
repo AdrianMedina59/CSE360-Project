@@ -10,12 +10,9 @@
  * @version 1.00		2024-11-20
  *  
  */
-package Testing;
+package LoginPage;
 
 import org.junit.Test;
-
-import LoginPage.LoginHandler;
-
 import org.junit.Before;
 import static org.junit.Assert.*;
 
@@ -112,7 +109,7 @@ public class WeakRobustLoginTest {
         // Testing with an extremely long username
         String longUsername = "a".repeat(100);
         String result = LoginHandler.verifyLogin(longUsername, VALID_PASSWORD);
-        assertEquals("Username must contain only letters and numbers", result);
+        assertEquals("Invalid username or password", result); 
     }
 
     @Test

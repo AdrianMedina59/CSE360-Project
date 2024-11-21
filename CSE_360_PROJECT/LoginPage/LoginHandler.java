@@ -11,7 +11,7 @@
  *  
  */
 
-package LoginPage; // Replace with the correct package name if needed
+package LoginPage;
 
 import java.io.IOException;
 
@@ -45,6 +45,12 @@ public class LoginHandler extends Application {
     }
 
     public static String verifyLogin(String username, String password) {
+        if (username == null) {
+            return "Username cannot be empty";
+        }
+        if (password == null) {
+            return "Password cannot be empty";
+        }
         if (username.isEmpty()) {
             return "Username cannot be empty";
         }
@@ -65,6 +71,7 @@ public class LoginHandler extends Application {
         }
         return "";
     }
+
 
     public static void main(String[] args) {
     	
