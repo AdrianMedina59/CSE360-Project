@@ -72,7 +72,7 @@
             </Label>
          </children>
       </HBox>
-      <Button layoutX="668.0" layoutY="363.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Messages" />
+      <Button layoutX="668.0" layoutY="363.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" stylesheets="@application.css" text="Messages" textFill="WHITE" />
 
       <Button fx:id="listClassesButton" layoutX="166.0" layoutY="360.0" onAction="#ListClasses" prefHeight="30.0" prefWidth="112.0" stylesheets="@application.css" text="List classes" textFill="WHITE" />
       <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />

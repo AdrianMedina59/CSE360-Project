@@ -77,6 +77,23 @@ public class DataBaseHelper {
 					+ "role VARCHAR(20))";
 			statement.execute(userTable);
 		}
+		public String getFullName(String username) throws SQLException {
+		    String fullName = null;
+		    String query = "SELECT FirstName, LastName FROM users WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username); // Bind the username parameter
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            if (rs.next()) { // If a record is found
+		                String firstName = rs.getString("FirstName");
+		                String lastName = rs.getString("LastName");
+		                fullName = firstName + " " + lastName; // Concatenate the names
+		            } else {
+		                System.out.println("No user found with username: " + username);
+		            }
+		        }
+		    }
+		    return fullName;
+		}
 		
 		// Create the articles table if it doesn't exist
 		private void createArticlesTable() throws SQLException {
@@ -112,12 +129,22 @@ public class DataBaseHelper {
 		            + "message_id INT AUTO_INCREMENT PRIMARY KEY, "
 		            + "sender VARCHAR(255) NOT NULL, "
 		            + "receiver VARCHAR(255) NOT NULL, "
-		            + "role VARCHAR(255) NOT NULL, "  
 		            + "message_content TEXT NOT NULL)";
 
 		    try (Statement stmt = connection.createStatement()) {
 		        stmt.execute(createTableSQL);
 		        System.out.println("Message Table has been created");
+		    }
+		}
+		
+		public ResultSet getMessagesByUser(String username) throws SQLException {
+		    String query = "SELECT * FROM messages WHERE sender = ? OR receiver = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username); // Set the sender filter
+		        pstmt.setString(2, username); // Set the receiver filter
+		        
+		        // Execute the query and return the result set
+		        return pstmt.executeQuery();
 		    }
 		}
 
@@ -230,13 +257,12 @@ public class DataBaseHelper {
 
 		}
 		
-		public void insertMessage(Message message, String role) throws SQLException {
-		    String insertSQL = "INSERT INTO messages (sender, receiver, role, message_content) VALUES (?, ?, ?, ?)";
+		public void insertMessage(Message message) throws SQLException {
+		    String insertSQL = "INSERT INTO messages (sender, receiver, message_content) VALUES (?, ?, ?)";
 		    try (PreparedStatement stmt = connection.prepareStatement(insertSQL)) {
 		        stmt.setString(1, message.getSender());      // Use getSender() to get sender
 		        stmt.setString(2, message.getReceiver());    // Use getReceiver() to get receiver
-		        stmt.setString(3, role);                     // role is passed as parameter
-		        stmt.setString(4, message.getMessage());     // Use getMessage() to get message content
+		        stmt.setString(3, message.getMessage());     // Use getMessage() to get message content
 		        int rowsAffected = stmt.executeUpdate(); // Get number of affected rows
 		        System.out.println("Rows affected: " + rowsAffected);
 		    }
@@ -304,6 +330,38 @@ public class DataBaseHelper {
 	        System.out.println("Executing table creation query: " + createTableSQL);
 	        statement.execute(createTableSQL);
 	        System.out.println("Table created successfully (if it didn't already exist).");
+	    }
+	    
+	    public List<String> getAdminInstructors(List<String> generalGroupIds) throws SQLException {
+	        List<String> adminInstructors = new ArrayList<>();
+	        
+	        if (generalGroupIds.isEmpty()) {
+	            System.out.println("No general group IDs provided.");
+	            return adminInstructors;
+	        }
+
+	        String query = "SELECT AdminInstructor FROM generalGroups WHERE id = ?";
+	        
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            for (String generalGroupId : generalGroupIds) {
+	                pstmt.setString(1, generalGroupId);
+	                try (ResultSet resultSet = pstmt.executeQuery()) {
+	                    if (resultSet.next()) {
+	                        String adminInstructor = resultSet.getString("AdminInstructor");
+	                        if (adminInstructor != null) {
+	                            adminInstructors.add(adminInstructor);
+	                            System.out.println("General Group ID: " + generalGroupId + ", Admin Instructor: " + adminInstructor);
+	                        } else {
+	                            System.out.println("General Group ID: " + generalGroupId + " has no associated Admin Instructor.");
+	                        }
+	                    } else {
+	                        System.out.println("General Group ID: " + generalGroupId + " not found.");
+	                    }
+	                }
+	            }
+	        }
+
+	        return adminInstructors;
 	    }
 	    public String getGroupNameByAdminInstructor(String adminInstructor) throws SQLException {
 	        String query = "SELECT name FROM generalGroups WHERE AdminInstructor = ? LIMIT 1";
@@ -386,7 +444,64 @@ public class DataBaseHelper {
 	                + "ON DELETE SET NULL ON UPDATE CASCADE)";         // Handle deletion and updates for FK
 	        statement.execute(createTableSQL);
 	    }
+	    public List<String> getInstructorsFromClasses(List<String> classNames) throws SQLException {
+	        List<String> instructors = new ArrayList<>();
+
+	        if (classNames.isEmpty()) {
+	            System.out.println("No class names provided.");
+	            return instructors;
+	        }
+
+	        String query = "SELECT Instructor FROM classes WHERE name = ?";
+	        
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            for (String className : classNames) {
+	                pstmt.setString(1, className);
+	                try (ResultSet resultSet = pstmt.executeQuery()) {
+	                    if (resultSet.next()) {
+	                        String instructor = resultSet.getString("Instructor");
+	                        if (instructor != null) {
+	                            instructors.add(instructor);
+	                            System.out.println("Class: " + className + ", Instructor: " + instructor);
+	                        } else {
+	                            System.out.println("Class: " + className + " has no associated instructor.");
+	                        }
+	                    } else {
+	                        System.out.println("Class: " + className + " not found.");
+	                    }
+	                }
+	            }
+	        }
+
+	        return instructors;
+	    }
+	
 	    
+	    public List<String> getGeneralGroupIds(List<String> classNames) throws SQLException {
+	        List<String> generalGroupIds = new ArrayList<>();
+	        String query = "SELECT generalGroupId FROM classes WHERE name = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            for (String className : classNames) {
+	                pstmt.setString(1, className);
+	                try (ResultSet resultSet = pstmt.executeQuery()) {
+	                    if (resultSet.next()) {
+	                        String generalGroupId = resultSet.getString("generalGroupId");
+	                        if (generalGroupId != null) {
+	                            generalGroupIds.add(generalGroupId);
+	                            System.out.println("Class: " + className + ", General Group ID: " + generalGroupId);
+	                        } else {
+	                            System.out.println("Class: " + className + " has no associated General Group ID.");
+	                        }
+	                    } else {
+	                        System.out.println("Class: " + className + " not found.");
+	                    }
+	                }
+	            }
+	        }
+
+	        return generalGroupIds;
+	    }
 	    public void saveClasses(schoolClass schoolClass) throws SQLException {
 	        String insertSQL = "INSERT INTO classes (name, generalGroupId, Instructor) VALUES (?, ?, ?)";
 	        
@@ -605,6 +720,25 @@ public class DataBaseHelper {
 	            System.out.println("classStudents table created successfully.");
 	        }
 	    }
+	    public List<String> getClassesFromStudent(int userId) throws SQLException {
+	        List<String> classNames = new ArrayList<>();
+	        String query = "SELECT c.name " +
+	                       "FROM classStudents cs " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE cs.userId = ?";
+	        
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setInt(1, userId); // Set the userId parameter
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                while (resultSet.next()) {
+	                    String className = resultSet.getString("name"); // Assuming the 'classes' table has a 'name' column
+	                    classNames.add(className);
+	                }
+	            }
+	        }
+	        return classNames;
+	    }
+	
 	    
 	    public ResultSet getStudentsByInstructor(String instructorName) throws SQLException {
 	        String query = "SELECT " +
@@ -776,6 +910,19 @@ public class DataBaseHelper {
 	            pstmt.setString(1, category);
 	            pstmt.setString(2, passcode);
 	            pstmt.executeUpdate();
+	        }
+	    }
+	    public int getStudentIdByName(String name) throws SQLException {
+	        String query = "SELECT id FROM users WHERE username = ?";
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, name); // Set the name parameter
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                if (resultSet.next()) {
+	                    return resultSet.getInt("id"); // Return the student ID
+	                } else {
+	                    throw new SQLException("Student with name '" + name + "' not found.");
+	                }
+	            }
 	        }
 	    }
 		
@@ -1365,7 +1512,7 @@ public class DataBaseHelper {
 		    String query = "SELECT * FROM messages"; // SQL query to retrieve all messages
 		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
 		        // Print column headers for clarity
-		        System.out.println("Message ID | Sender | Receiver | Role | Message Content");
+		        System.out.println("Message ID | Sender | Receiver | Message Content");
 		        System.out.println("----------------------------------------------------------");
 
 		        // Loop through the result set and print each message's details
@@ -1373,11 +1520,10 @@ public class DataBaseHelper {
 		            int messageId = resultSet.getInt("message_id");
 		            String sender = resultSet.getString("sender");
 		            String receiver = resultSet.getString("receiver");
-		            String role = resultSet.getString("role");
 		            String messageContent = resultSet.getString("message_content");
 
 		            // Print the message details
-		            System.out.println(messageId + " | " + sender + " | " + receiver + " | " + role + " | " + messageContent);
+		            System.out.println(messageId + " | " + sender + " | " + receiver + " | " + messageContent);
 		        }
 		    }
 		}
