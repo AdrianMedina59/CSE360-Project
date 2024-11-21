@@ -398,6 +398,7 @@ public class InstructorPageController
 	    messageStage.show();
 	    database.closeConnection();
 	}
+	 
 	
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));

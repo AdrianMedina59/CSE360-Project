@@ -468,6 +468,7 @@ public class Admin_Instructor_Controller
         newStage.setScene(articleListScene);
         newStage.show();
     }
+	
 	public void HelpPage(ActionEvent event) throws IOException, SQLException {
 
 		dataBase.connectToDatabase();
