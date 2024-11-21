@@ -2,8 +2,11 @@ package StudentPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import Messages.MessageController;
+import Messages.MessageListController;
+import Article.ArticleChoice;
 import Article.ArticleListController;
+import Article.SearchArticlesController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
 import javafx.event.*;
@@ -17,6 +20,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -43,12 +48,20 @@ public class StudentpageController
 	private AnchorPane InstructorPage;
 	@FXML
 	private Label TitleLabel,UserLabel;
+    @FXML
+	private Button adminInstructorButton;
+	@FXML
+	private Button yourInstructorButton;
+	@FXML
+	private TextField messageInput;
+
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	private String userName;
-	
+    private DataBaseHelper dataBaseHelper = new DataBaseHelper(); 
+
 	
 	public void SetUserLabel(String username) {
 		UserLabel.setText(username);
@@ -103,21 +116,25 @@ public class StudentpageController
 	
 	}
 	@FXML
-	 private void loadSearchArticlesPage() {
-	        try {
-	            // Load the FXML file for the new scene
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleChoice.fxml"));
-	            AnchorPane newPage = loader.load();
+	 private void loadSearchArticlesPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleChoice.fxml"));
+	    Parent listArticleRoot = loader.load();
 
-	            // Create a new scene and set it to the current stage
-	            Scene scene = new Scene(newPage);
-	            Stage stage = (Stage) searchButton.getScene().getWindow(); // Get the current stage
-	            stage.setScene(scene); // Switch to the new scene
-	            stage.show(); // Show the new scene
-	        } catch (IOException e) {
-	            e.printStackTrace(); // Handle the exception appropriately
-	        }
-	    }
+		ArticleChoice articleChoice = loader.getController();
+		System.out.print("System page controller name passed: " + userName);
+		articleChoice.setUsername(userName);
+		
+		
+		
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article Search");
+        newStage.setScene(articleListScene);
+        newStage.show();
+    }
+
 
 
 	public void setUserName(String username) {
@@ -140,6 +157,7 @@ public class StudentpageController
 
             // Pass the resultSet to the UserListController to load the data
             articlelistController.loadArticleData(resultSet);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             
@@ -156,16 +174,47 @@ public class StudentpageController
         newStage.show();
     }
 	
-	public void Generic_Messgage(ActionEvent event)
-	{
-		
+	public void HelpPage(ActionEvent event) throws IOException {
+
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
+	    Parent root = loader.load(); 
+	    MessageController messageController = loader.getController();
+	    messageController.setUsername(userName);
+	    messageController.setSender(this.userName);
+	    messageController.setReceiver("Admin Instructor");  
+	    Stage messageStage = new Stage();
+	    messageStage.setTitle("Help");
+	    messageStage.setScene(new Scene(root));
+	    messageStage.show();
 	}
 	
-	public void Specific_Messgage(ActionEvent event)
-	{
-		
+	public void MessageList(ActionEvent event) throws SQLException, IOException{
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
+	    Parent MessageRoot = loader.load();
+		DataBaseHelper dataBase = new DataBaseHelper();
+		dataBase.connectToDatabase();
+		try {
+ 
+            ResultSet resultSet = dataBase.getMessages(); 
+        MessageListController.loadMessageData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            dataBase.closeConnection();
+        }
+
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(MessageRoot);
+        newStage.setTitle("Messages");
+        newStage.setScene(articleListScene);
+        newStage.show();
+
+
 	}
+
 	
+   
 
 
 }

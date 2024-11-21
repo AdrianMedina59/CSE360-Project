@@ -16,11 +16,11 @@ public class Addstudent_toclass
 	private ChoiceBox<String> class_ChoiceBox,student_ChoiceBox;
 	@FXML
     private DataBaseHelper dataBase = new DataBaseHelper();
-	private String username;
+	private String username;//
     private boolean isChoiceBoxInitialized = false;
 
 	
-	 public void setUsername(String username)
+	 public void setUsername(String username)//
 	    {
 	    	this.username = username;
 	        System.out.println("Child Controller Username: " + username);
@@ -31,11 +31,9 @@ public class Addstudent_toclass
 	        }
 
 	    }
-	 public String getUsername() {
-		 return this.username;
-	 }
 	
-	 public void initialize() {
+	
+	 public void initialize() {//
 	        System.out.println("initialize() called.");
 	        // Check if username is already set
 	        if (username != null) {
@@ -44,7 +42,7 @@ public class Addstudent_toclass
 	    }
 	
 	 // Populate choice boxes based on the username
-	    private void populateChoiceBoxes() {
+	    private void populateChoiceBoxes() {//
 	        try {
 	            if (username == null) {
 	                System.out.println("Null username! Cannot populate choice boxes.");

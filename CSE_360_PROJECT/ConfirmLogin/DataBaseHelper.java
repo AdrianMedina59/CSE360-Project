@@ -27,6 +27,7 @@ import Article.Article;
 import Article.helpArticle;
 import ClassManager.Group;
 import ClassManager.schoolClass;
+import Messages.Message;
 public class DataBaseHelper {
 	
 	// JDBC driver name and database URL 
@@ -51,6 +52,9 @@ public class DataBaseHelper {
 				createPasscodeTable();
 				createArticlesTable();
 				createHelpArticlesTable();
+				createMessageTable();
+				createSpecialArticlesTable();
+
 				createGeneralGroupsTable();
 				createClassesTable();
 				createClassStudentsTable();
@@ -75,9 +79,6 @@ public class DataBaseHelper {
 		}
 		
 		// Create the articles table if it doesn't exist
-
-		
-
 		private void createArticlesTable() throws SQLException {
 		    String createTableSQL = "CREATE TABLE IF NOT EXISTS articles (" +
 		                            "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -103,9 +104,23 @@ public class DataBaseHelper {
 		                            "deleted BOOLEAN DEFAULT FALSE)";
 			try (Statement stmt = connection.createStatement()) {
 		        stmt.execute(createTableSQL);
-		        System.out.println("is it working");
 		    }
 		}
+		
+		private void createMessageTable() throws SQLException {
+		    String createTableSQL = "CREATE TABLE IF NOT EXISTS messages ("
+		            + "message_id INT AUTO_INCREMENT PRIMARY KEY, "
+		            + "sender VARCHAR(255) NOT NULL, "
+		            + "receiver VARCHAR(255) NOT NULL, "
+		            + "role VARCHAR(255) NOT NULL, "  
+		            + "message_content TEXT NOT NULL)";
+
+		    try (Statement stmt = connection.createStatement()) {
+		        stmt.execute(createTableSQL);
+		        System.out.println("Message Table has been created");
+		    }
+		}
+
 		
 		// Method to update a user's role based on their username
 		public boolean updateUserRole(String username, String newRole) throws SQLException {
@@ -124,8 +139,65 @@ public class DataBaseHelper {
 		    }
 		}
 		
-		
-		
+		private void createSpecialArticlesTable() throws SQLException {
+		    String createTableSQL = "CREATE TABLE IF NOT EXISTS specialArticles (" +
+		                            "id INT AUTO_INCREMENT PRIMARY KEY, " +
+		                            "title VARCHAR(255) NOT NULL, " +
+		                            "Authors VARCHAR(1000), " +
+		                            "abstractText VARCHAR(1000), " +
+		                            "keywords VARCHAR(1000), " +
+		                            "Body VARCHAR(1000), " +
+		                            "references VARCHAR(1000), " +
+		                            "role VARCHAR(20), " +
+		                            "username VARCHAR(20), " +
+		                            "deleted BOOLEAN DEFAULT FALSE)";
+		    
+		    try (Statement stmt = connection.createStatement()) {
+		        stmt.execute(createTableSQL);
+		    }
+		}
+		public void printSpecialArticles() throws SQLException {
+		    String query = "SELECT id, title, Authors, abstractText, keywords, Body, references, role, username, deleted FROM specialArticles";
+		    try (Statement statement = connection.createStatement();
+		         ResultSet resultSet = statement.executeQuery(query)) {
+
+		        System.out.printf("%-5s %-30s %-20s %-30s %-20s %-30s %-30s %-15s %-15s %-10s%n",
+		                          "ID", "Title", "Authors", "Abstract", "Keywords", "Body", "References", "Role", "Username", "Deleted");
+		        System.out.println("=".repeat(200));
+
+		        while (resultSet.next()) {
+		            int id = resultSet.getInt("id");
+		            String title = resultSet.getString("title");
+		            String authors = resultSet.getString("Authors");
+		            String abstractText = resultSet.getString("abstractText");
+		            String keywords = resultSet.getString("keywords");
+		            String body = resultSet.getString("Body");
+		            String references = resultSet.getString("references");
+		            String role = resultSet.getString("role");
+		            String username = resultSet.getString("username");
+		            boolean deleted = resultSet.getBoolean("deleted");
+
+		            System.out.printf("%-5d %-30s %-20s %-30s %-20s %-30s %-30s %-15s %-15s %-10b%n",
+		                              id, title, authors, abstractText, keywords, body, references, role, username, deleted);
+		        }
+		    }
+		}
+		public void insertSpecialArticles(Article article, String role, String username) throws Exception {
+		    String insertSQL = "INSERT INTO specialArticles (title, authors, abstractText, keywords, Body, references, role, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		    try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
+		        pstmt.setString(1, article.getTitle());
+		        pstmt.setString(2, String.join(",", article.getAuthors()));
+		        pstmt.setString(3, article.getAbstractText());
+		        pstmt.setString(4, String.join(",", article.getKeywords()));
+		        pstmt.setString(5, article.getBody());
+		        pstmt.setString(6, String.join(",", article.getReferences()));
+		        pstmt.setString(7, role); // Set the role
+		        pstmt.setString(8, username);
+		        pstmt.executeUpdate();
+		        System.out.println("Inserting article with title: " + article.getTitle());
+		        System.out.println("Article Body: " + article.getBody());
+		    }
+		}
 
 		public void insertArticle(Article article, String role) throws Exception {
 		    String insertSQL = "INSERT INTO articles (title, authors, abstractText, keywords, Body, references, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -157,6 +229,21 @@ public class DataBaseHelper {
 		    }
 
 		}
+		
+		public void insertMessage(Message message, String role) throws SQLException {
+		    String insertSQL = "INSERT INTO messages (sender, receiver, role, message_content) VALUES (?, ?, ?, ?)";
+		    try (PreparedStatement stmt = connection.prepareStatement(insertSQL)) {
+		        stmt.setString(1, message.getSender());      // Use getSender() to get sender
+		        stmt.setString(2, message.getReceiver());    // Use getReceiver() to get receiver
+		        stmt.setString(3, role);                     // role is passed as parameter
+		        stmt.setString(4, message.getMessage());     // Use getMessage() to get message content
+		        int rowsAffected = stmt.executeUpdate(); // Get number of affected rows
+		        System.out.println("Rows affected: " + rowsAffected);
+		    }
+		}
+
+
+
 
 		public int getUserIdByName(String fullName) throws SQLException {
 		    String query = "SELECT id FROM users WHERE CONCAT(FirstName, ' ', LastName) = ?";
@@ -168,6 +255,27 @@ public class DataBaseHelper {
 		        }
 		    }
 		    return -1; // Return -1 if not found
+		}
+		
+		public String getUsernameFromFullName(String fullName) throws SQLException {
+			System.out.println("Full name passed to getUsernameFromFullName: " + fullName);
+		    String query = """
+		        SELECT username 
+		        FROM users 
+		        WHERE LOWER(TRIM(CONCAT(FirstName, ' ', LastName))) = LOWER(TRIM(?));
+		    """;
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, fullName.trim()); // Trim the input to avoid leading/trailing spaces
+
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                return resultSet.getString("username");
+		            } else {
+		                throw new SQLException("User not found for full name: " + fullName);
+		            }
+		        }
+		    }
 		}
 		 // Create the passcodes table if it does not exist
 	    private void createPasscodeTable() throws SQLException {
@@ -331,6 +439,23 @@ public class DataBaseHelper {
 
 	        return classNames;
 	    }
+	    
+	    public List<String> getInstructorClasses(String instructor) throws SQLException {
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	            pstmt.setString(1, instructor);
+	            
+	            try (ResultSet resultSet = pstmt.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
+	    }
 	    //returns a resultSet of students for departments
 	    public ResultSet getStudentsByDepartment(int departmentId) throws SQLException {
 	    	   String query = """
@@ -443,6 +568,7 @@ public class DataBaseHelper {
 	        // Execute the query and return the ResultSet
 	        return pstmt.executeQuery();
 	    }
+	    
 	    public void printClassesTable() throws SQLException {
 	        String query = "SELECT c.id, c.name, c.generalGroupId,c.Instructor, g.name AS groupName " +
 	                       "FROM classes c " +
@@ -478,6 +604,40 @@ public class DataBaseHelper {
 	            pstmt.execute();
 	            System.out.println("classStudents table created successfully.");
 	        }
+	    }
+	    
+	    public ResultSet getStudentsByInstructor(String instructorName) throws SQLException {
+	        String query = "SELECT " +
+	                       "u.id AS studentId, " +
+	                      " CONCAT(u.FirstName, ' ', u.LastName) AS studentName," +
+	                       "c.name AS className " +
+	                       "FROM classStudents cs " +
+	                       "JOIN users u ON cs.userId = u.id " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE c.instructor = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, instructorName);
+
+	        // Execute the query and return the result set
+	        return preparedStatement.executeQuery();
+	    }
+	
+	    
+	    public List<String> getClassesFromInstructor(String instructorName) throws SQLException { // Gets classes by the Instructor
+	        List<String> classList = new ArrayList<>();
+	        String query = "SELECT name FROM classes WHERE Instructor = ?";
+
+	        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+	            preparedStatement.setString(1, instructorName);
+
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                while (resultSet.next()) {
+	                    classList.add(resultSet.getString("name"));
+	                }
+	            }
+	        }
+
+	        return classList;
 	    }
 	    
 	    public void enrollStudentInClass(int userId, int classId) throws SQLException {
@@ -543,6 +703,27 @@ public class DataBaseHelper {
 	        
 	        return studentNames;
 	    }
+	    
+	    public List<String> getStudentNamesByInstructor(String instructorName) throws SQLException {
+	        String query = "SELECT DISTINCT CONCAT(u.FirstName, ' ', u.LastName) AS studentName " +
+	                       "FROM classStudents cs " +
+	                       "JOIN users u ON cs.userId = u.id " +
+	                       "JOIN classes c ON cs.classId = c.id " +
+	                       "WHERE c.instructor = ?";
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        preparedStatement.setString(1, instructorName);
+
+	        List<String> studentNames = new ArrayList<>();
+
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            while (resultSet.next()) {
+	                studentNames.add(resultSet.getString("studentName"));
+	            }
+	        }
+
+	        return studentNames;
+	    }
+	    
 	    public void printClassStudentsTable() throws SQLException {
 	        String query = """
 	            SELECT cs.id, u.FirstName, u.LastName, c.name
@@ -733,6 +914,20 @@ public class DataBaseHelper {
 		    }
 		}
 		
+		public String getStudentList(String username) throws SQLException {
+		    String query = "SELECT studentList FROM users WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, username);  // Set the username in the query
+		        ResultSet resultSet = pstmt.executeQuery();
+
+		        if (resultSet.next()) {
+		            return resultSet.getString("studentList");  // Return the studentList
+		        } else {
+		            return null; // User not found, handle accordingly
+		        }
+		    }
+		}
+		
 		public String getClassCategory(String username) throws SQLException {
 		    String query = "SELECT classCategory FROM users WHERE username = ?";
 		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -801,6 +996,13 @@ public class DataBaseHelper {
 		    Statement stmt = connection.createStatement();
 		    return stmt.executeQuery(query);
 		}
+		
+		public ResultSet getMessages() throws SQLException {
+		    String query = "SELECT * FROM messages";
+		    Statement stmt = connection.createStatement();
+		    return stmt.executeQuery(query);
+		}
+
 
 		
 		//returns connection
@@ -960,6 +1162,40 @@ public class DataBaseHelper {
 		    }
 		}
 		
+		public static Article getSpecialArticleByName(Connection connection, String title) throws Exception {
+		    String query = "SELECT * FROM specialArticles WHERE title = ?";
+		    
+		    // Ensure the provided connection is not null
+		    if (connection == null) {
+		        throw new SQLException("Connection cannot be null.");
+		    }
+
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, title); // Set the title parameter
+		        
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                // Retrieve fields from the result set
+		                String titleFromDb = resultSet.getString("title");
+		                String[] authors = resultSet.getString("authors").split(",");
+		                String abstractText = resultSet.getString("abstractText");
+		                String[] keywords = resultSet.getString("keywords").split(",");
+		                String body = resultSet.getString("Body");
+		                String[] references = resultSet.getString("references").split(",");
+
+		                // Create and return the Article object
+		                return new Article(titleFromDb, authors, abstractText, keywords, body, references);
+		            } else {
+		                System.out.println("Article not found.");
+		                return null;
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw e; // Re-throw the exception for handling at a higher level
+		    }
+		}
+		
 		public static helpArticle getHelpArticleByName(Connection connection, String title) throws Exception {
 		    String query = "SELECT * FROM help_articles WHERE title = ?";
 		   
@@ -1056,7 +1292,25 @@ public class DataBaseHelper {
 		        }
 		    }
 		}
-		
+		public String getAdminInstructorByUserName(String role) throws SQLException {
+		    // Query to select the username based on the provided role
+		    String query = "SELECT username FROM users WHERE role = ?";
+		    
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, role); 
+		        
+		        try (ResultSet resultSet = pstmt.executeQuery()) {
+		            if (resultSet.next()) {
+		                // Return the username if a matching user is found
+		                return resultSet.getString("username");
+		            } else {
+		                // Return a message or null if the user is not found
+		                return "User not found.";
+		            }
+		        }
+		    }
+		}
+
 		
 		// Method to display all articles in the articles table
 		public void displayArticles() throws SQLException {
@@ -1107,6 +1361,28 @@ public class DataBaseHelper {
 		    }
 		}
 
+		public void displayMessages() throws SQLException {
+		    String query = "SELECT * FROM messages"; // SQL query to retrieve all messages
+		    try (Statement stmt = connection.createStatement(); ResultSet resultSet = stmt.executeQuery(query)) {
+		        // Print column headers for clarity
+		        System.out.println("Message ID | Sender | Receiver | Role | Message Content");
+		        System.out.println("----------------------------------------------------------");
+
+		        // Loop through the result set and print each message's details
+		        while (resultSet.next()) {
+		            int messageId = resultSet.getInt("message_id");
+		            String sender = resultSet.getString("sender");
+		            String receiver = resultSet.getString("receiver");
+		            String role = resultSet.getString("role");
+		            String messageContent = resultSet.getString("message_content");
+
+		            // Print the message details
+		            System.out.println(messageId + " | " + sender + " | " + receiver + " | " + role + " | " + messageContent);
+		        }
+		    }
+		}
+
+		
 		
 		
 
@@ -1128,8 +1404,17 @@ public class DataBaseHelper {
 		        return preparedStatement.executeQuery();
 		    }
 		 
+		 public ResultSet getSpecialArticles(String username) throws SQLException {
+		        String query = "SELECT id,title,Authors  FROM specialArticles WHERE username = ? AND deleted = FALSE";
 
+		        // Prepare the statement
+		        PreparedStatement preparedStatement = connection.prepareStatement(query);
+		        preparedStatement.setString(1, username);
 
+		        // Execute the query and return the result set
+		        return preparedStatement.executeQuery();
+		    }
+		 
 			
 		public String getArticle(String title) throws SQLException 
 		

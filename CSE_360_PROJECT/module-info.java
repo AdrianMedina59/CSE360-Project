@@ -1,4 +1,5 @@
 
+
 module CSE_360_PROJECT {
     requires javafx.graphics;
     requires javafx.fxml;
@@ -24,7 +25,8 @@ module CSE_360_PROJECT {
     exports StudentPage;
     opens InstructorPage to javafx.fxml;
     exports admin_Instructor;
-
+    exports Messages;
+    opens Messages to javafx.fxml;
 
 
 

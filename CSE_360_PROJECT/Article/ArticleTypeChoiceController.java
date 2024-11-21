@@ -1,6 +1,7 @@
 package Article;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +51,24 @@ public class ArticleTypeChoiceController {
 		        helpArticleController helpArticleController = loader.getController();
 		        helpArticleController.setRole("Instructor");
 		        helpArticleController.setName(username);
+		        
+		        Stage articleStage = new Stage();
+		        articleStage.setTitle("Create Article");
+		        articleStage.setScene(new Scene(helpRoot));
+		        articleStage.show();
+			 } catch (IOException e) {
+			        e.printStackTrace(); // Print stack trace for debugging
+			    }
+		}
+		
+		public void createSpecialArticle(ActionEvent event) throws SQLException {
+			try {
+		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/CreateSpecialArticle.fxml")); // Assuming it's in the same package
+		        Parent helpRoot = loader.load();
+		        SpecialArticleController articleController = loader.getController();
+		        articleController.setRole("Instructor");
+		        System.out.println(username);
+		        articleController.setName(username);
 		        
 		        Stage articleStage = new Stage();
 		        articleStage.setTitle("Create Article");
