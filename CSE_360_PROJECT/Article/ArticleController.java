@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.management.loading.PrivateClassLoader;
+
+import org.bouncycastle.pqc.crypto.DigestingMessageSigner;
 import org.h2.expression.function.StringFunction;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,23 +38,18 @@ public class ArticleController {
     private DataBaseHelper dataBaseHelper = new DataBaseHelper();
     private String role;
     private String name;
-
-    @FXML
-    public void initialize() throws SQLException {
-    	dataBaseHelper.connectToDatabase();
-    	List<String> groupNames = dataBaseHelper.getGroups();
-    	groupCategory.getItems().addAll(groupNames);
-    	
-    	groupCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-    	    if (newValue != null) {
-    	        System.out.println("Selected group: " + newValue); // Debugging
-    	        try {
-    	            updateStudentChoiceBox(newValue);
-    	        } catch (SQLException e) {
-    	            e.printStackTrace();
-    	        }
-    	    }
-    	});
+    private String articleType;
+ 
+    
+    public void populateArticleFields(Article article) throws Exception {
+        if (article != null) {
+            Title_textField.setText(article.getTitle());
+            Keyword_textField.setText(String.join(", ", article.getKeywords())); // Convert keywords to a comma-separated string
+            Abstract_textArea.setText(article.getAbstractText());
+            Body_textArea.setText(article.getBody());
+            Links_textArea.setText(String.join(", ", article.getReferences())); // Convert references to a comma-separated string
+            // Assuming `groupCategory` and `studentArticleSend` are populated elsewhere
+        }
     }
     private void updateStudentChoiceBox(String className) throws SQLException {
         System.out.println("Updating ChoiceBox for class: " + className); // Debugging
@@ -126,6 +123,10 @@ public class ArticleController {
         } else if(role == "Admin Instructor") {
             dataBaseHelper.insertArticle(article, "Admin Instructor");    
         }
+        else if(articleType == "Special")
+        {
+        	dataBaseHelper.insertSpecialArticles(article, role, name);
+        }
         
         dataBaseHelper.displayArticles();
         dataBaseHelper.closeConnection();
@@ -154,4 +155,7 @@ public class ArticleController {
             e.printStackTrace();
         }
     }
+	public void setArticleType(String type) {
+		this.articleType = type;
+	}
 }

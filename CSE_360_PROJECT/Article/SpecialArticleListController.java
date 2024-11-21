@@ -61,10 +61,16 @@ public class SpecialArticleListController {
             System.out.println("Username is not set. Cannot load special articles.");
             return;
         }
-
+        ResultSet resultSet;
         try {
             dataBaseHelper.connectToDatabase();
-            ResultSet resultSet = dataBaseHelper.getSpecialArticles(username); // Query articles for the username
+            if ("Instructor".equals(dataBaseHelper.getRole(username))) {
+            	 resultSet = dataBaseHelper.getAllSpecialArticles();
+            }
+            else {
+            	  resultSet = dataBaseHelper.getSpecialArticles(username); // Query articles for the username
+			}
+           
             articleDataList.clear(); // Clear previous data
 
             System.out.println("Loading special articles for user: " + username);

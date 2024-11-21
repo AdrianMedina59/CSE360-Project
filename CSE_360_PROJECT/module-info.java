@@ -15,6 +15,7 @@ module CSE_360_PROJECT {
     requires java.desktop;
     requires org.bouncycastle.provider;
     requires java.management;
+	requires junit;
     exports ConfirmLogin to javafx.graphics, javafx.fxml;
     opens ConfirmLogin to javafx.fxml;
     exports AdminPage to javafx.fxml;
@@ -27,7 +28,4 @@ module CSE_360_PROJECT {
     exports admin_Instructor;
     exports Messages;
     opens Messages to javafx.fxml;
-
-
-
 }

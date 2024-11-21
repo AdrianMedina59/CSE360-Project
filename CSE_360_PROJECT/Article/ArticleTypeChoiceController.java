@@ -34,6 +34,7 @@ public class ArticleTypeChoiceController {
 		        articleController.setRole("Instructor");
 		        articleController.setName(username);
 		        
+		        
 		        Stage articleStage = new Stage();
 		        articleStage.setTitle("Article Choice");
 		        articleStage.setScene(new Scene(articleRoot));

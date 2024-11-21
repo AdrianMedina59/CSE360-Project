@@ -22,6 +22,7 @@ import Article.ArticleController;
 import Article.ArticleListController;
 import Article.ArticleTypeChoiceController;
 import Article.ArticleTypeChoiceController2;
+import Article.ArticleTypeChoiceController3;
 import Article.Delete_ArticleController;
 import Article.Delete_HelpArticleController;
 import Article.hArticleListController;
@@ -216,9 +217,22 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
   }	
-	public void EditHelpArticles(ActionEvent event)
+	public void EditHelpArticles(ActionEvent event) throws IOException
 	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleTypeChoice3.fxml"));
+	    Parent listArticleRoot = loader.load();
+
+		ArticleTypeChoiceController3 articleTypeChoiceController3 = loader.getController();
+		articleTypeChoiceController3.setName(username);
+
 		
+
+        // Set up the new stage and scene for the user list
+        Stage newStage = new Stage();
+        Scene articleListScene = new Scene(listArticleRoot);
+        newStage.setTitle("Article List");
+        newStage.setScene(articleListScene);
+        newStage.show();
 	}
 	
 
