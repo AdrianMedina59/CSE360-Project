@@ -1,5 +1,9 @@
 id,title,authors,abstractText,keywords,Body,references,role,deleted
+<<<<<<< HEAD
 1,fewwfew,a,fewfewfwe,fwfw,fewfwefewf,efwefw,Admin,false
 2,Chrissss,a,egregergreg,vreregrgr,ergregrgr,rgreg,Admin,false
 3,Chriss,a,fefwe,fwefef,fewfefw,fwefw,Admin,true
 4,gfdgdfggd,a,reg,gergr,gre,gre,Admin,true
+=======
+1,sdf,noah,sdgs,sdf,dgsd,g,Instructor,false
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git

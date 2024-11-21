@@ -1,11 +1,14 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 /**
  * <p> functionality class for Instructor page. </p>
  * 
  * <p> Description: The class loads houses all the functionality for the instructor class.</p>
  * 
- * <p> Copyright: Adrian Medina © 2024 </p>
+ * <p> Copyright: Adrian Medina Â© 2024 </p>
  * 
  * @author Adrian Medina
  * 
@@ -22,14 +25,16 @@ import Article.ArticleController;
 import Article.ArticleListController;
 import Article.ArticleTypeChoiceController;
 import Article.ArticleTypeChoiceController2;
-import Article.ArticleTypeChoiceController3;
 import Article.Delete_ArticleController;
 import Article.Delete_HelpArticleController;
 import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+<<<<<<< HEAD
 import Messages.MessageController;
+=======
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 import Messages.MessageListController;
 import admin_Instructor.removeStudentController;
 import javafx.event.*;
@@ -217,22 +222,9 @@ public class InstructorPageController
 		newStage.setScene(RemoveArticle);
 		newStage.show();
   }	
-	public void EditHelpArticles(ActionEvent event) throws IOException
+	public void EditHelpArticles(ActionEvent event)
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleTypeChoice3.fxml"));
-	    Parent listArticleRoot = loader.load();
-
-		ArticleTypeChoiceController3 articleTypeChoiceController3 = loader.getController();
-		articleTypeChoiceController3.setName(username);
-
 		
-
-        // Set up the new stage and scene for the user list
-        Stage newStage = new Stage();
-        Scene articleListScene = new Scene(listArticleRoot);
-        newStage.setTitle("Article List");
-        newStage.setScene(articleListScene);
-        newStage.show();
 	}
 	
 
@@ -378,6 +370,7 @@ public class InstructorPageController
 	        e.printStackTrace();
 	    }
 	}
+<<<<<<< HEAD
 	public void HelpPage(ActionEvent event) throws IOException, SQLException {
 
 		database.connectToDatabase();
@@ -399,6 +392,8 @@ public class InstructorPageController
 	    database.closeConnection();
 	}
 	 
+=======
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 	
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
@@ -437,5 +432,3 @@ public class InstructorPageController
 	
 	
 }
-
-

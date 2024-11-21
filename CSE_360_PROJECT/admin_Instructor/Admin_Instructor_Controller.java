@@ -456,6 +456,8 @@ public class Admin_Instructor_Controller
         } catch (SQLException e) {
             e.printStackTrace();
             
+            
+            
         } finally {
             // Close the database connection
         	dataBase.closeConnection();

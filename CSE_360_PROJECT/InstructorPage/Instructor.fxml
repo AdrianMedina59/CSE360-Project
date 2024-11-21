@@ -10,7 +10,10 @@
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
 <AnchorPane fx:id="studentspage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="536.0" style="-fx-background-color: #34eb49;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InstructorPage.InstructorPageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#16c42a" height="178.0" layoutX="-41.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="511.0" />
@@ -48,7 +51,11 @@
       </VBox>
       <VBox layoutX="214.0" layoutY="249.0" prefHeight="83.0" prefWidth="109.0" spacing="20.0">
          <children>
+<<<<<<< HEAD
             <Button fx:id="Add_Student_ToHelpSystem" mnemonicParsing="false" onAction="#HelpPage" prefHeight="26.0" prefWidth="112.0" stylesheets="@application.css" text="Message student" textFill="WHITE" />
+=======
+            <Button fx:id="Add_Student_ToHelpSystem" mnemonicParsing="false" onAction="#Add_Student_ToHelpSystem" prefHeight="26.0" prefWidth="112.0" stylesheets="@application.css" text="Message student" textFill="WHITE" />
+>>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
             <Button fx:id="DeleteStudents_from_helpsystem" mnemonicParsing="false" onAction="#MessageList" prefHeight="26.0" prefWidth="171.0" stylesheets="@application.css" text="View messages" textFill="WHITE" />
          </children>
       </VBox>

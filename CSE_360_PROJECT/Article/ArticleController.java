@@ -127,7 +127,7 @@ public class ArticleController {
         {
         	dataBaseHelper.insertSpecialArticles(article, role, name);
         }
-        
+       
         dataBaseHelper.displayArticles();
         dataBaseHelper.closeConnection();
 

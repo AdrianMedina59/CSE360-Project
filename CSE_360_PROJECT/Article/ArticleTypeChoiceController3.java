@@ -27,10 +27,10 @@ public class ArticleTypeChoiceController3 {
 	
 	public void ListGeneralArticles(ActionEvent event) throws SQLException, IOException
 	{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Article/ArticleList2.fxml"));
 	    Parent listArticleRoot = loader.load();
 
-		ArticleListController articlelistController = loader.getController();
+		ArticleListControllerEDIT articlelistController = loader.getController();
 
 		DataBaseHelper dataBase = new DataBaseHelper();
 		dataBase.connectToDatabase();
@@ -38,8 +38,10 @@ public class ArticleTypeChoiceController3 {
             // Execute SQL query to get all users from the database
             ResultSet resultSet = dataBase.getArticles(); // Assuming this method fetches the ResultSet for all articles
 
+            articlelistController.setUsername(username);
             // Pass the resultSet to the UserListController to load the data
             articlelistController.loadArticleData(resultSet);
+            
         } catch (SQLException e) {
             e.printStackTrace();
             
