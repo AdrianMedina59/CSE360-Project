@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-
-=======
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+//github.com/AdrianMedina59/CSE360-Project.git
 /**
  * <p> functionality class for Instructor page. </p>
  * 
@@ -31,10 +27,9 @@ import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
-<<<<<<< HEAD
+
 import Messages.MessageController;
-=======
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+
 import Messages.MessageListController;
 import admin_Instructor.removeStudentController;
 import javafx.event.*;
@@ -370,7 +365,7 @@ public class InstructorPageController
 	        e.printStackTrace();
 	    }
 	}
-<<<<<<< HEAD
+
 	public void HelpPage(ActionEvent event) throws IOException, SQLException {
 
 		database.connectToDatabase();
@@ -392,8 +387,7 @@ public class InstructorPageController
 	    database.closeConnection();
 	}
 	 
-=======
->>>>>>> branch 'main' of https://github.com/AdrianMedina59/CSE360-Project.git
+
 	
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
