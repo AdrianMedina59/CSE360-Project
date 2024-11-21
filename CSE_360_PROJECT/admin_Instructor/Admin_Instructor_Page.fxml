@@ -78,13 +78,13 @@
       <Button fx:id="listStudentsButton" layoutX="475.0" layoutY="360.0" onAction="#ListStudents" prefHeight="30.0" prefWidth="179.0" stylesheets="@application.css" text="List students" textFill="WHITE" />
       <VBox layoutX="46.0" layoutY="192.0" prefHeight="123.0" prefWidth="137.0" spacing="20.0">
          <children>
-            <Button fx:id="createHelpArticles_button" mnemonicParsing="false" onAction="#createArticle" prefHeight="25.0" prefWidth="136.0" stylesheets="@application.css" text="Create Help Article" textFill="WHITE">
+            <Button fx:id="createHelpArticles_button" mnemonicParsing="false" onAction="#createHelpArticle" prefHeight="25.0" prefWidth="136.0" stylesheets="@application.css" text="Create Help Article" textFill="WHITE">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="deleteHelpArticles_button" mnemonicParsing="false" onAction="#Article_delete" prefHeight="25.0" prefWidth="134.0" stylesheets="@application.css" text="Delete Help Article" textFill="WHITE" />
-            <Button fx:id="restoreHelpArticles_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
+            <Button fx:id="deleteHelpArticles_button" mnemonicParsing="false" onAction="#HelpArticle_delete" prefHeight="25.0" prefWidth="134.0" stylesheets="@application.css" text="Delete Help Article" textFill="WHITE" />
+            <Button fx:id="restoreHelpArticles_button" mnemonicParsing="false" onAction="#restore" prefHeight="25.0" prefWidth="159.0" stylesheets="@application.css" text="Restore Help Article" textFill="WHITE" />
          </children>
       </VBox>
       <VBox layoutX="313.0" layoutY="194.0" prefHeight="57.0" prefWidth="133.0" spacing="20.0">
