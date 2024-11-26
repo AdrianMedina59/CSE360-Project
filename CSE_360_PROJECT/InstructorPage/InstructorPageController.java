@@ -27,6 +27,7 @@ import Article.hArticleListController;
 import Article.helpArticleController;
 import ConfirmLogin.DataBaseHelper;
 import LoginPage.Login_Button_Controller;
+
 import Messages.MessageController;
 
 import Messages.MessageListController;
@@ -386,6 +387,7 @@ public class InstructorPageController
 	    database.closeConnection();
 	}
 	 
+
 
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
