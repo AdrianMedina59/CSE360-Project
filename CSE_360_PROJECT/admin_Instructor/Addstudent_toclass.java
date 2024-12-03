@@ -13,9 +13,11 @@ public class Addstudent_toclass
 
 {
 	@FXML
-	private ChoiceBox<String> class_ChoiceBox,student_ChoiceBox;
+	public ChoiceBox<String> class_ChoiceBox;
 	@FXML
-    private DataBaseHelper dataBase = new DataBaseHelper();
+	public ChoiceBox<String> student_ChoiceBox;
+	@FXML
+	public DataBaseHelper dataBase = new DataBaseHelper();
 	private String username;//
     private boolean isChoiceBoxInitialized = false;
 
@@ -42,7 +44,7 @@ public class Addstudent_toclass
 	    }
 	
 	 // Populate choice boxes based on the username
-	    private void populateChoiceBoxes() {//
+	    public void populateChoiceBoxes() {//
 	        try {
 	            if (username == null) {
 	                System.out.println("Null username! Cannot populate choice boxes.");

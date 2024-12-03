@@ -16,6 +16,7 @@ module CSE_360_PROJECT {
     requires org.bouncycastle.provider;
     requires java.management;
 	requires junit;
+	requires org.junit.jupiter.api;
     exports ConfirmLogin to javafx.graphics, javafx.fxml;
     opens ConfirmLogin to javafx.fxml;
     exports AdminPage to javafx.fxml;

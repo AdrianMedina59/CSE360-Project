@@ -10,7 +10,9 @@ import javafx.scene.control.ChoiceBox;
 public class removeStudentController {
 
     @FXML
-    private ChoiceBox<String> RemoveStudent_choiceBox, class_ChoiceBox;
+	public ChoiceBox<String> RemoveStudent_choiceBox;
+	@FXML
+	public ChoiceBox<String> class_ChoiceBox;
     @FXML
     private DataBaseHelper dataBase = new DataBaseHelper();
     private String username;
@@ -40,7 +42,7 @@ public class removeStudentController {
         });
     }
 
-    private void populateChoiceBoxes() {
+    public void populateChoiceBoxes() {
         try {
             if (username == null) {
                 System.out.println("Null username! Cannot populate choice boxes.");

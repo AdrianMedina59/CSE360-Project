@@ -19,15 +19,15 @@ import ConfirmLogin.*;
 public class ArticleController {
 
     @FXML
-    private TextField Title_textField; // For Title
+	public TextField Title_textField; // For Title
     @FXML
-    private TextField Keyword_textField; // For Keywords
+	public TextField Keyword_textField; // For Keywords
     @FXML
-    private TextArea Abstract_textArea; // For Abstract text
+	public TextArea Abstract_textArea; // For Abstract text
     @FXML
-    private TextArea Body_textArea; // For Body
+	public TextArea Body_textArea; // For Body
     @FXML
-    private TextArea Links_textArea; // For Links
+	public TextArea Links_textArea; // For Links
     @FXML
     private ChoiceBox<String> groupCategory; // For Class Category input
     @FXML
@@ -35,7 +35,7 @@ public class ArticleController {
     @FXML
     private ChoiceBox<String> studentArticleSend; // For choice of students to send to for article
     
-    private DataBaseHelper dataBaseHelper = new DataBaseHelper();
+    public DataBaseHelper dataBaseHelper = new DataBaseHelper();
     private String role;
     private String name;
     private String articleType;
@@ -51,6 +51,7 @@ public class ArticleController {
             // Assuming `groupCategory` and `studentArticleSend` are populated elsewhere
         }
     }
+    
     private void updateStudentChoiceBox(String className) throws SQLException {
         System.out.println("Updating ChoiceBox for class: " + className); // Debugging
         studentArticleSend.getItems().clear();
@@ -86,7 +87,7 @@ public class ArticleController {
     }
     
 
-    private void insertArticle(String role) throws Exception {
+    public void insertArticle(String role) throws Exception {
         // Logic to handle finishing the article
         String title = Title_textField.getText();
         String keywords = Keyword_textField.getText();

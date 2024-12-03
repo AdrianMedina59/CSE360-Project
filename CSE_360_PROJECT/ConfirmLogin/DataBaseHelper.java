@@ -77,6 +77,7 @@ public class DataBaseHelper {
 					+ "role VARCHAR(20))";
 			statement.execute(userTable);
 		}
+		
 		public String getFullName(String username) throws SQLException {
 		    String fullName = null;
 		    String query = "SELECT FirstName, LastName FROM users WHERE username = ?";
