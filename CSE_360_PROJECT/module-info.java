@@ -28,4 +28,5 @@ module CSE_360_PROJECT {
     exports admin_Instructor;
     exports Messages;
     opens Messages to javafx.fxml;
+    exports Testing to junit;
 }

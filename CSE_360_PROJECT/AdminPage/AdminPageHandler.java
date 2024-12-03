@@ -14,6 +14,7 @@
 package AdminPage;
 import ConfirmLogin.*;	
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -42,4 +43,49 @@ public class AdminPageHandler {
             e.printStackTrace();
         }
     }
+    
+    public static String DeleteArticleTest(String title) throws SQLException
+    {
+    	DataBaseHelper database = new DataBaseHelper();
+    	database.connectToDatabase();
+    	if(title == "") 
+    	{
+    		return "Title cannot be empty";
+    	}
+    	if(database.getArticle(title) == "Article title not found.") 
+    	{
+    		return "Article title not found";
+    	}
+    	database.deleteArticle(title);
+    	return "Article has been Deleted";
+    	
+    }
+    
+    
+    
+    
+    public static String changeRoleTest(String username,String role) throws SQLException
+    {
+    	DataBaseHelper database = new DataBaseHelper();
+    	database.connectToDatabase();
+    	if(username == "")
+    	{
+    		return "Username cannot be empty";
+    	}
+    	//checking if the username is valid first
+    	if(database.getUser(username) == "User not found.") {
+    		database.closeConnection();
+    		return "Username is not found in database!";
+    	}
+    	//checking if the role is not null
+    	 if (role == "") {
+    		database.closeConnection();
+			return "Role cannot be empty";
+		}
+			database.updateUserRole(username, role);
+			database.closeConnection();
+	    	return "Role has been changed";
+    }
+    
+    
 }
