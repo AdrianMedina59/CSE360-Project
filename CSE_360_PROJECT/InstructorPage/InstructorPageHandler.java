@@ -86,6 +86,31 @@ public class InstructorPageHandler extends Application {
 	        return "Error while removing student: " + e.getMessage();
 	    }
 	}
+	
+	public static String DeleteHelpArticleTest(String title) throws Exception {
+	    DataBaseHelper database = new DataBaseHelper();
+	    database.connectToDatabase();
+
+	    // Check if the title is empty
+	    if (title.equals("")) { // Use .equals() for string comparison
+	        return "Title cannot be empty";
+	    }
+
+	    try {
+	        // Check if the article exists in the database
+	        if (database.getHelpArticleByName(database.getConnection(), title) == null) 
+	        { // Check for null
+	            return "Article title not found";
+	        }
+
+	        // Delete the article
+	        database.deleteHelpArticle(title);
+	        return "Article has been Deleted";
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return "An error occurred while deleting the article: " + e.getMessage();
+	    }
+	}
 
 
 }
