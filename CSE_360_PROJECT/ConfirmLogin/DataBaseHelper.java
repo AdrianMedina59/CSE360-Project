@@ -244,6 +244,7 @@ public class DataBaseHelper {
 		}
 		
 		
+		
 		public void insertHelpArticle(helpArticle helpArticle, String role) throws Exception {
 		    String insertSQL = "INSERT INTO help_articles (title, body, role) VALUES (?, ?, ?)";
 		    try (PreparedStatement pstmt = connection.prepareStatement(insertSQL)) {
@@ -1575,7 +1576,7 @@ public class DataBaseHelper {
 		public String getArticle(String title) throws SQLException 
 		
 		{
-			 String query = "SELECT username FROM users WHERE username = ?";
+			 String query = "SELECT title FROM articles WHERE title = ?";
 			    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
 			        pstmt.setString(1, title);  // Set the title in the query
 			        ResultSet resultSet = pstmt.executeQuery();

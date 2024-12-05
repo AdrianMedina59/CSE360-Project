@@ -13,6 +13,9 @@
  */
 package InstructorPage;
 	
+import java.sql.SQLException;
+
+import ConfirmLogin.DataBaseHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -38,4 +41,51 @@ public class InstructorPageHandler extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	public static String addStudentTest(int userId, int classId) throws SQLException {
+	    DataBaseHelper database = new DataBaseHelper();
+	    database.connectToDatabase();
+	    
+	    if (userId <= 0) {
+	        database.closeConnection();
+	        return "Student id must be an ID";
+	    }
+	    if (classId <= 0) {
+	        database.closeConnection();
+	        return "Class ID must be a class";
+	    }
+
+
+	    try {
+	        database.enrollStudentInClass(userId, classId);
+	        database.closeConnection();
+	        return "Student enrolled successfully";
+	    } catch (SQLException e) {
+	        database.closeConnection();
+	        return "Error while enrolling student: " + e.getMessage();
+	    }
+	}
+	public static String removeStudentTest(int studentId, int classId) throws SQLException {
+	    DataBaseHelper database = new DataBaseHelper();
+	    database.connectToDatabase();
+
+	    if (studentId <= 0) {
+	        database.closeConnection();
+	        return "Student id must be an ID";
+	    }
+	    if (classId <= 0) {
+	        database.closeConnection();
+	        return "Class ID must be a class";
+	    }
+
+	    try {
+	        database.removeStudentFromClass(studentId, classId);
+	        database.closeConnection();
+	        return "Student removed successfully";
+	    } catch (SQLException e) {
+	        database.closeConnection();
+	        return "Error while removing student: " + e.getMessage();
+	    }
+	}
+
+
 }

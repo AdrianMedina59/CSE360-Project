@@ -65,7 +65,6 @@ public class ArticleController {
 
         studentArticleSend.getItems().addAll(students);
     }
-
     public void setName(String name) {
         this.name = name;
     }

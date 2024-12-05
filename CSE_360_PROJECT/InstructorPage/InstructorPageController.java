@@ -1,4 +1,4 @@
-//github.com/AdrianMedina59/CSE360-Project.git
+
 /**
  * <p> functionality class for Instructor page. </p>
  * 
@@ -388,7 +388,7 @@ public class InstructorPageController
 	}
 	 
 
-	
+
 	public void MessageList(ActionEvent event) throws SQLException, IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Messages/MessagesList.fxml"));
 	    Parent listArticleRoot = loader.load();
